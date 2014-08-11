@@ -4,9 +4,6 @@ bin/django: bin/buildout buildout.cfg versions.cfg
 bin/buildout: bin/python
 	bin/python bootstrap.py --version=2.2.1
 
-bin/django-admin.py: bin/python
-	bin/pip install -r requirements.txt
-
 bin/python: parts/virtualenv-1.11.6
 	parts/virtualenv-1.11.6/virtualenv.py --python=python2.7 --setuptools --no-site-packages .
 
