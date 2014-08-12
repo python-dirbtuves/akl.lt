@@ -1,1 +1,0 @@
-from akllt.settings import *
