@@ -1,4 +1,4 @@
-bin/django: bin/buildout buildout.cfg versions.cfg
+bin/django: bin/node bin/buildout buildout.cfg versions.cfg
 	bin/buildout
 
 bin/buildout: bin/python
@@ -6,6 +6,13 @@ bin/buildout: bin/python
 
 bin/python: parts/virtualenv-1.11.6
 	parts/virtualenv-1.11.6/virtualenv.py --python=python2.7 --setuptools --no-site-packages .
+
+bin/node: bin/nodeenv
+	bin/nodeenv --node=0.11.13 --prebuilt -p --requirements=node-requirements.txt
+	touch --no-create $@
+
+bin/nodeenv: bin/python requirements.txt 
+	bin/pip install -r requirements.txt
 
 parts/virtualenv-1.11.6:
 	mkdir -p parts
