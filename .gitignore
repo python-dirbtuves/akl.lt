@@ -24,6 +24,10 @@ __pycache__/
 /include/
 /local/
 
+# Node packaging
+/share/
+/src/node-v0.*.*-*-*/
+
 # Installer logs
 /pip-log.txt
 /pip-delete-this-directory.txt
