@@ -19,7 +19,9 @@ parts/virtualenv-1.11.6:
 	wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.11.6.tar.gz -O- | tar -xzf- -C parts
 
 clean:
-	rm -rf akl.lt.egg-info bin develop-eggs include .installed.cfg lib local parts
+	rm -rf akl.lt.egg-info bin develop-eggs include .installed.cfg lib \
+		   local parts share $(wildcard src/node-v0.*.*-*-*/) \
+		   $(wildcard src/*.egg-info/) var eggs
 
 run:
 	bin/django runserver --settings=akllt.settings.development
