@@ -1,0 +1,20 @@
+{
+  "name": "akl.lt",
+  "version": "0.0.0",
+  "homepage": "https://github.com/python-dirbtuves/akl.lt",
+  "authors": [
+    "python-dirbtuves"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "AGPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/js",
+    "test",
+    "tests"
+  ]
+}
