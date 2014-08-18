@@ -9,9 +9,9 @@ bin/python: parts/virtualenv-1.11.6
 
 bin/node: bin/nodeenv
 	bin/nodeenv --node=0.11.13 --prebuilt -p --requirements=node-requirements.txt
-	touch --no-create $@
+	touch -c $@
 
-bin/nodeenv: bin/python requirements.txt 
+bin/nodeenv: bin/python requirements.txt
 	bin/pip install -r requirements.txt
 
 parts/virtualenv-1.11.6:
