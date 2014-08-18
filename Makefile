@@ -14,4 +14,7 @@ parts/virtualenv-1.11.6:
 clean:
 	rm -rf akl.lt.egg-info bin develop-eggs include .installed.cfg lib local parts
 
-.PHONY: clean
+run:
+	bin/django runserver --settings=akllt.settings.development
+
+.PHONY: clean run
