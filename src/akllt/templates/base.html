@@ -1,13 +1,13 @@
 {% load trans from i18n %}
+{% load wagtailuserbar from wagtailuserbar %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% trans "Atviras Kodas Lietuvai" %}</title>
 </head>
 <body>
-
     {% block content %}
     {% endblock %}
-
+    {% wagtailuserbar %}
 </body>
 </html>

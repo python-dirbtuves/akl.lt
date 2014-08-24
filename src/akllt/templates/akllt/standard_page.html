@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load trans from i18n %}
+{% load richtext from wagtailcore_tags %}
 
 {% block content %}
     <h1>{{ self.title }}</h1>
 
-    {{ self.intro|safe }}
+    {{ self.intro|richtext }}
 {% endblock %}
