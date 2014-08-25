@@ -88,4 +88,4 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'parts', 'bootstrap'),
 )
 
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'var', 'www', 'static')
