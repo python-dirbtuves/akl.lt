@@ -24,7 +24,7 @@ clean:
 		   local parts share $(wildcard src/node-v0.*.*-*-*/) \
 		   $(wildcard src/*.egg-info/) var eggs
 
-run:
+run: bin/django
 	bin/django runserver --settings=akllt.settings.development
 
 .PHONY: clean run
