@@ -1,6 +1,7 @@
 bin/django: bin/node bin/buildout buildout.cfg versions.cfg
 	find src -type f -iname '*.pyc' -exec rm {} +
 	bin/buildout
+	touch -c $@
 
 bin/buildout: bin/python
 	bin/python bootstrap.py --version=2.2.1
