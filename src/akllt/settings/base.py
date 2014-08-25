@@ -8,10 +8,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+from pathlib import Path
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-PROJECT_DIR = os.path.dirname(BASE_DIR)
+BASE_DIR = Path(__file__).parents[2]
+PROJECT_DIR = BASE_DIR.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -61,7 +62,7 @@ WSGI_APPLICATION = 'akllt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_DIR, 'var', 'db.sqlite3'),
+        'NAME': str(PROJECT_DIR / 'var/db.sqlite3'),
     }
 }
 
@@ -89,4 +90,4 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'parts', 'jquery'),
 )
 
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'var', 'www', 'static')
+STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
