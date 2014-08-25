@@ -37,6 +37,6 @@ run: bin/django
 	bin/django runserver --settings=akllt.settings.development
 
 tags: bin/django
-	bin/tags -v
+	bin/ctags -v
 
 .PHONY: clean run tags
