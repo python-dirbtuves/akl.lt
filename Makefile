@@ -34,7 +34,7 @@ clean:
 		   $(wildcard src/*.egg-info/) var eggs
 
 run: bin/django
-	bin/django runserver --settings=akllt.settings.development
+	bin/django runserver
 
 tags: bin/django
 	bin/ctags -v
