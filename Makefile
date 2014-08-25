@@ -1,4 +1,4 @@
-bin/django: bin/node bin/buildout buildout.cfg versions.cfg setup.py
+bin/django: var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg setup.py
 	find src -type f -iname '*.pyc' -exec rm {} +
 	bin/buildout
 	touch -c $@
@@ -8,6 +8,12 @@ bin/buildout: bin/python
 
 bin/python: parts/virtualenv-1.11.6
 	parts/virtualenv-1.11.6/virtualenv.py --python=python2.7 --setuptools --no-site-packages .
+
+var/assets/jquery/bower.json: bin/node bower.json
+	# nodeenv have to be activated, run: source bin/activate
+	test -n "$$NODE_VIRTUAL_ENV" -a "$$NODE_VIRTUAL_ENV" = "$$PWD"
+	bower install
+	touch -c $@
 
 bin/node: bin/nodeenv
 	bin/nodeenv --node=0.11.13 --prebuilt -p --requirements=node-requirements.txt
