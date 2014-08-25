@@ -4,13 +4,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-theme.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <script src="{% static "jquery-1.11.1.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
     <title>{% trans "Atviras Kodas Lietuvai" %}</title>
 </head>
 <body>
-
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">LOGO</div>
+            <div class="col-md-4 contacts">
+                <p><b>Asociacija "Atviras kodas Lietuvai"</b></p>
+                <p>P. Vileišio g. 18, 1 korp., LT-10306 Vilnius</p>
+                <p>Įm. kodas 195764579</p>
+                <p>El. paštas <a href="info@akl.lt">info@akl.lt</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">top menu</div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="col-md-3">side menu</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">footer</div>
+        </div>
+    </div>
 
 </body>
 </html>
