@@ -10,9 +10,11 @@ bin/python: parts/virtualenv-1.11.6
 	parts/virtualenv-1.11.6/virtualenv.py --python=python2.7 --setuptools --no-site-packages .
 
 var/assets/jquery/bower.json: bin/node bower.json
-	# nodeenv have to be activated, run: source bin/activate
-	test -n "$$NODE_VIRTUAL_ENV" -a "$$NODE_VIRTUAL_ENV" = "$$PWD"
-	bower install
+	if [ -n "$$NODE_VIRTUAL_ENV" -a "$$NODE_VIRTUAL_ENV" = "$$PWD" ] ; then \
+	    bower install ; \
+	else \
+	    . bin/activate && bower install ; \
+	fi
 	touch -c $@
 
 bin/node: bin/nodeenv
