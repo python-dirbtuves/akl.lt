@@ -1,4 +1,5 @@
 bin/django: bin/node bin/buildout buildout.cfg versions.cfg
+	find src -type f -iname '*.pyc' -exec rm {} +
 	bin/buildout
 
 bin/buildout: bin/python
