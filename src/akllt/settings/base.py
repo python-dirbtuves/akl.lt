@@ -86,6 +86,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'parts', 'bootstrap'),
+    os.path.join(PROJECT_DIR, 'parts', 'jquery'),
 )
 
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'var', 'www', 'static')
