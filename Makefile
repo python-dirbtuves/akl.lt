@@ -1,4 +1,4 @@
-bin/django: bin/node bin/buildout buildout.cfg versions.cfg
+bin/django: bin/node bin/buildout buildout.cfg versions.cfg setup.py
 	find src -type f -iname '*.pyc' -exec rm {} +
 	bin/buildout
 	touch -c $@
