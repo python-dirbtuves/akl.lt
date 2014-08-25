@@ -3,11 +3,9 @@
   "version": "0.0.0",
   "homepage": "https://github.com/python-dirbtuves/akl.lt",
   "authors": [
-    "python-dirbtuves"
+    "Python dirbtuvės <python-dirbtuves@googlegroups.com>"
   ],
-  "moduleType": [
-    "amd"
-  ],
+  "main": "",
   "license": "AGPL",
   "ignore": [
     "**/.*",
@@ -16,5 +14,9 @@
     "static/js",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1"
+  }
 }

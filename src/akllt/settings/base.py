@@ -84,10 +84,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'parts', 'bootstrap'),
-    os.path.join(PROJECT_DIR, 'parts', 'jquery'),
-)
-
 STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
+
+ASSETS_DIRS = map(str, (PROJECT_DIR / 'var/assets/').glob('*/dist/'))
+STATICFILES_DIRS = tuple(ASSETS_DIRS)
