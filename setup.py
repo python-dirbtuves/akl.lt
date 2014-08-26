@@ -67,6 +67,7 @@ setup(
     install_requires=[
         'Django',
         'pathlib',
+        'django-require',
     ],
 
     # If there are data files included in your packages that need to be

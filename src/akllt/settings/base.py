@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'require',
     'akllt',
 )
 
@@ -86,5 +87,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
 
-ASSETS_DIRS = map(str, (PROJECT_DIR / 'var/assets/').glob('*/dist/'))
-STATICFILES_DIRS = tuple(ASSETS_DIRS)
+STATICFILES_DIRS = (
+    str(PROJECT_DIR / 'var/assets'),
+)
+
+
+# django-requirejs settings
+# https://pypi.python.org/pypi/django-require
+
+STATICFILES_STORAGE = 'require.storage.OptimizedStaticFilesStorage'
+REQUIRE_BASE_URL = 'js'
+REQUIRE_BUILD_PROFILE = 'app.build.js'
+REQUIRE_JS = 'requirejs/require.js'
