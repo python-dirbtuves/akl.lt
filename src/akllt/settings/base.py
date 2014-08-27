@@ -98,4 +98,4 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'require.storage.OptimizedStaticFilesStorage'
 REQUIRE_BASE_URL = 'js'
 REQUIRE_BUILD_PROFILE = 'app.build.js'
-REQUIRE_JS = 'requirejs/require.js'
+REQUIRE_JS = '../requirejs/require.js'
