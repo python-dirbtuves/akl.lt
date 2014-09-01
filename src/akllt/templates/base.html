@@ -1,14 +1,17 @@
 {% load trans from i18n %}
 {% load static from staticfiles %}
 {% load require_module from require %}
+{% load compress from compress %}
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% trans "Atviras Kodas Lietuvai" %}</title>
+    {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap-theme.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static "css/style.scss" %}">
+    {% endcompress %}
     <script src="{% static "jquery/dist/jquery.js" %}"></script>
     <script src="{% static "bootstrap/dist/js/bootstrap.js" %}"></script>
     {% require_module 'main' %}
