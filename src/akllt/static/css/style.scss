@@ -1,6 +1,28 @@
+$border-radius: 5px;
+
 .contacts {
     border: 1px solid #EBEBEB;
-    border-radius: 5px;
+    border-radius: $border-radius;
 }
+
 .contacts p {
+}
+
+.top-menu {
+    ul {
+        background-color: #F8C400;
+        border-radius: $border-radius;
+        background-image: url(/static/images/hand-trail.png);
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        a {
+            color: #4D4D4D;
+            font-weight: bold;
+            &:hover {
+                color: white;
+                background-color: transparent;
+                border-color: transparent;
+            }
+        }
+    }
 }
