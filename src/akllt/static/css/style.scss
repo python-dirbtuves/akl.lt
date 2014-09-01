@@ -1,18 +1,35 @@
 $border-radius: 5px;
 
 .contacts {
+    background-color: white;
     border: 1px solid #EBEBEB;
     border-radius: $border-radius;
+    margin: 8px;
+    padding: 14px;
+    float: right;
+    text-align: right;
+    font-size: 12px;
+
+    p {
+        line-height: 18px;
+        margin: 0;
+        padding: 0;
+    }
 }
 
-.contacts p {
-}
 
 .top-row {
     text-align: right;
+    padding-right: 20px;
     img {
         padding: 4px;
     }
+}
+
+.container {
+    background-image: url(/static/images/headerbg.jpg);
+    background-position: top left;
+    background-repeat: no-repeat;
 }
 
 .top-menu {
