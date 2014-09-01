@@ -19,7 +19,17 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-8">LOGO</div>
+            <div class="col-md-12 top-row">
+                <img src="{% static "images/LT_flag.png" %}">
+                <img src="{% static "images/EN_flag.png" %}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <a href="{% url "index" %}">
+                    <img src="{% static "images/logo.png" %}">
+                </a>
+            </div>
             <div class="col-md-4 contacts">
                 <p><b>Asociacija "Atviras kodas Lietuvai"</b></p>
                 <p>P. Vileišio g. 18, 1 korp., LT-10306 Vilnius</p>
