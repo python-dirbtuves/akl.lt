@@ -8,10 +8,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+from pathlib import Path
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-PROJECT_DIR = os.path.dirname(BASE_DIR)
+BASE_DIR = Path(__file__).parents[2]
+PROJECT_DIR = BASE_DIR.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'require',
     'akllt',
 )
 
@@ -61,7 +63,7 @@ WSGI_APPLICATION = 'akllt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_DIR, 'var', 'db.sqlite3'),
+        'NAME': str(PROJECT_DIR / 'var/db.sqlite3'),
     }
 }
 
@@ -83,10 +85,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'parts', 'bootstrap'),
-    os.path.join(PROJECT_DIR, 'parts', 'jquery'),
+    str(PROJECT_DIR / 'var/assets'),
 )
 
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'var', 'www', 'static')
+
+# django-requirejs settings
+# https://pypi.python.org/pypi/django-require
+
+STATICFILES_STORAGE = 'require.storage.OptimizedStaticFilesStorage'
+REQUIRE_BASE_URL = 'js'
+REQUIRE_BUILD_PROFILE = 'app.build.js'
+REQUIRE_JS = '../requirejs/require.js'

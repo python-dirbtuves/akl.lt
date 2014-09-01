@@ -1,15 +1,17 @@
 {% load trans from i18n %}
 {% load static from staticfiles %}
+{% load require_module from require %}
 
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-theme.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
-    <script src="{% static "jquery-1.11.1.min.js" %}"></script>
-    <script src="{% static "js/bootstrap.min.js" %}"></script>
     <title>{% trans "Atviras Kodas Lietuvai" %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <script src="{% static "jquery/dist/jquery.js" %}"></script>
+    <script src="{% static "bootstrap/dist/js/bootstrap.js" %}"></script>
+    {% require_module 'main' %}
 </head>
 <body>
     <div class="container">

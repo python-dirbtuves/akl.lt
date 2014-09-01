@@ -1,11 +1,21 @@
-bin/django: bin/node bin/buildout buildout.cfg versions.cfg
+bin/django: var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg setup.py
+	find src -type f -iname '*.pyc' -exec rm {} +
 	bin/buildout
+	touch -c $@
 
 bin/buildout: bin/python
 	bin/python bootstrap.py --version=2.2.1
 
 bin/python: parts/virtualenv-1.11.6
 	parts/virtualenv-1.11.6/virtualenv.py --python=python2.7 --setuptools --no-site-packages .
+
+var/assets/jquery/bower.json: bin/node bower.json
+	if [ -n "$$NODE_VIRTUAL_ENV" -a "$$NODE_VIRTUAL_ENV" = "$$PWD" ] ; then \
+	    bower install ; \
+	else \
+	    . bin/activate && bower install ; \
+	fi
+	touch -c $@
 
 bin/node: bin/nodeenv
 	bin/nodeenv --node=0.11.13 --prebuilt -p --requirements=node-requirements.txt
@@ -23,7 +33,10 @@ clean:
 		   local parts share $(wildcard src/node-v0.*.*-*-*/) \
 		   $(wildcard src/*.egg-info/) var eggs
 
-run:
-	bin/django runserver --settings=akllt.settings.development
+run: bin/django
+	bin/django runserver
 
-.PHONY: clean run
+tags: bin/django
+	bin/ctags -v
+
+.PHONY: clean run tags
