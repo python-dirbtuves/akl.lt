@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'require',
+    'compressor',
     'akllt',
 )
 
@@ -91,6 +92,12 @@ STATICFILES_DIRS = (
     str(PROJECT_DIR / 'var/assets'),
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
 
 # django-requirejs settings
 # https://pypi.python.org/pypi/django-require
@@ -99,3 +106,11 @@ STATICFILES_STORAGE = 'require.storage.OptimizedStaticFilesStorage'
 REQUIRE_BASE_URL = 'js'
 REQUIRE_BUILD_PROFILE = 'app.build.js'
 REQUIRE_JS = '../requirejs/require.js'
+
+
+# django-requirejs settings
+# https://pypi.python.org/pypi/django_compressor
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)

@@ -68,6 +68,8 @@ setup(
         'Django',
         'pathlib',
         'django-require',
+        'django-compressor',
+        'django-libsass',
     ],
 
     # If there are data files included in your packages that need to be
