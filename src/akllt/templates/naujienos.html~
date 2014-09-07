@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<h3>Atviro kodo naujienos<img src="{% static "images/akl-web-site/rss.png" %}"></h3>
+<p><img src="{% static "images/akl-web-site/lamp.png" %}"><a href="#">Pasiūlyk naujieną!</a></p>
+<div>
+<h4>2009-12-27 "Firefox 3.5" tapo populiariausia naršykle pasaulyje</h4>
+<p>Anot "StatsCounter", "Firefox 3.5" pranoko visas likusias naršykles, sugebėjo perimti IE7 rinkos dalį ir tapo populiariausia naršyklės versija</p>
+<p><a href="#">daugiau...</a></p>
+<h4>2009-12-27 "Firefox 3.5" tapo populiariausia naršykle pasaulyje</h4>
+<p>Anot "StatsCounter", "Firefox 3.5" pranoko visas likusias naršykles, sugebėjo perimti IE7 rinkos dalį ir tapo populiariausia naršyklės versija</p>
+<p><a href="#">daugiau...</a></p>
+<h4>2009-12-27 "Firefox 3.5" tapo populiariausia naršykle pasaulyje</h4>
+<p>Anot "StatsCounter", "Firefox 3.5" pranoko visas likusias naršykles, sugebėjo perimti IE7 rinkos dalį ir tapo populiariausia naršyklės versija</p>
+<p><a href="#">daugiau...</a></p>
+<h4>2009-12-27 "Firefox 3.5" tapo populiariausia naršykle pasaulyje</h4>
+<p>Anot "StatsCounter", "Firefox 3.5" pranoko visas likusias naršykles, sugebėjo perimti IE7 rinkos dalį ir tapo populiariausia naršyklės versija</p>
+<p><a href="#">daugiau...</a></p>
+<h4>2009-12-27 "Firefox 3.5" tapo populiariausia naršykle pasaulyje</h4>
+<p>Anot "StatsCounter", "Firefox 3.5" pranoko visas likusias naršykles, sugebėjo perimti IE7 rinkos dalį ir tapo populiariausia naršyklės versija</p>
+<p><a href="#">daugiau...</a></p>
+</div>
+<ul class="nav nav-pills nav-stacked">
+<li>Naudokite laisvąsias programas:</li>
+</ul>
+<div>
+3 paveiksliukai 3 paveiksliukai 3 paveiksliukai 
+</div>
+<p style="align: right"><a href="#">daugiau laisvų programų...</a></p>
+
+{% endblock %}
+
+{% block side-menu %}
+
+<ul class="nav nav-pills nav-stacked">
+<li><img src="{% static "images/akl-web-site/planet.png" %}">Blogerių Planeta</li>
+</ul>
+<div>
+<p><img src="{% static "images/akl-web-site/planet-item.png" %}"><a class="color" href="#">Mandriva 2009.1 pavasarinė diegynė</a></p>
+<p>Gruodžio 22, 2009</p>
+<p><img src="{% static "images/akl-web-site/planet-item.png" %}"><a href="#">Mandriva 2009.1 pavasarinė diegynė</a></p>
+<p>Gruodžio 22, 2009</p>
+<p><img src="{% static "images/akl-web-site/planet-item.png" %}"><a href="#">Mandriva 2009.1 pavasarinė diegynė</a></p>
+<p>Gruodžio 22, 2009</p>
+<p><img src="{% static "images/akl-web-site/planet-item.png" %}"><a href="#">Mandriva 2009.1 pavasarinė diegynė</a></p>
+<p>Gruodžio 22, 2009</p>
+<p><a>daugiau įrašų...</a></p>
+</div>
+<ul class="nav nav-pills nav-stacked">
+<li><img src="{% static "images/akl-web-site/akpaslaugos.png" %}">Atviro kodo paslaugos</li>
+</ul>
+<div>
+<p>Čia rasite kompanijų, teikiančių atviro kodo <a href="#">programinės įrangos aptarnavimo</a>, <a href="#">diegimo</a>, <a href="#">programavimo</a> ir kitas paslaugas.</p>
+<p><a href="#">žiūrėti sąrašą...</a></p>
+</div>
+<ul class="nav nav-pills nav-stacked">
+<li><img src="{% static "images/akl-web-site/akmokslui.png" %}">AK mokslui</li>
+</ul>
+<div>
+<img id="penguin-logo" src="{% static "images/akl-web-site/tux-education.png" %}"><p>Čia rasite švietimi tinkamų laisvų </p>
+<p>programų <a href="#">sąrašą</a>.</p>
+</div>
+<ul class="nav nav-pills nav-stacked">
+<li><img src="{% static "images/akl-web-site/wiki.png" %}">Wiki</li>
+</ul>
+<div>
+<p>Atviro kodo dokumentacija, straipsniai, knygos, pranešimai ir kita.</p>
+<p><a href="#">eiti į Wiki...</a></p>
+</div>
+<ul class="nav nav-pills nav-stacked">
+<li><img src="{% static "images/akl-web-site/bendraujame.png" %}">Bendraujame</li>
+</ul>
+<div>
+<p><img src="{% static "images/akl-web-site/mail.png" %}">Užsisakykite <a href="#">el. pašto konferenciją.</a></p>
+<p><img src="{% static "images/akl-web-site/chat.png" %}">Bendraukite atviro kodo <a href="#">forumuose.</a></p>
+</div>
+<ul class="nav nav-pills nav-stacked">
+<li><img src="{% static "images/akl-web-site/akhostingas.png" %}">AK projektų hostingas</li>
+</ul>
+<div>
+<p>AKL teikia svetainių talpinimo savo serveriuose paslaugas <b>atviro kodo projektams.</b></p>
+<p><a href="#">plačiau...</a></p>
+</div>
+
+<div>
+<p><b>Sekite mūsų naujienas</b></p>
+<p><a href="#"><img src="{% static "images/akl-web-site/twitter.png" %}"></a><a href="#"><img src="{% static "images/akl-web-site/linkedin.png" %}"></a><a href="#"><img src="{% static "images/akl-web-site/facebook.png" %}"></a></p>
+</div>
+
+{% endblock %}

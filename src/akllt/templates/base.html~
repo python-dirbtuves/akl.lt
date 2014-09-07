@@ -1,0 +1,74 @@
+{% load trans from i18n %}
+{% load static from staticfiles %}
+{% load require_module from require %}
+{% load compress from compress %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% trans "Atviras Kodas Lietuvai" %}</title>
+    {% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static "css/style.scss" %}">
+    {% endcompress %}
+    <script src="{% static "jquery/dist/jquery.js" %}"></script>
+    <script src="{% static "bootstrap/dist/js/bootstrap.js" %}"></script>
+    {% require_module 'main' %}
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 top-row">
+                <img src="{% static "images/LT_flag.png" %}">
+                <img src="{% static "images/EN_flag.png" %}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 header">
+                <a href="{% url "index" %}">
+                    <img src="{% static "images/logo.png" %}">
+                </a>
+                <div class="contacts">
+                    <p><b>Asociacija "Atviras kodas Lietuvai"</b></p>
+                    <p>P. Vileišio g. 18, 1 korp., LT-10306 Vilnius</p>
+                    <p>Įm. kodas 195764579</p>
+                    <p>El. paštas <a href="info@akl.lt">info@akl.lt</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 top-menu">
+                <ul class="nav nav-tabs">
+                    <li id="first-nav-pill"><a href="naujienos">Naujienos</a></li>
+                    <li><a href="apie">Apie AKL</a></li>
+                    <li><a href="atviras_kodas">Atviras kodas</a></li>
+                    <li><a href="programos">Programos</a></li>
+                    <li><a href="nuorodos">Nuorodos</a></li>
+                    <li id="last-nav-pill"><a href="wiki">Wiki</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 content">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+            <div class="col-md-4 side-menu">
+                {% block side-menu %}
+                
+                {% endblock %}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 footer">
+            <p>Autorinės teisės © 2002—2010 Atviras kodas Lietuvai. Svetainės turinys pateikiamas pagal <a href="http://www.gnu.org/copyleft/fdl.html">GNU FDL</a> licenziją be invariantinių skyrių ir priekinio ar</p> 
+            <p>užpakalinio viršelio tekstų. Visais klausimais kreipkitės: <a href="info@akl.lt">info@akl.lt.</a><p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
