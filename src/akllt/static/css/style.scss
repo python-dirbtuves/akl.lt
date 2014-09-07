@@ -1,9 +1,42 @@
 $border-radius: 5px;
+$footer-color: #E6E6E6;
+$menu-color: #E9EDEF;
+$link-color: #be7f00;
+$dark-link-color: #CBD5D9;
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+
+@mixin border-top-radius($radius) {
+    -webkit-border-top-right-radius: $radius;
+       -moz-border-top-right-radius: $radius;
+        -ms-border-top-right-radius: $radius;
+            border-top-right-radius: $radius;
+     -webkit-border-top-left-radius: $radius;
+        -moz-border-top-left-radius: $radius;
+         -ms-border-top-left-radius: $radius;
+             border-top-left-radius: $radius;            
+}
+
+@mixin border-bottom-radius($radius) {
+    -webkit-border-bottom-right-radius: $radius;
+       -moz-border-bottom-right-radius: $radius;
+        -ms-border-bottom-right-radius: $radius;
+            border-bottom-right-radius: $radius;
+     -webkit-border-bottom-left-radius: $radius;
+        -moz-border-bottom-left-radius: $radius;
+         -ms-border-bottom-left-radius: $radius;
+             border-bottom-left-radius: $radius;            
+}
 
 .contacts {
     background-color: white;
     border: 1px solid #EBEBEB;
-    border-radius: $border-radius;
+    @include border-radius($border-radius);
     margin: 8px;
     padding: 14px;
     float: right;
@@ -35,10 +68,14 @@ $border-radius: 5px;
 .top-menu {
     ul {
         background-color: #F8C400;
-        border-radius: $border-radius;
+        @include border-radius($border-radius);
         background-image: url(/static/images/hand-trail.png);
         background-repeat: no-repeat;
         background-position: bottom right;
+        li {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
         a {
             color: #4D4D4D;
             font-weight: bold;
@@ -51,8 +88,112 @@ $border-radius: 5px;
     }
 }
 
+.content {
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-color: $menu-color;
+    padding-left: 30px;
+    margin-top: 25px;
+    h4 {
+        color: $link-color;
+        }
+    img {
+        margin: 4px;
+    }
+    h4 {
+        margin-top: 15px;
+    }
+    p {
+        margin: 1px;
+    }
+}
+.news-content {
+    margin-left: 15px;
+}
+
 .footer {
+    background-color: $footer-color;
+    margin-bottom: 34px;
+    margin-top: 192px;
+    padding-top: 10px;
+    
+    a {
+        color: $link-color;
+    }
+    
+    p {
+        text-align: center;
+        margin: 1px;  
+    } 
+}
+
+.side-menu {
+    margin-top: 20px;
+    img {
+        margin: 4px;
+    }
+    div {
+        border-style: solid;
+        border-color: $menu-color;
+        border-width: 1px;
+        @include border-radius($border-radius);
+        padding: 5px;
+        margin: 10px;
+        #penguin-logo {
+            float: right;
+        }
+    }
+}
+.nav-pills > li > a:link, .nav-pills > li > a:hover {
+    background-color: $menu-color;
+    color: $link-color
+    }
+.nav-pills > li > a:visited {
+    background-color: $menu-color;
+    color: black;
+    }
+.nav-pills > li {
+    background-color: $menu-color;
+    @include border-radius($border-radius);
+}
+
+#first-nav-pill {
+    background-color: $menu-color;
+    @include border-top-radius($border-radius);
+}
+
+#last-nav-pill {
+    background-color: $menu-color;
+    @include border-bottom-radius($border-radius);
+}
+/*
+.border-square {
+border-width: 1px;
     background-color: #E6E6E6;
+    padding: 2px;
+    margin: 4px;
+}
+
+.border-top-round {
+    border-width: 1px;
+    background-color: #E6E6E6;
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    padding: 2px;
+    margin: 4px;
+}
+
+.border-bottom-round {
+    border-width: 1px;
+    background-color: #E6E6E6;
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    padding: 2px;
+    margin: 4px;
+}
+
+.nav-pills > .active > a, .nav-pills > .active > a:hover {
+    color: red;
 }
 
 .menu-item {
@@ -63,7 +204,7 @@ $border-radius: 5px;
     img {
         padding: 4px;
     }
-}
+}	
 
 .menu-border{
     border-style: solid;
@@ -76,21 +217,4 @@ $border-radius: 5px;
         padding: 4px;
     }
 }
-
-.color {
-    color: #be7f00;
-}
-
-.content {
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-color: #E6E6E6;
-}
-
-.border-top-round {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #E6E6E6;
-    border-top-right-radius: $border-radius;
-    border-top-left-radius: $border-radius;
-}
+*/
