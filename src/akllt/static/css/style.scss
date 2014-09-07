@@ -50,3 +50,47 @@ $border-radius: 5px;
         }
     }
 }
+
+.footer {
+    background-color: #E6E6E6;
+}
+
+.menu-item {
+    background-color: #E6E6E6;
+    border-radius: $border-radius;
+    padding: 0px;
+    margin: 4px;
+    img {
+        padding: 4px;
+    }
+}
+
+.menu-border{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E6E6E6;
+    border-radius: $border-radius;
+    padding: 2px;
+    margin: 4px;
+    img {
+        padding: 4px;
+    }
+}
+
+.color {
+    color: #be7f00;
+}
+
+.content {
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-color: #E6E6E6;
+}
+
+.border-top-round {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E6E6E6;
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+}
