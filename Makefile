@@ -39,8 +39,11 @@ run: bin/django
 	bin/django runserver
 
 test: bin/django bin/flake8
-	bin/flake8 src/akllt
+	$(MAKE) flake8
 	bin/django test akllt
+
+flake8: bin/flake8
+	bin/flake8 src/akllt
 
 tags: bin/django
 	bin/ctags -v
