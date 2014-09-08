@@ -66,6 +66,7 @@ $dark-link-color: #CBD5D9;
 }
 
 .top-menu {
+    padding-left: 0px;
     ul {
         background-color: #F8C400;
         @include border-radius($border-radius);
@@ -116,7 +117,7 @@ $dark-link-color: #CBD5D9;
     margin-bottom: 34px;
     margin-top: 192px;
     padding-top: 10px;
-    
+    margin-left: -10px;
     a {
         color: $link-color;
     }
@@ -138,7 +139,8 @@ $dark-link-color: #CBD5D9;
         border-width: 1px;
         @include border-radius($border-radius);
         padding: 5px;
-        margin: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         #penguin-logo {
             float: right;
         }
@@ -154,6 +156,7 @@ $dark-link-color: #CBD5D9;
     }
 .nav-pills > li {
     background-color: $menu-color;
+    @include border-radius($border-radius);
 }
 
 #first-nav-pill {
