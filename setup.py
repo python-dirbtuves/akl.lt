@@ -70,6 +70,7 @@ setup(
         'django-require',
         'django-compressor',
         'django-libsass',
+        'homophony',
     ],
 
     # If there are data files included in your packages that need to be
