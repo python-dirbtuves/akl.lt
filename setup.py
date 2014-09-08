@@ -71,6 +71,7 @@ setup(
         'django-compressor',
         'django-libsass',
         'homophony',
+        'lxml',
     ],
 
     # If there are data files included in your packages that need to be
