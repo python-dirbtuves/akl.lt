@@ -60,3 +60,7 @@ __pycache__/
 
 # CTags
 tags
+
+# Editors
+*~
+/.directory
