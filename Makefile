@@ -3,6 +3,8 @@ bin/django: var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg 
 	bin/buildout
 	touch -c $@
 
+bin/flake8: bin/buildout
+
 bin/buildout: bin/python
 	bin/python bootstrap.py --version=2.2.1
 
@@ -35,6 +37,13 @@ clean:
 
 run: bin/django
 	bin/django runserver
+
+test: bin/django bin/flake8
+	$(MAKE) flake8
+	bin/django test akllt
+
+flake8: bin/flake8
+	bin/flake8 src/akllt
 
 tags: bin/django
 	bin/ctags -v

@@ -1,1 +1,1 @@
-from akllt.settings.base import *
+from akllt.settings.base import *  # noqa
