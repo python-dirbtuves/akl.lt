@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load require_module from require %}
 {% load compress from compress %}
+{% load wagtailuserbar from wagtailuserbar %}
 
 <!DOCTYPE html>
 <html>
@@ -52,12 +53,11 @@
         <div class="row">
             <div class="col-md-8 content">
                 {% block content %}
-
                 {% endblock %}
             </div>
             <div class="col-md-4 side-menu">
                 {% block side-menu %}
-                
+
                 {% endblock %}
             </div>
 
@@ -70,5 +70,6 @@
         </div>
     </div>
 
+    {% wagtailuserbar %}
 </body>
 </html>

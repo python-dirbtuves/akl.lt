@@ -72,6 +72,7 @@ setup(
         'django-libsass',
         'homophony',
         'lxml',
+        'wagtail',
     ],
 
     # If there are data files included in your packages that need to be

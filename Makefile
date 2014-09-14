@@ -1,7 +1,12 @@
+all: bin/django var/db.sqlite3
+
 bin/django: var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg setup.py
-	find src -type f -iname '*.pyc' -exec rm {} +
+	find src -type f -iname '*.py[co]' -delete
 	bin/buildout
 	touch -c $@
+
+var/db.sqlite3:
+	bin/django migrate
 
 bin/flake8: bin/buildout
 
@@ -33,19 +38,20 @@ parts/virtualenv-1.11.6:
 clean:
 	rm -rf akl.lt.egg-info bin develop-eggs include .installed.cfg lib \
 		   local parts share $(wildcard src/node-v0.*.*-*-*/) \
-		   $(wildcard src/*.egg-info/) var eggs
+		   var eggs
+	find src -type f -iname '*.egg-info' -delete
+	find src -type f -iname '*.py[co]' -delete
 
 run: bin/django
 	bin/django runserver
 
-test: bin/django bin/flake8
-	$(MAKE) flake8
+test: bin/django flake8
 	bin/django test akllt
 
 flake8: bin/flake8
-	bin/flake8 src/akllt
+	bin/flake8 --exclude=migrations src/akllt
 
 tags: bin/django
 	bin/ctags -v
 
-.PHONY: clean run tags
+.PHONY: all clean run tags
