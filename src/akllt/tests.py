@@ -3,6 +3,11 @@ import pkg_resources
 
 from django.test.testcases import TransactionTestCase
 from homophony import BrowserTestCase, Browser
+from akllt.models import StandardPage
+
+
+def import_pages(directory):
+    pass
 
 
 def import_pages(directory):
@@ -35,3 +40,11 @@ class ImportTestCase(BrowserTestCase):
         # expected_content = pkg_resources.resource_string(
         #     'akllt', 'test_data/pages/apie.html')
         # self.assertTrue(expected_content in browser.contents)
+
+    def test_create_page(self):
+        StandardPage.objects.create(
+            intro='Atviras kodas Lietuvai',
+            body='Turinys',
+            depth=0,
+            slug='atviras-kodas-lietuvai')
+        # Browser('http://testserver/atviras-kodas-lietuvai')
