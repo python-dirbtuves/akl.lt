@@ -2,12 +2,11 @@
 import pkg_resources
 
 from django.test.testcases import TransactionTestCase
+from django.test import TestCase
 from homophony import BrowserTestCase, Browser
+from wagtail.wagtailcore.models import Page
+
 from akllt.models import StandardPage
-
-
-def import_pages(directory):
-    pass
 
 
 def import_pages(directory):
@@ -29,7 +28,7 @@ class FoobarTestCase(BrowserTestCase):
         self.assertEquals(browser.title, 'Atviras Kodas Lietuvai')
 
 
-class ImportTestCase(BrowserTestCase):
+class ImportTestCase(BrowserTestCase, TestCase):
 
     def test_import(self):
         import_pages(pkg_resources
@@ -42,9 +41,11 @@ class ImportTestCase(BrowserTestCase):
         # self.assertTrue(expected_content in browser.contents)
 
     def test_create_page(self):
-        StandardPage.objects.create(
+        self.homepage = Page.objects.get(id=2)
+        self.homepage.add_child(instance=StandardPage(
+            title='Atviras kodas Lietuvai',
             intro='Atviras kodas Lietuvai',
             body='Turinys',
-            depth=0,
-            slug='atviras-kodas-lietuvai')
-        # Browser('http://testserver/atviras-kodas-lietuvai')
+            slug='atviras-kodas-lietuvai',
+            live=True))
+        Browser('http://testserver/atviras-kodas-lietuvai/')
