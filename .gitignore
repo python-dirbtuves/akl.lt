@@ -63,4 +63,5 @@ tags
 
 # Editors
 *~
+*.swp
 /.directory

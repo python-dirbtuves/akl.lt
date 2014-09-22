@@ -54,11 +54,9 @@ class ImportTestCase(BrowserTestCase, TestCase):
             live=True))
         Browser('http://testserver/atviras-kodas-lietuvai/')
 
-
     def test_import_news(self):
         import_news(pkg_resources
-                     .resource_filename('akllt', 'tests/fixtures/naujienos'))
-
+                    .resource_filename('akllt', 'tests/fixtures/naujienos'))
 
 
 def import_news(directory):
