@@ -53,3 +53,17 @@ class ImportTestCase(BrowserTestCase, TestCase):
             slug='atviras-kodas-lietuvai',
             live=True))
         Browser('http://testserver/atviras-kodas-lietuvai/')
+
+
+    def test_import_news(self):
+        import_news(pkg_resources
+                     .resource_filename('akllt', 'tests/fixtures/naujienos'))
+
+
+
+def import_news(directory):
+    path = pathlib.Path(directory)
+    assert path.exists()
+    for item in path.iterdir():
+        pass
+        #print item
