@@ -1,4 +1,7 @@
 # coding: utf-8
+import warnings
+warnings.simplefilter('ignore')
+
 import pkg_resources
 
 from django.test.testcases import TransactionTestCase
