@@ -157,3 +157,24 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = 'Atviras Kodas Lietuvai'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'warnings': {
+            '()': 'akllt.log.FilterWarnings',
+        },
+    },
+    'handlers': {
+        'null': {
+            'class': 'logging.NullHandler',
+        },
+    },
+    'loggers': {
+        'py.warnings': {
+            'filters': ['warnings'],
+        },
+    }
+}

@@ -1,6 +1,4 @@
 # coding: utf-8
-import warnings
-warnings.simplefilter('ignore')
 
 import unittest
 import pkg_resources
