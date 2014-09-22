@@ -167,11 +167,6 @@ LOGGING = {
             '()': 'akllt.log.FilterWarnings',
         },
     },
-    'handlers': {
-        'null': {
-            'class': 'logging.NullHandler',
-        },
-    },
     'loggers': {
         'py.warnings': {
             'filters': ['warnings'],
