@@ -3,6 +3,7 @@ import warnings
 warnings.simplefilter('ignore')
 
 import pkg_resources
+import pathlib
 
 from django.test.testcases import TransactionTestCase
 from django.test import TestCase
@@ -13,7 +14,7 @@ from akllt.models import StandardPage
 
 
 def import_pages(directory):
-    pass
+    assert pathlib.Path(directory).exists()
 
 
 class SmokeTest(TransactionTestCase):
@@ -35,7 +36,7 @@ class ImportTestCase(BrowserTestCase, TestCase):
 
     def test_import(self):
         import_pages(pkg_resources
-                     .resource_filename('akllt', 'test_data/pages'))
+                     .resource_filename('akllt', 'tests/fixtures/pages'))
         browser = Browser()
         browser.open('http://testserver')
         browser.getLink('Apie').click()
