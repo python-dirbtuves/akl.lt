@@ -1,18 +1,45 @@
 # Taken from:
 # https://github.com/ProgrammersOfVilnius/zope-export-tools/blob/master/z2loader.py
 
-import os.path
+import pathlib
 
 
-def load_metadata(filename):  # noqa
-    meta = {}
-    assert os.path.exists(filename)
-    f = file(filename, 'r')
-    for line in f:
+class Z2LoaderError(Exception):
+    pass
+
+
+def skip_to_properties(lines):
+    for line in lines:
         line = line.rstrip('\n')
         if line == '[properties]':
             break
-    for line in f:
+
+
+def parse_value(filename, key, value):
+    name, type = key.split(':')
+
+    if type == 'boolean':
+        if value in ('True', 'False'):
+            value = (value == 'True')
+        else:
+            value = int(value)
+    elif type == 'int':
+        value = int(value)
+    elif type == 'string':
+        pass
+    elif type == 'text':
+        value = value.decode('UTF-8')
+    elif type == 'ustring':
+        value = unicode(value, 'UTF-8')
+    else:
+        raise Z2LoaderError('%s: unsupported type: %s' % (filename, type))
+
+    return name, value
+
+
+def parse_properties(filename, lines):
+    properties = {}
+    for line in lines:
         line = line.rstrip('\n')
         if line.startswith('['):
             break
@@ -21,34 +48,19 @@ def load_metadata(filename):  # noqa
         if not line.strip():
             continue
         if ' = ' not in line:
-            print "%s: bad metadata line: %s" % (filename, line)
-            continue
+            raise Z2LoaderError('%s: bad metadata line: %s' % (filename, line))
         key, value = line.split(' = ', 1)
         if ':' not in key:
-            print "%s: bad metadata key: %s" % (filename, key)
-            continue
-        name, type = key.split(':')
+            raise Z2LoaderError('%s: bad metadata key: %s' % (filename, key))
         value = value.decode('string-escape')
-        # TODO: saner type conversion
+        name, value = parse_value(filename, key, value)
+        properties[name] = value
+    return properties
 
-        if type == 'boolean':
-            if value in ('True', 'False'):
-                value = (value == 'True')
-            else:
-                value = int(value)
-        elif type == 'int':
-            value = int(value)
-        elif type == 'string':
-            pass
-        elif type == 'text':
-            value = value.decode('UTF-8')
-        elif type == 'ustring':
-            value = unicode(value, 'UTF-8')
-        else:
-            print "%s: unsupported type: %s" % (filename, type)
-            continue
 
-        meta[name] = value
-    f.close()
-
-    return meta
+def load_metadata(filename):
+    path = pathlib.Path(filename)
+    assert path.exists()
+    with path.open('r') as f:
+        skip_to_properties(f)
+        return parse_properties(filename, f)
