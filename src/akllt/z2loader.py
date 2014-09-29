@@ -40,6 +40,8 @@ def load_metadata(filename):  # noqa
             value = int(value)
         elif type == 'string':
             pass
+        elif type == 'text':
+            value = value.decode('UTF-8')
         elif type == 'ustring':
             value = unicode(value, 'UTF-8')
         else:
