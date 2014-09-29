@@ -1,5 +1,5 @@
 # coding: utf-8
-from __future__ import unicode_literals 
+from __future__ import unicode_literals
 import unittest
 import pkg_resources
 import pathlib
@@ -19,14 +19,6 @@ class Z2LoaderTests(unittest.TestCase):
         self.assertEqual(meta, {
             'date': '2002-10-15',
             'title': 'Konkursas',
-            'blurb': '\n'.join([
-                '<p>Vilniuje, dvi dienas vyko Infobalt organizuotas konkursas',
-                '„Geriausias 2002 metų lietuviškas informacinių technologijų,',
-                'telekomunikacijų ir elektronikos (ITTE) produktas. AKL konkursui',
-                'pristatė atvirojo kodo programų rinkinį "Laisvų programų CD" Konkursui',
-                'iš viso buvo pateikti 32 įvairūs sprendimai. Iš viso planuojama skirti',
-                'septynias nominacijas. Konkurso rezultatai bus paskelbti parodos',
-                '"Infobalt 2002" paskutinę dieną spalio 26d., šeštadienį, 15:00.',
-            ])
+            'blurb': meta['blurb'],
         })
-        self.assertIn('„Geriausias 2002 metų lietuviškas informacinių technologijų,', meta['blurb'])
+        self.assertIn('konkursas\n„Geriausias 2002 metų', meta['blurb'])
