@@ -1,7 +1,6 @@
 all: bin/django var/db.sqlite3
 
-bin/django: var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg setup.py
-	find src -type f -iname '*.py[co]' -delete
+bin/django: cleanpyc var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg setup.py
 	bin/buildout
 	touch -c $@
 
@@ -42,6 +41,9 @@ clean:
 	find src -type f -iname '*.egg-info' -delete
 	find src -type f -iname '*.py[co]' -delete
 
+cleanpyc:
+	find src -type f -iname '*.py[co]' -delete
+
 run: bin/django
 	bin/django runserver
 
@@ -54,4 +56,4 @@ flake8: bin/flake8
 tags: bin/django
 	bin/ctags -v
 
-.PHONY: all clean run tags
+.PHONY: all clean cleanpyc run tags
