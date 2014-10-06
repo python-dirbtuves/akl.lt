@@ -30,3 +30,16 @@ StandardPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
     ImageChooserPanel('feed_image'),
 ]
+
+
+class NewsStory(Page):
+    date = models.DateField(auto_now_add=True)
+    blurb = RichTextField(blank=True)
+    body = RichTextField()
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )

@@ -1,44 +1,54 @@
-import pathlib
+import datetime
 import unittest
-
 import pkg_resources
 
-from akllt.z2loader import load_metadata
+import django.test
 
+from wagtail.wagtailcore.models import Page
 
-def iter_news(directory):
-    path = pathlib.Path(directory)
-    assert path.exists()
-    for item in path.iterdir():
-        if item.name.startswith('naujiena_'):
-            z2meta_filename = item.parent / '.z2meta' / item.name
-            news_item = load_metadata(z2meta_filename)
-            with item.open() as f:
-                news_item['body'] = f.read()
-            yield news_item
+from akllt.dataimport.news import import_news
+from akllt.models import NewsStory
 
 
 def shorten_values(item):
     shortened = {}
     for key, value in item.items():
-        if len(value) > 24:
+        if isinstance(value, basestring) and len(value) > 24:
             shortened[key] = '%s...' % value[:24]
         else:
             shortened[key] = value
     return shortened
 
 
-class NewsImportTests(unittest.TestCase):
+class NewsExportReadTests(unittest.TestCase):
     def test_iter_news(self):
         news_folder = pkg_resources.resource_filename(
             'akllt', 'tests/fixtures/naujienos'
         )
-        news = iter_news(news_folder)
+        news = import_news(news_folder)
         self.assertEqual(list(map(shorten_values, news)), [
             {
-                'date': '2002-10-15',
+                'date': datetime.date(2002, 10, 15),
                 'title': 'Konkursas',
                 'blurb': '<p>Vilniuje, dvi dienas ...',
                 'body': '<p>Vilniuje, dvi dienas ...',
             },
         ])
+
+
+class NewsImportTests(django.test.TestCase):
+    def test_create_news(self):
+        self.assertEqual(NewsStory.objects.count(), 0)
+        root = Page.add_root(title='Root page')
+
+        news_folder = pkg_resources.resource_filename(
+            'akllt', 'tests/fixtures/naujienos'
+        )
+        news = import_news(news_folder)
+        for news_story in news:
+            root.add_child(instance=NewsStory(
+                title=news_story['title'],
+                date=news_story['date'],
+                blurb=news_story['blurb'],
+                body=news_story['body'],
+            ))
