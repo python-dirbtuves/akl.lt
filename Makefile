@@ -1,6 +1,6 @@
 all: bin/django var/db.sqlite3
 
-bin/django: cleanpyc var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg setup.py
+bin/django: var/assets/jquery/bower.json bin/buildout buildout.cfg versions.cfg setup.py
 	bin/buildout
 	touch -c $@
 
@@ -47,7 +47,7 @@ cleanpyc:
 run: bin/django
 	bin/django runserver 0.0.0.0:8000
 
-test: bin/django flake8
+test: bin/django flake8 cleanpyc
 	bin/django test akllt
 
 flake8: bin/flake8
