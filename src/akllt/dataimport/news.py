@@ -7,7 +7,7 @@ from akllt.dataimport.z2loader import load_metadata
 def import_news(directory):
     """Reads news from given directory.
 
-    Directory should cantain Zope export, like this one:
+    Directory should contain Zope export, like this one:
 
         https://github.com/mgedmin/akl.lt-zope-export
     """
