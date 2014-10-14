@@ -4,17 +4,10 @@ from polls.models import Poll
 
 
 class Command(BaseCommand):
-    args = '<poll_id poll_id ...>'
-    help = 'Closes the specified poll for voting'
+    args = '<directory name>'
+    help = 'Imports data from old akl.lt website'
 
     def handle(self, *args, **options):
-        for poll_id in args:
-            try:
-                poll = Poll.objects.get(pk=int(poll_id))
-            except Poll.DoesNotExist:
-                raise CommandError('Poll "%s" does not exist' % poll_id)
+        news_count = 0
 
-            poll.opened = False
-            poll.save()
-
-            self.stdout.write('Successfully closed poll "%s"' % poll_id)
+        self.stdout.write('Successfully imported %d news items' % news_count)

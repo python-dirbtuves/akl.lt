@@ -52,3 +52,8 @@ class NewsImportTests(django.test.TestCase):
                 blurb=news_story['blurb'],
                 body=news_story['body'],
             ))
+
+
+class NewsImportCommandTests(django.test.TestCase):
+    def test_command(self):
+        pass
