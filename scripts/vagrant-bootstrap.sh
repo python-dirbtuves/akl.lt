@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Core dependencies
-sudo apt-get install -y curl git-core build-essential
+sudo apt-get install -y curl git-core build-essential exuberant-ctags
 
 # Install python dev stuff
 #TODO maybe pin version and/or use deadsnakes?

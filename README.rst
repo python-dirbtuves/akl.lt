@@ -5,7 +5,7 @@ This repository is move from https://launchpad.net/akl-web-site .
 Requirements
 ============
 
-sudo apt-get install curl git-core build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev
+sudo apt-get install curl git-core build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev exuberant-ctags
 
 Vagrant
 =======
