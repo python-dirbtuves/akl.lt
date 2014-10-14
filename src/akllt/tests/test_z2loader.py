@@ -5,7 +5,7 @@ import unittest
 import pkg_resources
 import pathlib
 
-from akllt.z2loader import load_metadata
+from akllt.dataimport.z2loader import load_metadata
 
 
 class Z2LoaderTests(unittest.TestCase):
