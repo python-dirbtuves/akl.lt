@@ -65,3 +65,6 @@ tags
 *~
 *.swp
 /.directory
+
+# Environment
+.vagrant
