@@ -17,9 +17,9 @@ bin/python: parts/virtualenv-1.11.6
 
 var/assets/jquery/bower.json: bin/node bower.json
 	if [ -n "$$NODE_VIRTUAL_ENV" -a "$$NODE_VIRTUAL_ENV" = "$$PWD" ] ; then \
-	    bower install ; \
+	    bower install --config.interactive=false ; \
 	else \
-	    . bin/activate && bower install ; \
+	    . bin/activate && bower install --config.interactive=false ; \
 	fi
 	touch -c $@
 
