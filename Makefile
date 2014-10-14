@@ -45,7 +45,7 @@ cleanpyc:
 	find src -type f -iname '*.py[co]' -delete
 
 run: bin/django
-	bin/django runserver
+	bin/django runserver 0.0.0.0:8000
 
 test: bin/django flake8
 	bin/django test akllt
