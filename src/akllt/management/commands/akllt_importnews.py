@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         news_count = 0
-        root = Page.get_root()
+        root = Page.get_first_root_node()
         if root is None:
             root = Page.add_root(title='Root page')
 
