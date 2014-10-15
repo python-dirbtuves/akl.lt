@@ -1,9 +1,12 @@
-import pathlib
+import pkg_resources
 
 from django.core.management.base import BaseCommand
-from django.core.management.base import CommandError
+
+from wagtail.wagtailcore.models import Page
 
 from akllt.dataimport.news import import_news
+from akllt.models import NewsStory
+
 
 class Command(BaseCommand):
     args = '<directory name>'

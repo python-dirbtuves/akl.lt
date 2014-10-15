@@ -3,6 +3,7 @@ import unittest
 import pkg_resources
 
 import django.test
+from django.core.management import call_command
 
 from wagtail.wagtailcore.models import Page
 
@@ -56,4 +57,11 @@ class NewsImportTests(django.test.TestCase):
 
 class NewsImportCommandTests(django.test.TestCase):
     def test_command(self):
-        pass
+        self.assertEqual(NewsStory.objects.count(), 0)
+        call_command(
+            'akllt_importnews',
+            pkg_resources.resource_filename(
+                'akllt',
+                'test/fixtures/naujienos'
+            )
+        )
