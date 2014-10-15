@@ -1,5 +1,3 @@
-import pkg_resources
-
 from django.core.management.base import BaseCommand
 
 from wagtail.wagtailcore.models import Page
@@ -12,15 +10,12 @@ class Command(BaseCommand):
     args = '<directory name>'
     help = 'Imports data from old akl.lt website'
 
-    def handle(self, *args, **options):
+    def handle(self, news_folder, *args, **options):
         news_count = 0
         root = Page.get_first_root_node()
         if root is None:
             root = Page.add_root(title='Root page')
 
-        news_folder = pkg_resources.resource_filename(
-            'akllt', 'tests/fixtures/naujienos'
-        )
         news = import_news(news_folder)
         for news_story in news:
             root.add_child(instance=NewsStory(

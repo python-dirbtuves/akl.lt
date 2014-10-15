@@ -65,3 +65,4 @@ class NewsImportCommandTests(django.test.TestCase):
                 'test/fixtures/naujienos'
             )
         )
+        self.assertEqual(NewsStory.objects.count(), 2)
