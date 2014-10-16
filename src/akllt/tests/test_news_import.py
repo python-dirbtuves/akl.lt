@@ -62,7 +62,7 @@ class NewsImportCommandTests(django.test.TestCase):
             'akllt_importnews',
             pkg_resources.resource_filename(
                 'akllt',
-                'test/fixtures/naujienos'
+                'tests/fixtures/naujienos'
             )
         )
-        self.assertEqual(NewsStory.objects.count(), 2)
+        self.assertEqual(NewsStory.objects.count(), 1)
