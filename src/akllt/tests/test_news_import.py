@@ -1,3 +1,6 @@
+# coding: utf-8
+from __future__ import unicode_literals
+
 import datetime
 import unittest
 import pkg_resources
@@ -27,14 +30,56 @@ class NewsExportReadTests(unittest.TestCase):
             'akllt', 'tests/fixtures/naujienos'
         )
         news = import_news(news_folder)
-        self.assertEqual(list(map(shorten_values, news)), [
-            {
-                'date': datetime.date(2002, 10, 15),
-                'title': 'Konkursas',
-                'blurb': '<p>Vilniuje, dvi dienas ...',
-                'body': '<p>Vilniuje, dvi dienas ...',
-            },
-        ])
+
+        news_items = list(map(shorten_values, news))
+
+        self.assertEqual(len(news_items), 2)
+        self.assertEqual(len(news_items[0]), 9)
+        self.assertEqual(news_items[0]['date'], datetime.date(2010, 3, 16))
+        self.assertEqual(news_items[0]['email'], 'antanasb@gmail.com')
+        self.assertEqual(news_items[0]['profesionalams'], False)
+        self.assertEqual(news_items[0]['title'], 'Praktinis seminaras moky...')
+        self.assertEqual(news_items[0]['author'], 'Antanas')
+        self.assertEqual(news_items[0]['blurb'], '2010m. kovo 22 ir 26 die...')
+        self.assertEqual(news_items[0]['body'], '<p>2010m. kovo 22 ir 26 ...')
+        self.assertEqual(news_items[0]['categories'], (
+            'Biuro programos',
+            'OpenOffice',
+            'Interneto programos',
+            'Grafikos programos',
+            'Multimedia',
+            'Žaidimai ir pramogos',
+            'Laisva PĮ Lietuvoje',
+            'GNU/Linux OS',
+            'GNOME aplinka',
+            'Sėkmės istorijos',
+        ))
+        self.assertEqual(news_items[0]['category_values'], (
+            'Biuro programos',
+            'OpenOffice',
+            'Interneto programos',
+            'Grafikos programos',
+            'Multimedia',
+            'Žaidimai ir pramogos',
+            'Programavimas',
+            'Laisva PĮ Lietuvoje',
+            'Laisvi formatai ir standartai',
+            'GNU/Linux OS',
+            'GNU/Hurd OS',
+            'FreeBSD OS',
+            'OpenBSD OS',
+            'GNOME aplinka',
+            'KDE aplinka',
+            'Grafinės aplinkos',
+            'Sėkmės istorijos',
+            'Patentai ir autorinės teisės'
+        ))
+        self.assertEqual(news_items[1], {
+            'date': datetime.date(2002, 10, 15),
+            'title': 'Konkursas',
+            'blurb': '<p>Vilniuje, dvi dienas ...',
+            'body': '<p>Vilniuje, dvi dienas ...',
+        })
 
 
 class NewsImportTests(django.test.TestCase):
@@ -65,4 +110,4 @@ class NewsImportCommandTests(django.test.TestCase):
                 'tests/fixtures/naujienos'
             )
         )
-        self.assertEqual(NewsStory.objects.count(), 1)
+        self.assertEqual(NewsStory.objects.count(), 2)
