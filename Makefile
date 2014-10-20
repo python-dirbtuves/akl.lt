@@ -48,7 +48,7 @@ run: bin/django
 	bin/django runserver 0.0.0.0:8000
 
 test: bin/django flake8 cleanpyc
-	bin/django test akllt
+	bin/django test_coverage akllt
 
 flake8: bin/flake8
 	bin/flake8 --exclude=migrations src/akllt || true
