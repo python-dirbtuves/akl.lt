@@ -78,7 +78,7 @@ class NewsExportReadTests(unittest.TestCase):
         eq(news_items[1]['category_values'][7], 'Laisva PĮ Lietuvoje')
         eq(
             news_items[1]['category_values'][8],
-           'Laisvi formatai ir standartai'
+            'Laisvi formatai ir standartai'
         )
         eq(news_items[1]['category_values'][9], 'GNU/Linux OS')
         eq(news_items[1]['category_values'][10], 'GNU/Hurd OS')
@@ -100,7 +100,6 @@ class NewsExportReadTests(unittest.TestCase):
         news_items = list(import_news(news_folder))
 
         self.assertIsNone(news_items[0]['date'])
-
 
 
 class NewsImportTests(django.test.TestCase):
