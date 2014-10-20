@@ -22,4 +22,5 @@ def import_news(directory):
             ).date()
             with item.open() as f:
                 news_story['body'] = f.read()
+            news_story['url'] = item.name
             yield news_story
