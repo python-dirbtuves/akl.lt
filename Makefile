@@ -9,6 +9,8 @@ var/db.sqlite3:
 
 bin/flake8: bin/buildout
 
+bin/pylint: bin/buildout
+
 bin/buildout: bin/python
 	bin/python bootstrap.py --version=2.2.1
 
@@ -47,13 +49,18 @@ cleanpyc:
 run: bin/django
 	bin/django runserver 0.0.0.0:8000
 
-test: bin/django flake8 cleanpyc
+test: django-tests flake8 pylint cleanpyc
+
+django-tests: bin/django
 	bin/django test_coverage akllt
 
 flake8: bin/flake8
 	bin/flake8 --exclude=migrations src/akllt || true
 
+pylint: bin/pylint
+	bin/pylint src/akllt || true
+
 tags: bin/django
 	bin/ctags -v --tag-relative
 
-.PHONY: all clean cleanpyc run tags
+.PHONY: all clean cleanpyc run tags pylint django-tests
