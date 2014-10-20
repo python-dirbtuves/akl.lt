@@ -54,6 +54,6 @@ flake8: bin/flake8
 	bin/flake8 --exclude=migrations src/akllt || true
 
 tags: bin/django
-	bin/ctags -v
+	bin/ctags -v --tag-relative
 
 .PHONY: all clean cleanpyc run tags
