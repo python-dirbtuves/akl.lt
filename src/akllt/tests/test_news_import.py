@@ -42,38 +42,36 @@ class NewsExportReadTests(unittest.TestCase):
         self.assertEqual(news_items[0]['author'], 'Antanas')
         self.assertEqual(news_items[0]['blurb'], '2010m. kovo 22 ir 26 die...')
         self.assertEqual(news_items[0]['body'], '<p>2010m. kovo 22 ir 26 ...')
-        self.assertEqual(news_items[0]['categories'], (
-            'Biuro programos',
-            'OpenOffice',
-            'Interneto programos',
-            'Grafikos programos',
-            'Multimedia',
-            'Žaidimai ir pramogos',
-            'Laisva PĮ Lietuvoje',
-            'GNU/Linux OS',
-            'GNOME aplinka',
-            'Sėkmės istorijos',
-        ))
-        self.assertEqual(news_items[0]['category_values'], (
-            'Biuro programos',
-            'OpenOffice',
-            'Interneto programos',
-            'Grafikos programos',
-            'Multimedia',
-            'Žaidimai ir pramogos',
-            'Programavimas',
-            'Laisva PĮ Lietuvoje',
-            'Laisvi formatai ir standartai',
-            'GNU/Linux OS',
-            'GNU/Hurd OS',
-            'FreeBSD OS',
-            'OpenBSD OS',
-            'GNOME aplinka',
-            'KDE aplinka',
-            'Grafinės aplinkos',
-            'Sėkmės istorijos',
-            'Patentai ir autorinės teisės'
-        ))
+        self.assertEqual(len(news_items[0]['categories']), 10)
+        self.assertEqual(news_items[0]['categories'][0], 'Biuro programos')
+        self.assertEqual(news_items[0]['categories'][1], 'OpenOffice')
+        self.assertEqual(news_items[0]['categories'][2], 'Interneto programos')
+        self.assertEqual(news_items[0]['categories'][3], 'Grafikos programos')
+        self.assertEqual(news_items[0]['categories'][4], 'Multimedia')
+        self.assertEqual(news_items[0]['categories'][5], 'Žaidimai ir pramogos')
+        self.assertEqual(news_items[0]['categories'][6], 'Laisva PĮ Lietuvoje')
+        self.assertEqual(news_items[0]['categories'][7], 'GNU/Linux OS')
+        self.assertEqual(news_items[0]['categories'][8], 'GNOME aplinka')
+        self.assertEqual(news_items[0]['categories'][9], 'Sėkmės istorijos')
+        self.assertEqual(len(news_items[0]['category_values']), 18)
+        self.assertEqual(news_items[0]['category_values'][0], 'Biuro programos')
+        self.assertEqual(news_items[0]['category_values'][1], 'OpenOffice')
+        self.assertEqual(news_items[0]['category_values'][2], 'Interneto programos')
+        self.assertEqual(news_items[0]['category_values'][3], 'Grafikos programos')
+        self.assertEqual(news_items[0]['category_values'][4], 'Multimedia')
+        self.assertEqual(news_items[0]['category_values'][5], 'Žaidimai ir pramogos')
+        self.assertEqual(news_items[0]['category_values'][6], 'Programavimas')
+        self.assertEqual(news_items[0]['category_values'][7], 'Laisva PĮ Lietuvoje')
+        self.assertEqual(news_items[0]['category_values'][8], 'Laisvi formatai ir standartai')
+        self.assertEqual(news_items[0]['category_values'][9], 'GNU/Linux OS')
+        self.assertEqual(news_items[0]['category_values'][10], 'GNU/Hurd OS')
+        self.assertEqual(news_items[0]['category_values'][11], 'FreeBSD OS')
+        self.assertEqual(news_items[0]['category_values'][12], 'OpenBSD OS')
+        self.assertEqual(news_items[0]['category_values'][13], 'GNOME aplinka')
+        self.assertEqual(news_items[0]['category_values'][14], 'KDE aplinka')
+        self.assertEqual(news_items[0]['category_values'][15], 'Grafinės aplinkos')
+        self.assertEqual(news_items[0]['category_values'][16], 'Sėkmės istorijos')
+        self.assertEqual(news_items[0]['category_values'][17], 'Patentai ir autorinės teisės')
         self.assertEqual(news_items[1], {
             'date': datetime.date(2002, 10, 15),
             'title': 'Konkursas',
