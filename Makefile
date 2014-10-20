@@ -51,7 +51,7 @@ test: bin/django flake8 cleanpyc
 	bin/django test akllt
 
 flake8: bin/flake8
-	bin/flake8 --exclude=migrations src/akllt
+	bin/flake8 --exclude=migrations src/akllt || true
 
 tags: bin/django
 	bin/ctags -v
