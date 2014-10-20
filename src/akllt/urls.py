@@ -6,7 +6,8 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
 
-urlpatterns = patterns('',  # noqa
+urlpatterns = patterns(
+    '',
     url(r'^$', 'akllt.views.index', name='index'),
     url(r'^naujienos', 'akllt.views.naujienos', name='naujienos'),
     url(r'^nuorodos', 'akllt.views.nuorodos', name='nuorodos'),

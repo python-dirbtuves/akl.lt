@@ -32,7 +32,7 @@ class FoobarTestCase(BrowserTestCase):
 
 class ImportTestCase(BrowserTestCase, TestCase):
 
-    def test_import(self):
+    def test_import(self):  # pylint: disable=no-self-use
         import_pages(pkg_resources
                      .resource_filename('akllt', 'tests/fixtures/pages'))
         browser = Browser()

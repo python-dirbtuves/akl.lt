@@ -1,7 +1,7 @@
 import logging
 
 
-class FilterWarnings(logging.Filter):
+class FilterWarnings(logging.Filter):  # pylint: disable=too-few-public-methods
     def filter(self, record):
         message = record.getMessage()
         if 'RemovedInDjango18Warning' in message:

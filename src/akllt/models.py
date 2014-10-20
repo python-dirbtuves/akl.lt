@@ -1,3 +1,5 @@
+# pylint: disable=too-many-public-methods
+
 from django.db import models
 
 from wagtail.wagtailcore.models import Page

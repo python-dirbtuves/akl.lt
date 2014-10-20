@@ -33,8 +33,7 @@ class NewsExportReadTests(unittest.TestCase):
         )
         news = import_news(news_folder)
 
-        news_items = sorted(list(map(shorten_values, news)),
-                            key=itemgetter('url'))
+        news_items = sorted(map(shorten_values, news), key=itemgetter('url'))
 
         eq = self.assertEqual
 

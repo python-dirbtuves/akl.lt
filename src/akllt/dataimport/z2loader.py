@@ -15,6 +15,7 @@ def skip_to_properties(lines):
             break
 
 
+# pylint: disable=redefined-builtin,eval-used
 def parse_value(filename, key, value):
     name, type = key.split(':')
 
