@@ -4,6 +4,13 @@ import pathlib
 from akllt.dataimport.z2loader import load_metadata
 
 
+def parse_date(datestring):
+    try:
+        return datetime.datetime.strptime(datestring, '%Y-%m-%d').date()
+    except ValueError:
+        return None
+
+
 def import_news(directory):
     """Reads news from given directory.
 
@@ -17,9 +24,7 @@ def import_news(directory):
         if item.name.startswith('naujiena_'):
             z2meta_filename = item.parent / '.z2meta' / item.name
             news_story = load_metadata(z2meta_filename)
-            news_story['date'] = datetime.datetime.strptime(
-                news_story['date'], '%Y-%m-%d'
-            ).date()
+            news_story['date'] = parse_date(news_story.get('date'))
             with item.open() as f:
                 news_story['body'] = f.read()
             news_story['url'] = item.name

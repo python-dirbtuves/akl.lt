@@ -93,6 +93,15 @@ class NewsExportReadTests(unittest.TestCase):
             'Patentai ir autorinės teisės'
         )
 
+    def test_null_date(self):
+        news_folder = pkg_resources.resource_filename(
+            'akllt', 'tests/fixtures/null_date_naujiena'
+        )
+        news_items = list(import_news(news_folder))
+
+        self.assertIsNone(news_items[0]['date'])
+
+
 
 class NewsImportTests(django.test.TestCase):
     def test_create_news(self):
