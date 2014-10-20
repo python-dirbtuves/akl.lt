@@ -24,5 +24,6 @@ class Command(BaseCommand):
                 blurb=news_story['blurb'],
                 body=news_story['body'],
             ))
+            news_count += 1
 
         self.stdout.write('Successfully imported %d news items\n' % news_count)
