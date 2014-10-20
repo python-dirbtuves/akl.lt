@@ -33,7 +33,7 @@ StandardPage.promote_panels = [
 
 
 class NewsStory(Page):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(null=True)
     blurb = RichTextField(blank=True)
     body = RichTextField()
     image = models.ForeignKey(
