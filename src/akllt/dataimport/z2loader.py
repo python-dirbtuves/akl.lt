@@ -32,7 +32,10 @@ def parse_value(filename, key, value):
     elif type == 'ustring':
         value = unicode(value, 'UTF-8')
     elif type in {'multiple selection', 'tokens'}:
-        value = eval(unicode(value, 'UTF-8'))
+        value = [
+            s.decode('string-escape').decode('utf-8')
+            for s in eval(value)
+        ]
     else:
         raise Z2LoaderError('%s: unsupported type: %s' % (filename, type))
 
@@ -56,8 +59,7 @@ def parse_properties(filename, lines):
             raise Z2LoaderError('%s: bad metadata key: %s' % (filename, key))
         value = (
             value.decode('string-escape').
-            replace('&nbsp;', ' ').
-            replace('\xc5')
+            replace('&nbsp;', ' ')
         )
         name, value = parse_value(filename, key, value)
         properties[name] = value
