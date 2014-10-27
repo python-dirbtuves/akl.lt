@@ -10,8 +10,6 @@ from operator import itemgetter
 import django.test
 from django.core.management import call_command
 
-from wagtail.wagtailcore.models import Page
-
 from akllt.dataimport.news import import_news
 from akllt.models import NewsStory
 
