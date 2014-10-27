@@ -42,9 +42,9 @@ class ImportTestCase(BrowserTestCase, TestCase):
         #     'akllt', 'test_data/pages/apie.html')
         # self.assertTrue(expected_content in browser.contents)
 
-    def test_create_page(self):
-        self.homepage = Page.objects.get(id=2)
-        self.homepage.add_child(instance=StandardPage(
+    def test_create_page(self):  # pylint: disable=no-self-use
+        homepage = Page.objects.get(id=2)
+        homepage.add_child(instance=StandardPage(
             title='Atviras kodas Lietuvai',
             intro='Atviras kodas Lietuvai',
             body='Turinys',
