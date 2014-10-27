@@ -8,6 +8,7 @@ from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
 
 urlpatterns = patterns(
     '',
+    url(r'', include('akllt.news.urls')),
     url(r'^$', 'akllt.views.index', name='index'),
     url(r'^naujienos', 'akllt.views.naujienos', name='naujienos'),
     url(r'^nuorodos', 'akllt.views.nuorodos', name='nuorodos'),
