@@ -53,8 +53,10 @@ INSTALLED_APPS = (
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
 
-    'akllt',
+    'akllt.dataimport',
+    'akllt.common',
     'akllt.news',
+    'akllt.pages',
 )
 
 MIDDLEWARE_CLASSES = (

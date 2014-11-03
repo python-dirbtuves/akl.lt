@@ -11,7 +11,7 @@ import django.test
 from django.core.management import call_command
 
 from akllt.dataimport.news import import_news
-from akllt.models import NewsStory
+from akllt.news.models import NewsStory
 
 
 def shorten_values(item):
@@ -27,7 +27,7 @@ def shorten_values(item):
 class NewsExportReadTests(unittest.TestCase):
     def test_iter_news(self):
         news_folder = pkg_resources.resource_filename(
-            'akllt', 'tests/fixtures/naujienos'
+            'akllt', 'dataimport/tests/fixtures/naujienos'
         )
         news = import_news(news_folder)
 
@@ -92,7 +92,7 @@ class NewsExportReadTests(unittest.TestCase):
 
     def test_null_date(self):
         news_folder = pkg_resources.resource_filename(
-            'akllt', 'tests/fixtures/null_date_naujiena'
+            'akllt', 'dataimport/tests/fixtures/null_date_naujiena'
         )
         news_items = list(import_news(news_folder))
 
@@ -106,7 +106,7 @@ class NewsImportCommandTests(django.test.TestCase):
             'akllt_importnews',
             pkg_resources.resource_filename(
                 'akllt',
-                'tests/fixtures/naujienos'
+                'dataimport/tests/fixtures/naujienos'
             )
         )
         self.assertEqual(NewsStory.objects.count(), 2)

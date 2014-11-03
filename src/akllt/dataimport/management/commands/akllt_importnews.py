@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from wagtail.wagtailcore.models import Page
 
 from akllt.dataimport.news import import_news
-from akllt.models import NewsStory
+from akllt.news.models import NewsStory
 
 
 class Command(BaseCommand):

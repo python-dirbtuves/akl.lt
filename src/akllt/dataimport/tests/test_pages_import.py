@@ -8,7 +8,7 @@ from django.test import TestCase
 from homophony import BrowserTestCase, Browser
 from wagtail.wagtailcore.models import Page
 
-from akllt.models import StandardPage
+from akllt.pages.models import StandardPage
 
 
 def import_pages(directory):
@@ -33,8 +33,9 @@ class FoobarTestCase(BrowserTestCase):
 class ImportTestCase(BrowserTestCase, TestCase):
 
     def test_import(self):  # pylint: disable=no-self-use
-        import_pages(pkg_resources
-                     .resource_filename('akllt', 'tests/fixtures/pages'))
+        import_pages(pkg_resources.resource_filename(
+            'akllt', 'dataimport/tests/fixtures/pages'
+        ))
         browser = Browser()
         browser.open('http://testserver')
         browser.getLink('Apie').click()

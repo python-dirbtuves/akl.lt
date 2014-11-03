@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from akllt.models import NewsStory
+from akllt.news.models import NewsStory
 
 
 def news_items(request):
