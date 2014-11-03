@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from akllt.models import NewsStory
+from akllt.news.models import NewsStory
 
 
 def news_items(request):
