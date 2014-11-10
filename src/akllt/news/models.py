@@ -9,9 +9,6 @@ class NewsStory(Page):
     blurb = RichTextField(blank=True)
     body = RichTextField()
     image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
+        'wagtailimages.Image', null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='+'
     )
