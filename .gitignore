@@ -65,6 +65,9 @@ tags
 *~
 *.swp
 /.directory
+/.codeintel/
+*.sublime-project
+*.sublime-workspace
 
 # Environment
 .vagrant
