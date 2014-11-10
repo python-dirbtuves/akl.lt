@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
-    '',
-    url(r'^$', 'akllt.news.views.news_items', name='news_items'),
-    url(r'', 'akllt.news.views.news_items', name='news_items'),
+    'akllt.news.views',
+    url(r'^$', 'news_items', name='news_items'),
+    url(r'(?P<slug>[a-z\d-]+)', 'news_item', name='news_item'),
 )
