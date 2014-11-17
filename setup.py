@@ -67,6 +67,8 @@ setup(
     install_requires=[
         'Django',
         'pathlib',
+        'coverage',
+        'django-nose',
         'django-require',
         'django-compressor',
         'django-libsass',

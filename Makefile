@@ -52,7 +52,7 @@ run: bin/django
 test: django-tests flake8 pylint cleanpyc
 
 django-tests: bin/django
-	bin/django test akllt
+	bin/django test --nologcapture --with-coverage --cover-package=akllt 
 
 flake8: bin/flake8
 	bin/flake8 --exclude=migrations src/akllt || true

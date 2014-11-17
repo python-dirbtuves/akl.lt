@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'compressor',
     'taggit',
     'modelcluster',
+    'django_nose',
     'django.contrib.admin',
 
     'wagtail.wagtailcore',
@@ -177,3 +178,5 @@ LOGGING = {
         },
     }
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
