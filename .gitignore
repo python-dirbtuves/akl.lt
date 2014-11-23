@@ -71,3 +71,6 @@ tags
 
 # Environment
 .vagrant
+
+# Project configuration
+/buildout.cfg

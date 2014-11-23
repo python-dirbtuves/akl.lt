@@ -1,6 +1,8 @@
 # Taken from:
 # https://github.com/ProgrammersOfVilnius/zope-export-tools/blob/master/z2loader.py
 
+import codecs
+import configparser
 import pathlib
 
 
@@ -8,11 +10,10 @@ class Z2LoaderError(Exception):
     pass
 
 
-def skip_to_properties(lines):
-    for line in lines:
-        line = line.rstrip('\n')
-        if line == '[properties]':
-            break
+def unescape(value):
+    """Decode b'\xc5\xbe' to 'ž'"""
+    assert isinstance(value, str)
+    return codecs.escape_decode(value.encode())[0].decode()
 
 
 # pylint: disable=redefined-builtin,eval-used
@@ -26,42 +27,23 @@ def parse_value(filename, key, value):
             value = int(value)
     elif type == 'int':
         value = int(value)
-    elif type == 'string':
+    elif type in ('string', 'text', 'ustring'):
         pass
-    elif type == 'text':
-        value = value.decode('UTF-8')
-    elif type == 'ustring':
-        value = unicode(value, 'UTF-8')
     elif type in {'multiple selection', 'tokens'}:
-        value = [
-            s.decode('string-escape').decode('utf-8')
-            for s in eval(value)
-        ]
+        value = eval(unescape(value))
     else:
         raise Z2LoaderError('%s: unsupported type: %s' % (filename, type))
 
     return name, value
 
 
-def parse_properties(filename, lines):
+def parse_properties(filename, items):
     properties = {}
-    for line in lines:
-        line = line.rstrip('\n')
-        if line.startswith('['):
-            break
-        if line.startswith('#'):
-            continue
-        if not line.strip():
-            continue
-        if ' = ' not in line:
-            raise Z2LoaderError('%s: bad metadata line: %s' % (filename, line))
-        key, value = line.split(' = ', 1)
+    for key, value in items:
         if ':' not in key:
             raise Z2LoaderError('%s: bad metadata key: %s' % (filename, key))
-        value = (
-            value.decode('string-escape').
-            replace('&nbsp;', ' ')
-        )
+        value = unescape(value)
+        value = value.replace('&nbsp;', ' ')
         name, value = parse_value(filename, key, value)
         properties[name] = value
     return properties
@@ -70,6 +52,7 @@ def parse_properties(filename, lines):
 def load_metadata(filename):
     path = pathlib.Path(filename)
     assert path.exists()
-    with path.open('r') as f:
-        skip_to_properties(f)
-        return parse_properties(filename, f)
+    config = configparser.ConfigParser(delimiters=('=',))
+    config.read(str(path))
+    properties = config['properties']
+    return parse_properties(filename, properties.items())

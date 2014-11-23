@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('date', models.DateField(null=True)),
                 ('blurb', wagtail.wagtailcore.fields.RichTextField(blank=True)),
                 ('body', wagtail.wagtailcore.fields.RichTextField()),
-                ('image', models.ForeignKey(related_name=b'+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
+                ('image', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
             ],
             options={
                 'abstract': False,

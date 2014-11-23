@@ -17,7 +17,7 @@ from akllt.news.models import NewsStory
 def shorten_values(item):
     shortened = {}
     for key, value in item.items():
-        if isinstance(value, basestring) and len(value) > 24:
+        if isinstance(value, str) and len(value) > 24:
             shortened[key] = '%s...' % value[:24]
         else:
             shortened[key] = value

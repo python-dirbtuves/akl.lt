@@ -8,15 +8,9 @@ from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
 
 urlpatterns = patterns(
     '',
+    url(r'^$', 'akllt.news.views.news_items', name='index'),
     url(r'', include('akllt.news.urls')),
-    url(r'^$', 'akllt.views.index', name='index'),
-    url(r'^naujienos', 'akllt.views.naujienos', name='naujienos'),
-    url(r'^nuorodos', 'akllt.views.nuorodos', name='nuorodos'),
-    url(r'^atviras_kodas', 'akllt.views.atviras_kodas', name='atviras_kodas'),
-    url(r'^wiki', 'akllt.views.wiki', name='wiki'),
-    url(r'^programos', 'akllt.views.programos', name='programos'),
-    url(r'^apie', 'akllt.views.apie', name='apie'),
-
+    url(r'', include('akllt.stub.urls')),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^search/', include(wagtailsearch_frontend_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),

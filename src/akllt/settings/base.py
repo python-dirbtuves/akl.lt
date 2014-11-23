@@ -127,7 +127,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
 
 STATICFILES_DIRS = (
-    str(PROJECT_DIR / 'var/assets'),
+    str(PROJECT_DIR / 'parts/jquery'),
+    str(PROJECT_DIR / 'parts/bootstrap'),
+    str(PROJECT_DIR / 'parts/requirejs'),
 )
 
 
@@ -146,7 +148,7 @@ STATICFILES_FINDERS = (
 STATICFILES_STORAGE = 'require.storage.OptimizedStaticFilesStorage'
 REQUIRE_BASE_URL = 'js'
 REQUIRE_BUILD_PROFILE = 'app.build.js'
-REQUIRE_JS = '../requirejs/require.js'
+REQUIRE_JS = '../require.min.js'
 
 
 # django-ompressor settings
@@ -181,3 +183,4 @@ LOGGING = {
 }
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+SOUTH_TESTS_MIGRATE = False

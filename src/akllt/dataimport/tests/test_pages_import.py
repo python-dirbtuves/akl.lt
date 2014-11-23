@@ -3,9 +3,7 @@
 import pkg_resources
 import pathlib
 
-from django.test.testcases import TransactionTestCase
-from django.test import TestCase
-from homophony import BrowserTestCase, Browser
+from django_webtest import WebTest
 from wagtail.wagtailcore.models import Page
 
 from akllt.pages.models import StandardPage
@@ -15,33 +13,27 @@ def import_pages(directory):
     assert pathlib.Path(directory).exists()
 
 
-class SmokeTest(TransactionTestCase):
+class SmokeTest(WebTest):
 
     def test_nothing(self):
-        self.client.get('/')
+        self.app.get('/')
 
 
-class FoobarTestCase(BrowserTestCase):
+class FoobarTestCase(WebTest):
 
     def test_home(self):
-        browser = Browser()
-        browser.open('http://testserver')
-        browser.getLink('Naujienos').click()
-        self.assertEquals(browser.title, 'Atviras Kodas Lietuvai')
+        index = self.app.get('/')
+        assert 'Atviras Kodas Lietuvai' in index.click('Naujienos')
 
 
-class ImportTestCase(BrowserTestCase, TestCase):
+class ImportTestCase(WebTest):
 
     def test_import(self):  # pylint: disable=no-self-use
         import_pages(pkg_resources.resource_filename(
             'akllt', 'dataimport/tests/fixtures/pages'
         ))
-        browser = Browser()
-        browser.open('http://testserver')
-        browser.getLink('Apie').click()
-        # expected_content = pkg_resources.resource_string(
-        #     'akllt', 'test_data/pages/apie.html')
-        # self.assertTrue(expected_content in browser.contents)
+        index = self.app.get('/')
+        index.click('Apie')
 
     def test_create_page(self):  # pylint: disable=no-self-use
         homepage = Page.objects.get(id=2)
@@ -51,4 +43,4 @@ class ImportTestCase(BrowserTestCase, TestCase):
             body='Turinys',
             slug='atviras-kodas-lietuvai',
             live=True))
-        Browser('http://testserver/atviras-kodas-lietuvai/')
+        self.app.get('/atviras-kodas-lietuvai/')

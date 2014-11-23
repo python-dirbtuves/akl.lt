@@ -9,12 +9,12 @@
 <head>
     <title>{% trans "Atviras Kodas Lietuvai" %}</title>
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/dist/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-theme.css" %}">
     <link rel="stylesheet" type="text/x-scss" href="{% static "css/style.scss" %}">
     {% endcompress %}
-    <script src="{% static "jquery/dist/jquery.js" %}"></script>
-    <script src="{% static "bootstrap/dist/js/bootstrap.js" %}"></script>
+    <script src="{% static "jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
     {% require_module 'main' %}
 </head>
 <body>
