@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from pathlib import Path
 from django.conf import global_settings as defaults
 
-PROJECT_DIR = Path(__file__).parents[3]
+PROJECT_DIR = Path(__file__).parents[2]
 
 
 # Quick-start development settings - unsuitable for production
