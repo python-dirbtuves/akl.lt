@@ -1,6 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+import pathlib
 import datetime
 import unittest
 import pkg_resources
@@ -10,8 +11,14 @@ from operator import itemgetter
 import django.test
 from django.core.management import call_command
 
-from akllt.dataimport.news import import_news
+import akllt.dataimport.news as newsparser
 from akllt.news.models import NewsStory
+
+
+def fixture(path):
+    return pathlib.Path(pkg_resources.resource_filename(
+        'akllt', 'dataimport/tests/fixtures/%s' % path
+    ))
 
 
 def shorten_values(item):
@@ -25,13 +32,23 @@ def shorten_values(item):
 
 
 class NewsExportReadTests(unittest.TestCase):
-    def test_iter_news(self):
-        news_folder = pkg_resources.resource_filename(
+    def setUp(self):
+        self.news_dir = pkg_resources.resource_filename(
             'akllt', 'dataimport/tests/fixtures/naujienos'
         )
-        news = import_news(news_folder)
 
-        news_items = sorted(map(shorten_values, news), key=itemgetter('url'))
+    def test_iter_news_files(self):
+        news_items = newsparser.iter_news_files(self.news_dir)
+        self.assertEqual(sorted([p.name for p in news_items]), [
+            'naujiena_0001', 'naujiena_1016',
+        ])
+
+    def test_parse_metadata(self):
+        files = newsparser.iter_news_files(self.news_dir)
+        news_items = map(newsparser.parse_metadata, files)
+
+        sort_by_url = itemgetter('url')
+        news_items = sorted(map(shorten_values, news_items), key=sort_by_url)
 
         eq = self.assertEqual
 
@@ -91,22 +108,13 @@ class NewsExportReadTests(unittest.TestCase):
         )
 
     def test_null_date(self):
-        news_folder = pkg_resources.resource_filename(
-            'akllt', 'dataimport/tests/fixtures/null_date_naujiena'
-        )
-        news_items = list(import_news(news_folder))
-
-        self.assertIsNone(news_items[0]['date'])
+        path = fixture('null_date_naujiena/naujiena_0183')
+        news_item = newsparser.parse_metadata(path)
+        self.assertIsNone(news_item['date'])
 
 
 class NewsImportCommandTests(django.test.TestCase):
     def test_command(self):
         self.assertEqual(NewsStory.objects.count(), 0)
-        call_command(
-            'akllt_importnews',
-            pkg_resources.resource_filename(
-                'akllt',
-                'dataimport/tests/fixtures/naujienos'
-            )
-        )
+        call_command('akllt_importnews', fixture('naujienos'), verbosity=0)
         self.assertEqual(NewsStory.objects.count(), 2)

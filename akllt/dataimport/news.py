@@ -2,6 +2,7 @@ import datetime
 import pathlib
 
 from akllt.dataimport.z2loader import load_metadata
+from akllt.news.models import NewsStory
 
 
 def parse_date(datestring):
@@ -33,3 +34,12 @@ def iter_news_files(directory):
     for item in path.iterdir():
         if item.name.startswith('naujiena_'):
             yield item
+
+
+def import_news_item(root, news_item):
+    root.add_child(instance=NewsStory(
+        title=news_item['title'],
+        date=news_item['date'],
+        blurb=news_item['blurb'],
+        body=news_item['body'],
+    ))
