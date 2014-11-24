@@ -27,6 +27,7 @@ setup(
         'django-webtest',
         'lxml',
         'wagtail',
+        'tqdm',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',

@@ -11,7 +11,17 @@ def parse_date(datestring):
         return None
 
 
-def import_news(directory):
+def parse_metadata(path):
+    z2meta_filename = path.parent / '.z2meta' / path.name
+    news_story = load_metadata(z2meta_filename)
+    news_story['date'] = parse_date(news_story.get('date'))
+    with path.open() as f:
+        news_story['body'] = f.read()
+    news_story['url'] = path.name
+    return news_story
+
+
+def iter_news_files(directory):
     """Reads news from given directory.
 
     Directory should contain Zope export, like this one:
@@ -22,10 +32,4 @@ def import_news(directory):
     assert path.exists()
     for item in path.iterdir():
         if item.name.startswith('naujiena_'):
-            z2meta_filename = item.parent / '.z2meta' / item.name
-            news_story = load_metadata(z2meta_filename)
-            news_story['date'] = parse_date(news_story.get('date'))
-            with item.open() as f:
-                news_story['body'] = f.read()
-            news_story['url'] = item.name
-            yield news_story
+            yield item
