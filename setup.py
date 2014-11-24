@@ -17,7 +17,7 @@ setup(
     install_requires=[
         'django',
         'coverage',
-        # We have to specifie webtest explicitly, because of this bug:
+        # We have to specify webtest explicitly, because of this bug:
         # https://github.com/kmike/django-webtest/issues/28
         'webtest',
         'django-nose',
