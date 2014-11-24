@@ -31,9 +31,21 @@ def iter_news_files(directory):
 
 
 def import_news_item(root, news_item):
-    root.add_child(instance=NewsStory(
-        title=news_item['title'],
-        date=news_item['date'],
-        blurb=news_item['blurb'],
-        body=news_item['body'],
-    ))
+    try:
+        instance = NewsStory.objects.get(slug=news_item['url'])
+    except NewsStory.DoesNotExist:
+        instance = NewsStory(slug=news_item['url'])
+
+    instance.title = news_item['title']
+    instance.date = news_item['date']
+    instance.blurb = news_item['blurb']
+    instance.body = news_item['body']
+
+    if instance.pk:
+        created = False
+        instance.save()
+    else:
+        created = True
+        instance = root.add_child(instance=instance)
+
+    return instance, created

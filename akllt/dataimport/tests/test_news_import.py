@@ -11,6 +11,8 @@ from operator import itemgetter
 import django.test
 from django.core.management import call_command
 
+from wagtail.wagtailcore.models import Page
+
 import akllt.dataimport.news as newsparser
 from akllt.news.models import NewsStory
 
@@ -111,6 +113,24 @@ class NewsExportReadTests(unittest.TestCase):
         path = fixture('null_date_naujiena/naujiena_0183')
         news_item = newsparser.parse_metadata(path)
         self.assertIsNone(news_item['date'])
+
+    def test_duplicates(self):
+        news_item = {
+            'date': datetime.date(2002, 10, 15),
+            'title': 'Konkursas',
+            'blurb': '<p>Vilniuje, dvi dienas ...',
+            'body': '<p>Vilniuje, dvi dienas ...',
+            'url': 'naujiena_0001',
+        }
+        root = Page.get_first_root_node()
+
+        inst_1, created_1 = newsparser.import_news_item(root, news_item)
+        self.assertTrue(created_1)
+
+        inst_2, created_2 = newsparser.import_news_item(root, news_item)
+        self.assertFalse(created_2)
+
+        self.assertEqual(inst_1.pk, inst_2.pk)
 
 
 class NewsImportCommandTests(django.test.TestCase):
