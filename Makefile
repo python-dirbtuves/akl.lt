@@ -48,13 +48,13 @@ parts:
 
 clean:
 	rm -rf akl.lt.egg-info bin develop-eggs include .installed.cfg lib \
-		   local parts share $(wildcard src/node-v0.*.*-*-*/) \
+		   local parts share \
 		   var eggs
-	find src -type f -iname '*.egg-info' -delete
-	find src -type f -iname '*.py[co]' -delete
+	find akllt -type f -iname '*.egg-info' -delete
+	find akllt -type f -iname '*.py[co]' -delete
 
 cleanpyc:
-	find src -type f -iname '*.py[co]' -delete
+	find akllt -type f -iname '*.py[co]' -delete
 
 run: bin/django
 	bin/django runserver 0.0.0.0:8000
@@ -65,10 +65,10 @@ test: bin/django
 	bin/django test --nologcapture --with-coverage --cover-package=akllt 
 
 flake8: bin/flake8
-	bin/flake8 --exclude=migrations src/akllt || true
+	bin/flake8 --exclude=migrations akllt || true
 
 pylint: bin/pylint
-	bin/pylint src/akllt || true
+	bin/pylint akllt || true
 
 tags: bin/django
 	bin/ctags -v --tag-relative

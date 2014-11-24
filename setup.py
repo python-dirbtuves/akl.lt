@@ -13,8 +13,7 @@ setup(
     author_email='python-dirbtuves@googlegroups.com',
     license='AGPL',
     keywords='website',
-    package_dir={'': 'src'},
-    packages=find_packages('src', exclude=['tests*']),
+    packages=find_packages(exclude=['tests*']),
     install_requires=[
         'django',
         'coverage',
