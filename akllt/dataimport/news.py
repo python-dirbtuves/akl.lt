@@ -23,12 +23,6 @@ def parse_metadata(path):
 
 
 def iter_news_files(directory):
-    """Reads news from given directory.
-
-    Directory should contain Zope export, like this one:
-
-        https://github.com/mgedmin/akl.lt-zope-export
-    """
     path = pathlib.Path(directory)
     assert path.exists()
     for item in path.iterdir():
