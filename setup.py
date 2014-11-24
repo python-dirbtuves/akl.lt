@@ -28,6 +28,7 @@ setup(
         'lxml',
         'wagtail',
         'tqdm',
+        'django-extensions',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
