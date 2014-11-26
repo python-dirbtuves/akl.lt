@@ -1,10 +1,13 @@
+import sys
+
 import tqdm
 
 from django.core.management.base import BaseCommand
 
 from wagtail.wagtailcore.models import Page
 
-import akllt.dataimport.news  as newsparser
+import akllt.dataimport.news as newsparser
+from akllt.news.models import NewsIndex
 
 
 class Command(BaseCommand):
@@ -15,9 +18,20 @@ class Command(BaseCommand):
         verbosity = int(options['verbosity'])
         n_created = 0
         n_updated = 0
-        root = Page.get_first_root_node()
-        if root is None:
-            root = Page.add_root(title='Root page')
+
+        try:
+            root = Page.objects.get(url_path='/')
+        except Page.DoesNotExist:
+            self.stderr.write('Can\'t find Wagtail root page.')
+            sys.exit(1)
+
+        try:
+            news_index = NewsIndex.objects.descendant_of(root).get()
+        except NewsIndex.DoesNotExist:
+            news_index = root.add_child(instance=NewsIndex(
+                title='Naujienos',
+                url_path='/naujienos',
+            ))
 
         if verbosity == 1:
             files = tqdm.tqdm(list(newsparser.iter_news_files(news_folder)))
@@ -29,7 +43,7 @@ class Command(BaseCommand):
                 self.stdout.write(str(path))
             try:
                 news_item = newsparser.parse_metadata(path)
-                _, created = newsparser.import_news_item(root, news_item)
+                _, created = newsparser.import_news_item(news_index, news_item)
             except:
                 self.stdout.write(
                     '\n\nError occured while importing %s news file.' % path
