@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'wagtail.wagtailforms',
     'wagtail.wagtailsites',
 
+    'akllt.homepage',
     'akllt.web',
     'akllt.dataimport',
     'akllt.common',
