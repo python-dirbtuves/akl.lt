@@ -29,6 +29,7 @@ setup(
         'wagtail',
         'tqdm',
         'django-extensions',
+        'django-allauth',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
