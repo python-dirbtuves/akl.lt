@@ -7,6 +7,7 @@ from django_webtest import WebTest
 from wagtail.wagtailcore.models import Page
 
 from akllt.pages.models import StandardPage
+from akllt.common.testing.sitefixtures import set_up_site
 
 
 def import_pages(directory):
@@ -19,21 +20,15 @@ class SmokeTest(WebTest):
         self.app.get('/')
 
 
-class FoobarTestCase(WebTest):
-
-    def test_home(self):
-        index = self.app.get('/')
-        assert 'Atviras Kodas Lietuvai' in index.click('Naujienos')
-
-
 class ImportTestCase(WebTest):
 
-    def test_import(self):  # pylint: disable=no-self-use
+    def test_import(self):
+        set_up_site()
         import_pages(pkg_resources.resource_filename(
             'akllt', 'dataimport/tests/fixtures/pages'
         ))
         index = self.app.get('/')
-        index.click('Apie')
+        index.click('Apie AKL')
 
     def test_create_page(self):  # pylint: disable=no-self-use
         homepage = Page.objects.get(id=2)
