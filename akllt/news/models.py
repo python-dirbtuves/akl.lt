@@ -14,6 +14,8 @@ from taggit.models import TaggedItemBase
 
 
 class NewsIndex(Page):
+    subpage_types = ['news.NewsStory']
+
     def get_context(self, request, *args, **kwargs):
         return {
             'self': self,
