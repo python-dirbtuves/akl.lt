@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+{% load static from staticfiles %}
+{% load richtext from wagtailcore_tags %}
+
+{% block content %}
+<div class="news-story">
+    <h1>{{ self.title }}</h1>
+    <p><strong>{{ self.date|date:"DATE_FORMAT" }}</strong></p>
+
+    <p><small>{{ self.blurb|richtext }}</small></p>
+
+    <p>{{ self.body|richtext }}</p>
+</div>
+{% endblock %}

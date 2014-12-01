@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+{% load static from staticfiles %}
+{% load pageurl from wagtailcore_tags %}
+
+{% block content %}
+<h3>Atviro kodo naujienos<img src="{% static "images/akl-web-site/rss.png" %}"></h3>
+<p><img src="{% static "images/akl-web-site/lamp.png" %}"><a href="#">Pasiūlyk naujieną!</a></p>
+
+<div class="news-content">
+    {% for news_item in news_items %}
+    <h4><a href="{% pageurl news_item %}">{{ news_item.date }} {{ news_item.title }}</a></h4>
+    <p>{{ news_item.blurb|safe }}</p>
+    <p><a href="{% pageurl news_item %}">daugiau...</a></p>
+    {% endfor %}
+</div>
+{% endblock %}

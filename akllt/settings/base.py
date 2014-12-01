@@ -54,7 +54,9 @@ INSTALLED_APPS = (
     'wagtail.wagtailsearch',
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
+    'wagtail.wagtailsites',
 
+    'akllt.homepage',
     'akllt.web',
     'akllt.dataimport',
     'akllt.common',
@@ -97,7 +99,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'lt'
 
 TIME_ZONE = 'UTC'
 

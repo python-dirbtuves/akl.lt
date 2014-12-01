@@ -110,6 +110,21 @@ $dark-link-color: #CBD5D9;
 }
 .news-content {
     margin-left: 15px;
+    h4 {
+        a {
+            color: $link-color;
+        }
+    }
+}
+
+.news-story {
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    p {
+        padding-bottom: 10px;
+    }
 }
 
 .footer {
