@@ -4,6 +4,8 @@
 {% load compress from compress %}
 {% load slugurl from wagtailcore_tags %}
 {% load wagtailuserbar from wagtailuserbar %}
+{% load top_menu from navtags %}
+{% load sidebar_menu from navtags %}
 
 <!DOCTYPE html>
 <html>
@@ -41,14 +43,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 top-menu">
-                <ul class="nav nav-tabs">
-                    <li><a href="{% slugurl "naujienos" %}">Naujienos</a></li>
-                    <li><a href="apie">Apie AKL</a></li>
-                    <li><a href="atviras_kodas">Atviras kodas</a></li>
-                    <li><a href="programos">Programos</a></li>
-                    <li><a href="nuorodos">Nuorodos</a></li>
-                    <li><a href="wiki">Wiki</a></li>
-                </ul>
+                {% top_menu %}
             </div>
         </div>
         <div class="row">
@@ -58,6 +53,8 @@
             </div>
             <div class="col-md-4 side-menu">
                 {% block side-menu %}
+                {% sidebar_menu %}
+
                 <ul class="nav nav-pills nav-stacked">
                 <li><img src="{% static "images/akl-web-site/planet.png" %}">Blogerių Planeta</li>
                 </ul>

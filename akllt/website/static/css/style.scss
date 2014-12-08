@@ -73,17 +73,28 @@ $dark-link-color: #CBD5D9;
         background-image: url(/static/images/hand-trail.png);
         background-repeat: no-repeat;
         background-position: bottom right;
+        padding-top: 6px;
         li {
             padding-left: 16px;
             padding-right: 16px;
-        }
-        a {
-            color: #4D4D4D;
-            font-weight: bold;
-            &:hover {
-                color: white;
+            a {
+                padding-top: 4px;
+                color: #4D4D4D;
+                font-weight: bold;
+                &:hover {
+                    color: white;
+                    background-color: transparent;
+                    border-color: transparent;
+                }
+            }
+
+            &.active, &.active:hover {
                 background-color: transparent;
                 border-color: transparent;
+                a {
+                    cursor: pointer;
+                    background-color: white;
+                }
             }
         }
     }

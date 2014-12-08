@@ -7,5 +7,4 @@ urlpatterns = patterns(
     url(r'^atviras_kodas', 'atviras_kodas', name='atviras_kodas'),
     url(r'^wiki', 'wiki', name='wiki'),
     url(r'^programos', 'programos', name='programos'),
-    url(r'^apie', 'apie', name='apie'),
 )
