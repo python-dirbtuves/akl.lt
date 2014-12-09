@@ -1,41 +1,49 @@
-# coding: utf-8
+from django.test import TestCase
 
-import pkg_resources
-import pathlib
-
-from django_webtest import WebTest
+from wagtail.wagtailcore.models import Site
 from wagtail.wagtailcore.models import Page
 
-from akllt.pages.models import StandardPage
-from akllt.common.testing.sitefixtures import set_up_site
+from akllt.dataimport.tests.utils import fixture
+from akllt.dataimport.importers.base import ImportItem
+from akllt.dataimport.importers.pages import PagesImporter
 
 
-def import_pages(directory):
-    assert pathlib.Path(directory).exists()
+class PagesImporterTests(TestCase):
+    def setUp(self):
+        root = Site.objects.get(is_default_site=True).root_page
+        self.importer = PagesImporter('Atviras kodas', 'ak')
+        self.importer.set_up(root, fixture('whole_export'))
 
+    def test_iterate_paths(self):
+        base = fixture('whole_export')
+        paths = self.importer.iterate_paths()
+        self.assertEqual(sorted([str(p.relative_to(base)) for p in paths]), [
+            'ak',
+            'ak/atviri_standartai',
+            'ak/atviri_standartai.html',
+            'ak/atviri_standartai/atviri_standartai.zpt',
+        ])
 
-class SmokeTest(WebTest):
-
-    def test_nothing(self):
-        self.app.get('/')
-
-
-class ImportTestCase(WebTest):
+    def test_parse_metadata(self):
+        item = ImportItem(path=self.importer.path)
+        data = self.importer.parse_metadata(item)
+        self.assertEqual(data, {
+            'url': 'ak',
+            'date': None,
+            'title': 'atviras kodas',
+            'body': '',
+        })
 
     def test_import(self):
-        set_up_site()
-        import_pages(pkg_resources.resource_filename(
-            'akllt', 'dataimport/tests/fixtures/pages'
-        ))
-        index = self.app.get('/')
-        index.click('Apie AKL')
+        for item in self.importer.iterate_items():
+            self.importer.import_(item)
 
-    def test_create_page(self):  # pylint: disable=no-self-use
-        homepage = Page.objects.get(id=2)
-        homepage.add_child(instance=StandardPage(
-            title='Atviras kodas Lietuvai',
-            intro='Atviras kodas Lietuvai',
-            body='Turinys',
-            slug='atviras-kodas-lietuvai',
-            live=True))
-        self.app.get('/atviras-kodas-lietuvai/')
+        pages = Page.objects.values_list('url_path', flat=True)
+        self.assertEqual(list(pages), [
+            '/',
+            '/home/',
+            '/home/ak/',
+            '/home/atviri_standartai/',
+            '/home/atviri_standartai.html/',
+            '/home/atviri_standartai.zpt/',
+        ])

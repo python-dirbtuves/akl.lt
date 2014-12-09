@@ -51,7 +51,7 @@ def parse_properties(filename, items):
 
 def load_metadata(filename):
     path = pathlib.Path(filename)
-    assert path.exists()
+    assert path.exists(), path
     config = configparser.RawConfigParser(delimiters=('=',))
     config.read(str(path))
     properties = config['properties']
