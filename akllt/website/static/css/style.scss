@@ -73,12 +73,13 @@ $dark-link-color: #CBD5D9;
         background-image: url(/static/images/hand-trail.png);
         background-repeat: no-repeat;
         background-position: bottom right;
-        padding-top: 6px;
+        padding-top: 2px;
         li {
             padding-left: 16px;
             padding-right: 16px;
             a {
-                padding-top: 4px;
+                padding: 6px 16px;
+                padding-bottom: 8px;
                 color: #4D4D4D;
                 font-weight: bold;
                 &:hover {
@@ -173,14 +174,10 @@ $dark-link-color: #CBD5D9;
         }
     }
 }
-.nav-pills > li > a:link, .nav-pills > li > a:hover {
+.nav-pills > li > a:link {
     background-color: $menu-color;
     color: $link-color
-    }
-.nav-pills > li > a:visited {
-    background-color: $menu-color;
-    color: black;
-    }
+}
 .nav-pills > li {
     background-color: $menu-color;
     @include border-radius($border-radius);
@@ -195,55 +192,3 @@ $dark-link-color: #CBD5D9;
     background-color: $menu-color;
     @include border-bottom-radius($border-radius);
 }
-/*
-.border-square {
-border-width: 1px;
-    background-color: #E6E6E6;
-    padding: 2px;
-    margin: 4px;
-}
-
-.border-top-round {
-    border-width: 1px;
-    background-color: #E6E6E6;
-    border-top-right-radius: $border-radius;
-    border-top-left-radius: $border-radius;
-    padding: 2px;
-    margin: 4px;
-}
-
-.border-bottom-round {
-    border-width: 1px;
-    background-color: #E6E6E6;
-    border-bottom-right-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
-    padding: 2px;
-    margin: 4px;
-}
-
-.nav-pills > .active > a, .nav-pills > .active > a:hover {
-    color: red;
-}
-
-.menu-item {
-    background-color: #E6E6E6;
-    border-radius: $border-radius;
-    padding: 0px;
-    margin: 4px;
-    img {
-        padding: 4px;
-    }
-}	
-
-.menu-border{
-    border-style: solid;
-    border-width: 1px;
-    border-color: #E6E6E6;
-    border-radius: $border-radius;
-    padding: 2px;
-    margin: 4px;
-    img {
-        padding: 4px;
-    }
-}
-*/
