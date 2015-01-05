@@ -42,9 +42,7 @@ class BaseImporter(object):
             ))
 
     def get_root_page(self, root):
-        self.root = root
-        url_path = posixpath.join(root.url_path, self.page_slug)
-        return self.get_page(url_path)
+        return root
 
     def get_relative_url_path(self, path):
         relative_url_path = path.parent.relative_to(self.path).as_posix()
