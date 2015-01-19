@@ -34,7 +34,6 @@ class Command(BaseCommand):
             PagesImporter('nuorodos', 'Nuorodos'),
         ])
 
-
         if verbosity == 1:
             items = tqdm.tqdm(manager.iterate(), total=manager.get_total())
         else:

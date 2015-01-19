@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 
 import datetime
-import unittest
 
 from operator import itemgetter
 
+from django.test import TestCase
 from wagtail.wagtailcore.models import Site
+from wagtail.wagtailcore.models import Page
 
+from akllt.dataimport.importmanager import ImportManager
 from akllt.dataimport.importers.base import ImportItem
 from akllt.dataimport.importers.news import NewsImporter
 from akllt.dataimport.tests.utils import fixture
@@ -23,7 +25,7 @@ def shorten_values(item):
     return shortened
 
 
-class NewsExportReadTests(unittest.TestCase):
+class NewsExportReadTests(TestCase):
     def test_iter_news_files(self):
         importer = NewsImporter('Naujienos', 'naujienos')
         importer.path = importer.get_path(fixture(''))
@@ -115,10 +117,26 @@ class NewsExportReadTests(unittest.TestCase):
         importer = NewsImporter('Naujienos', 'naujienos')
         importer.root = importer.get_root_page(root)
 
-        inst_1, created_1 = importer.import_item(data)
+        inst_1, created_1 = importer.import_item(root, data)
         self.assertTrue(created_1)
 
-        inst_2, created_2 = importer.import_item(data)
+        inst_2, created_2 = importer.import_item(root, data)
         self.assertFalse(created_2)
 
         self.assertEqual(inst_1.pk, inst_2.pk)
+
+    def test_manager(self):
+        export_dir = fixture('')
+        root = Site.objects.get(is_default_site=True).root_page
+        manager = ImportManager(root, export_dir)
+        manager.add_importers([NewsImporter('Naujienos', 'naujienos')])
+        for importer, item in manager.iterate():
+            importer.import_(item)
+
+        slugs = Page.objects.order_by('slug').values_list('slug', flat=True)
+        self.assertEqual(list(slugs), [
+            'home', 'naujiena_0001', 'naujiena_1016', 'root',
+        ])
+
+        page = Page.objects.get(slug='naujiena_0001')
+        self.assertEqual(page.title, 'Konkursas')
