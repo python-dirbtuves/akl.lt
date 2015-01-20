@@ -3,7 +3,6 @@ import collections
 import datetime
 import functools
 import pathlib
-import posixpath
 
 from wagtail.wagtailcore.models import Page
 
@@ -31,28 +30,11 @@ class BaseImporter(object):
     def get_path(self, base_path):
         return base_path / self.page_slug
 
-    def get_page(self, root):
-        descendants = self.root_page_class.objects.descendant_of(root)
-        try:
-            return descendants.get(url_path=url_path)
-        except self.root_page_class.DoesNotExist:
-            return root.add_child(instance=self.root_page_class(
-                title=self.page_title,
-                url_path=url_path,
-            ))
-
     def get_root_page(self, root):
         return root
 
-    def get_relative_url_path(self, path):
-        relative_url_path = path.parent.relative_to(self.path).as_posix()
-        return posixpath.join(self.root.url_path, relative_url_path)
-
     def get_parent_page(self, path):
-        if self.path == path.parent:
-            return self.root
-        else:
-            return self.get_page(self.get_parent_page(path.parent))
+        return self.root
 
     def iterate_paths(self):
         for base, dirnames, filenames in os.walk(str(self.path)):
