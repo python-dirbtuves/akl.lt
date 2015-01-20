@@ -1,8 +1,11 @@
+from operator import itemgetter
+
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
 from wagtail.wagtailcore.models import Page
 
+from akllt.dataimport.wagtail import get_root_page
 from akllt.dataimport.tests.utils import fixture
 from akllt.dataimport.importers.base import ImportItem
 from akllt.dataimport.importers.pages import PagesImporter
@@ -50,15 +53,14 @@ class PagesImporterTests(TestCase):
         })
 
     def test_import(self):
-        for item in self.importer.iterate_items():
-            self.importer.import_(item)
-
-        pages = Page.objects.values_list('url_path', flat=True)
-        self.assertEqual(sorted(pages), [
-            '/',
-            '/home/',
-            '/home/ak/',
-            '/home/ak/atviri_standartai.html/',
-            '/home/ak/atviri_standartai/',
-            '/home/ak/atviri_standartai/atviri_standartai.zpt/',
+        all(map(self.importer.import_, self.importer.iterate_items()))
+        root = get_root_page()
+        pages = Page.objects.descendant_of(root).values_list('title', 'url_path')
+        import pprint; pprint.pprint(sorted(pages, key=itemgetter(1)))
+        self.assertEqual(sorted(pages, key=itemgetter(1)), [
+            ('Atviras kodas', '/home/ak/'),
+            ('Atviri standartai', '/home/ak/atviri_standartai.html/'),
+            ('Atviri standartai', '/home/ak/atviri_standartai/'),
+            ('Atviri standartai, protokolai, formatai. Kodėl Lietuvai jų reikia?',
+             '/home/ak/atviri_standartai/atviri_standartai.zpt/'),
         ])
