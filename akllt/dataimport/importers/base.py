@@ -15,6 +15,30 @@ ImportItem.__new__ = functools.partial(
 
 
 class BaseImporter(object):
+    """
+
+    Whole importer workflow:
+
+    1. __init__(page_title, page_slug) called from management command
+
+    2. set_up(root_page, base_path) called from ImportManager.add_importers
+
+    3. path = iterate_items() called from ImportManager.iterate
+
+       1. item = iterate_paths()
+
+          1. item = import_(item) called from management command
+
+             1. data = parse_metadata(item)
+
+             2. parent = get_parent_page(item.path)
+
+             3. page, created = import_item(parent, data)
+
+                1. prepare_instance(page, data)
+
+    """
+
     model_class = Page
     root_page_class = Page
 
