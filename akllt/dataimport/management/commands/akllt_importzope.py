@@ -1,12 +1,12 @@
-import sys
-
 import tqdm
 
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Site
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
-from akllt.dataimport.exceptions import ImporterError
+from akllt.homepage.models import IndexPage
 from akllt.dataimport.importmanager import ImportManager
-from akllt.dataimport.wagtail import get_root_page
 from akllt.dataimport.importers.news import NewsImporter
 from akllt.dataimport.importers.pages import PagesImporter
 
@@ -17,21 +17,28 @@ class Command(BaseCommand):
 
     def handle(self, export_dir, *args, **options):
         verbosity = int(options['verbosity'])
-        try:
-            root = get_root_page()
-        except ImporterError as e:
-            self.stderr.write(e)
-            sys.exit(1)
 
-        manager = ImportManager(root, export_dir)
+        User.objects.create_superuser('admin', 'admin@localhost', 'admin')
+
+        root = Page.objects.get(url_path='/')
+        site_root = root.add_child(instance=IndexPage(
+            title='AKL',
+            slug='akl',
+        ))
+
+        site = Site.objects.get(is_default_site=True)
+        site.root_page = site_root
+        site.save()
+
+        manager = ImportManager(site_root, export_dir)
         manager.add_importers([
             NewsImporter('Naujienos', 'naujienos'),
-            PagesImporter('ak', 'Atviras kodas'),
-            PagesImporter('apie', 'Apie AKL'),
-            PagesImporter('projektai', 'Projektai'),
-            PagesImporter('skaitykla', 'Skaitykla'),
-            PagesImporter('remejai', 'Rėmėjai'),
-            PagesImporter('nuorodos', 'Nuorodos'),
+            PagesImporter('Atviras kodas', 'ak'),
+            PagesImporter('Apie AKL', 'apie', ),
+            PagesImporter('Projektai', 'projektai'),
+            PagesImporter('Skaitykla', 'skaitykla'),
+            PagesImporter('Rėmėjai', 'remejai'),
+            PagesImporter('Nuorodos', 'nuorodos'),
         ])
 
         if verbosity == 1:

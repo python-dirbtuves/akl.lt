@@ -1,0 +1,16 @@
+## Script (Python) "list"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##parameters=
+##title=
+##
+return [
+#    'apie.html',
+    'kategorijos.html',
+    'copyleft.html',
+    'gpl.html',
+    'lgpl.html',
+]

@@ -39,7 +39,7 @@ class NewsExportReadTests(TestCase):
         importer.path = importer.get_path(fixture(''))
         items = importer.iterate_items()
         data = map(importer.parse_metadata, items)
-        data = sorted(map(shorten_values, data), key=itemgetter('url'))
+        data = sorted(map(shorten_values, data), key=itemgetter('slug'))
 
         eq = self.assertEqual
 
@@ -50,7 +50,7 @@ class NewsExportReadTests(TestCase):
             'title': 'Konkursas',
             'blurb': '<p>Vilniuje, dvi dienas ...',
             'body': '<p>Vilniuje, dvi dienas ...',
-            'url': 'naujiena_0001',
+            'slug': 'naujiena_0001',
         })
 
         eq(len(data[1]), 10)
@@ -110,17 +110,17 @@ class NewsExportReadTests(TestCase):
             'title': 'Konkursas',
             'blurb': '<p>Vilniuje, dvi dienas ...',
             'body': '<p>Vilniuje, dvi dienas ...',
-            'url': 'naujiena_0001',
+            'slug': 'naujiena_0001',
         }
 
         root = Site.objects.get(is_default_site=True).root_page
         importer = NewsImporter('Naujienos', 'naujienos')
         importer.root = importer.get_root_page(root)
 
-        inst_1, created_1 = importer.import_item(root, data)
+        inst_1, created_1 = importer.create_page(root, data)
         self.assertTrue(created_1)
 
-        inst_2, created_2 = importer.import_item(root, data)
+        inst_2, created_2 = importer.create_page(root, data)
         self.assertFalse(created_2)
 
         self.assertEqual(inst_1.pk, inst_2.pk)
@@ -133,9 +133,9 @@ class NewsExportReadTests(TestCase):
         for importer, item in manager.iterate():
             importer.import_(item)
 
-        slugs = Page.objects.order_by('slug').values_list('slug', flat=True)
-        self.assertEqual(list(slugs), [
-            'home', 'naujiena_0001', 'naujiena_1016', 'root',
+        slugs = Page.objects.values_list('slug', flat=True)
+        self.assertEqual(sorted(slugs), [
+            'home', 'naujiena_0001', 'naujiena_1016', 'naujienos', 'root',
         ])
 
         page = Page.objects.get(slug='naujiena_0001')

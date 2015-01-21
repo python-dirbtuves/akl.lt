@@ -16,4 +16,4 @@ class ImportManagerTests(TestCase):
             NewsImporter('Naujienos', 'naujienos'),
             PagesImporter('Atviras kodas', 'ak'),
         ])
-        self.assertEqual(manager.get_total(), 5)
+        self.assertEqual(manager.get_total(), 11)

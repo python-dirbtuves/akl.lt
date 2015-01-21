@@ -1,6 +1,7 @@
 # Taken from:
 # https://github.com/ProgrammersOfVilnius/zope-export-tools/blob/master/z2loader.py
 
+import re
 import codecs
 import configparser
 import pathlib
@@ -56,3 +57,13 @@ def load_metadata(filename):
     config.read(str(path))
     properties = config['properties']
     return parse_properties(filename, properties.items())
+
+
+def parse_list_file(path):
+    items = []
+    with path.open() as f:
+        for line in f:
+            match = re.match(r"^ +'([^']+)',$", line)
+            if match:
+                items.append(match.group(1))
+    return items

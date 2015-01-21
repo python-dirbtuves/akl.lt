@@ -23,19 +23,23 @@ class BaseImporter(object):
 
     2. set_up(root_page, base_path) called from ImportManager.add_importers
 
-    3. path = iterate_items() called from ImportManager.iterate
+    3. iterate_items() yields item, called from ImportManager.iterate
 
-       1. item = iterate_paths()
+       1. iterate_paths() yields path
 
-          1. item = import_(item) called from management command
+    4. item = import_(item) called from management command
 
-             1. data = parse_metadata(item)
+        1. data = parse_metadata(item)
 
-             2. parent = get_parent_page(item.path)
+        2. parent = get_parent_page(item.path)
 
-             3. page, created = import_item(parent, data)
+           3. page, created = create_page(parent, data)
 
-                1. prepare_instance(page, data)
+              1. prepare_page_instance(page, data)
+
+        3. page, created = create_page(parent, data)
+
+           1. prepare_page_instance(page, data)
 
     """
 
@@ -55,7 +59,10 @@ class BaseImporter(object):
         return base_path / self.page_slug
 
     def get_root_page(self, root):
-        return root
+        return root.add_child(instance=self.root_page_class(
+            title=self.page_title,
+            slug=self.page_slug,
+        ))
 
     def get_parent_page(self, path):
         return self.root
@@ -63,6 +70,12 @@ class BaseImporter(object):
     def iterate_paths(self):
         for base, dirnames, filenames in os.walk(str(self.path)):
             base = pathlib.Path(base)
+
+            # Yield all files, that have entry in .z2meta.
+            for filename in filenames:
+                path = base / filename
+                if (base/'.z2meta'/filename).exists():
+                    yield path
 
             # Visit only directories containing .z2meta.
             dirnames[:] = [
@@ -73,12 +86,6 @@ class BaseImporter(object):
             # Yield all directories containing .z2meta.
             for dirname in dirnames:
                 yield base / dirname
-
-            # Yield all files, that have entry in .z2meta.
-            for filename in filenames:
-                path = base / filename
-                if (base/'.z2meta'/filename).exists():
-                    yield path
 
     def iterate_items(self):
         for path in self.iterate_paths():
@@ -101,23 +108,25 @@ class BaseImporter(object):
 
         data = load_metadata(z2meta_filename)
         data['body'] = body
-        data['url'] = item.path.name
+        data['slug'] = item.path.stem if item.path.suffix else item.path.name
         data['date'] = self.parse_date(data.get('date'))
         return data
 
     def import_(self, item):
         data = self.parse_metadata(item)
         parent = self.get_parent_page(item.path)
-        page, created = self.import_item(parent, data)
+        page, created = self.create_page(parent, data)
         return item._replace(created=created, page=page)
 
-    def import_item(self, parent, data):
+    def create_page(self, parent, data):
         try:
-            instance = self.page_class.objects.get(slug=data['url'])
+            instance = (
+                self.page_class.objects.child_of(parent).get(slug=data['slug'])
+            )
         except self.page_class.DoesNotExist:
-            instance = self.page_class(slug=data['url'])
+            instance = self.page_class(slug=data['slug'])
 
-        self.prepare_instance(instance, data)
+        self.prepare_page_instance(instance, data)
 
         if instance.pk:
             created = False
@@ -128,7 +137,7 @@ class BaseImporter(object):
 
         return instance, created
 
-    def prepare_instance(self, instance, data):
+    def prepare_page_instance(self, instance, data):
         instance.title = data['title']
         instance.date = data['date']
         instance.body = data['body']

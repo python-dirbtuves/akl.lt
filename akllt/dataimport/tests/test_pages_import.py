@@ -1,5 +1,3 @@
-from operator import itemgetter
-
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
@@ -37,16 +35,22 @@ class PagesImporterTests(TestCase):
         base = fixture('whole_export')
         paths = self.importer.iterate_paths()
         self.assertEqual(sorted([str(p.relative_to(base)) for p in paths]), [
-            'ak/atviri_standartai',
             'ak/atviri_standartai.html',
-            'ak/atviri_standartai/atviri_standartai.zpt',
+            'ak/dokumentacija.html',
+            'ak/free-sw.html',
+            'ak/knygos.html',
+            'ak/licencijos/copyleft.html',
+            'ak/licencijos/gpl.html',
+            'ak/licencijos/kategorijos.html',
+            'ak/licencijos/lgpl.html',
+            'ak/osd.html',
         ])
 
     def test_parse_metadata(self):
         item = ImportItem(path=self.importer.path)
         data = self.importer.parse_metadata(item)
         self.assertEqual(data, {
-            'url': 'ak',
+            'slug': 'ak',
             'date': None,
             'title': 'atviras kodas',
             'body': '',
@@ -55,11 +59,19 @@ class PagesImporterTests(TestCase):
     def test_import(self):
         all(map(self.importer.import_, self.importer.iterate_items()))
         root = get_root_page()
-        pages = Page.objects.descendant_of(root).values_list('title', 'url_path')
-        self.assertEqual(sorted(pages, key=itemgetter(1)), [
-            ('Atviras kodas', '/home/ak/'),
-            ('Atviri standartai', '/home/ak/atviri_standartai.html/'),
-            ('Atviri standartai', '/home/ak/atviri_standartai/'),
-            ('Atviri standartai, protokolai, formatai. Kodėl Lietuvai jų reikia?',
-             '/home/ak/atviri_standartai/atviri_standartai.zpt/'),
+        pages = (
+            Page.objects.descendant_of(root).values_list('url_path', 'title')
+        )
+        self.assertEqual(sorted(pages), [
+            ('/home/ak/', 'Atviras kodas'),
+            ('/home/ak/atviri_standartai/', 'Atviri standartai'),
+            ('/home/ak/dokumentacija/', 'Dokumentacija'),
+            ('/home/ak/free-sw/', 'Laisvoji programinė įranga'),
+            ('/home/ak/knygos/', 'Knygos'),
+            ('/home/ak/licencijos/', 'licencijos'),
+            ('/home/ak/licencijos/copyleft/', 'Kas yra Copyleft?'),
+            ('/home/ak/licencijos/gpl/', 'GNU viešoji licencija'),
+            ('/home/ak/licencijos/kategorijos/', 'PĮ kategorijos'),
+            ('/home/ak/licencijos/lgpl/', 'GNU laisvoji viešoji licencija'),
+            ('/home/ak/osd/', 'Atvirojo kodo apibrėžimas'),
         ])
