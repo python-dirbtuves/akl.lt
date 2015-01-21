@@ -56,7 +56,6 @@ class PagesImporterTests(TestCase):
         all(map(self.importer.import_, self.importer.iterate_items()))
         root = get_root_page()
         pages = Page.objects.descendant_of(root).values_list('title', 'url_path')
-        import pprint; pprint.pprint(sorted(pages, key=itemgetter(1)))
         self.assertEqual(sorted(pages, key=itemgetter(1)), [
             ('Atviras kodas', '/home/ak/'),
             ('Atviri standartai', '/home/ak/atviri_standartai.html/'),
