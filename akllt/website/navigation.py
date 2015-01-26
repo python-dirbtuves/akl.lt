@@ -3,4 +3,4 @@ def get_top_menu_page(page):
     if page is None:
         return None
     else:
-        return page.get_ancestors(inclusive=True).live().in_menu().first()
+        return page.get_ancestors(inclusive=True).live().in_menu().last()
