@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     'akllt.common',
     'akllt.news',
     'akllt.pages',
+    'akllt.programs',
     'akllt.stub',
 )
 

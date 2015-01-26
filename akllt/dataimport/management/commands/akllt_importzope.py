@@ -36,6 +36,7 @@ class Command(BaseCommand):
             PagesImporter('Atviras kodas', 'ak'),
             PagesImporter('Apie AKL', 'apie', ),
             PagesImporter('Projektai', 'projektai'),
+            PagesImporter('Programos', 'programos'),
             PagesImporter('Skaitykla', 'skaitykla'),
             PagesImporter('Rėmėjai', 'remejai'),
             PagesImporter('Nuorodos', 'nuorodos'),
