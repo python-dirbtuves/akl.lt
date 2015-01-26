@@ -23,3 +23,5 @@ def set_up_site():
     site = Site.objects.get(is_default_site=True)
     site.root_page = index_page
     site.save()
+
+    return site

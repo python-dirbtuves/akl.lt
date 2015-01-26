@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Run  project tests.
 
@@ -9,6 +9,17 @@ This script mostly useful for running tests in single file.
 import sys
 import argparse
 import subprocess
+import pathlib
+
+
+def get_cover_package(path):
+    base = pathlib.Path(__file__).parents[1].resolve()
+    path = pathlib.Path(path).resolve()
+    path = path.relative_to(base)
+    if len(path.parts) > 1:
+        return '.'.join(path.parts[:2])
+    else:
+        return path.parts[0]
 
 
 def main(args=None):
@@ -36,6 +47,10 @@ def main(args=None):
         '--nologcapture',
         '--doctest-tests',
         '--noinput',
+        '--with-coverage',
+    ] + [
+        '--cover-package=%s' % package
+        for package in set(map(get_cover_package, args.paths))
     ] + args.paths
 
     if args.profile:

@@ -1,0 +1,245 @@
+<!-- -*- coding: utf-8 -*- -->
+<h2>Atviri standartai, protokolai, formatai. Kodėl Lietuvai jų reikia?</h2>
+
+<h5>Eglė Girinaitė 
+(<a href="mailto:eglyte@centras.lt">eglyte@centras.lt</a>)
+ir Mantas Kriaučiūnas 
+(<a href="mailto:monte@mail.lt">monte@mail.lt</a>)</h5>
+
+
+<p> Europos Komisijos narys, atsakingas už informacinę visuomenę,
+Erkki Liikanen simpoziumo “Geriausios el. administravimo praktikos”
+įžanginėje kalboje pažymėjo, jog “[...]kalbant apie elektroninę
+administraciją, turime kalbėti ir apie standartus. Viešosios
+administracijos turi būti prieinamos piliečiui, nepriklausomai kokią
+programinę įrangą jis naudoja. Žmogus neturi būti priverstas įsigyti
+komercinę programinę įrangą [...].” 
+<a href="?doc=atviri_standartai.zpt#REF">[1]</a>
+
+Standartas – tai bendras susitarimas dėl kažko, nustatant normas,
+taisykles ir reikalavimus. Pagal tai, kas ir kaip gali susitarti ir
+kaip tie susitarimai bus skelbiami bei pagal jų veikimo principus
+standartai gali būti skirstomi į atvirus (laisvus) ir uždarus
+(nuosavybinius). Standartas yra atviras tuomet, kai jį bet kas gali
+laisvai naudoti, pasižiūrėti jo aprašymą (specifikacijas) bei reikšti
+pasiūlymus dėl standarto patobulinimo. Taigi – atviri standartai yra
+daugiau nei normų ir taisyklių rinkinys. Kad geriau suprasti,
+pateiksiu laisvos programinės įrangos guru - Bruce Perens
+paaiškinimus<a href="?doc=atviri_standartai.zpt#REF">[2]</a>
+ kokie yra pagrindiniai atvirų standartų principai: </p>
+
+<ol>
+
+<li><p>Prieinamumas. Atviri standartai yra laisvai prieinami visiems
+ (ir perskaitymo, ir įgyvendinimo prasme).</p></li>
+
+<li><p>Padidina galutinio vartotojo pasirinkimo laisvę.  Atviri
+ standartai sukuria sąžiningą, konkuruojančią rinką standarto
+ realizavimams. Jie “nepririša” vartotojo prie konkretaus tiekėjo ar
+ tiekėjų grupės.</p></li>
+
+<li><p>Nemokami. Atvirą standartą galima laisvai realizuoti visiems, už
+ tai negali būti imamas mokestis. Tačiau mokestis gali būti imamas už
+ atitikimo standartams sertifikavimą.</p></li>
+
+<li><p>Jokios diskriminacijos. Atviri standartai bei organizacijos,
+ kurios juos administruoja negali teikti pirmenybės vienam standarto
+ realizuotojui prieš kitą dėl jokių kitų priežasčių išskyrus
+ techninius pateiktos realizacijos atitikimus
+ standartui. Sertifikavimo organizacijos turi sudaryti galimybę
+ patikrinti atitikimą standartams ir pigiems bei nemokamiems
+ įgyvendinimams. (Pvz. Interneto standartų organizacijos tinklalapyje
+ – <a href="http://www.w3c.org">www.w3c.org</a> bet kas gali nemokamai
+ patikrinti bet kokio interneto puslapio atitikimą
+ standartams)</p></li>
+</ol>
+
+<p> Atviros technologijos (atviri standartai, protokolai ir formatai)
+išpopuliarėjo kaip atsvara atskirų IT įmonių kuriamiems uždariems
+(neskelbiamiems ir apsaugotiems autorinėmis teisėmis) protokolams,
+kadangi tie de facto nusistovintys standartai buvo dažnai naudojami
+kaip rinkos monopolizavimo priemonė. Atviri standartai dažniausiai yra
+aprašomi visuomeninių organizacijų (nors esama išimčių) ir yra laisvi
+visų naudojimui. Pavyzdžiui, internetas yra grįstas atvirais
+standartais (TCP/IP; el. pašto protokolai – POP3, SMTP, IMAP; HTTP,
+FTP, IRC; HTML, CSS ir kt.) Kai kurie analitikai būtent su tuo sieja
+interneto populiarumą. Atvirų standartų dėka bet koks gamintojas gali
+sukurti kokybiškas interneto programas, kurios aktyviai konkuruoja
+tarpusavyje, dėl to krenta jų kaina ir galiausiai išlošia
+vartotojas.</p>
+
+<p> Europos Komisijos inicijuotos Laisvos programinės įrangos (Libre
+software) darbo grupės<a href="?doc=atviri_standartai.zpt#REF">[3]</a>
+, paskelbtoje struktūrinėje studijoje “Laisva
+programinė įranga/Atviras kodas: Informacinės visuomenės galimybės
+Europai?” taipogi rekomenduojama naudoti atvirus standartus. “Ateityje
+bus svarbu turėti atvirus duomenų formatus tinkluose, skirtus
+elektroniniam verslui ir duomenų mainams tarp skirtingų paslaugų
+internete. Šie programų protokolai turi išlikti atviri, su atviro kodo
+pavyzdinėmis realizacijomis, kad kiekviena organizacija ar asmuo
+galėtų naudoti ir prisitaikyti savo reikmėms. Kitu atveju, kiekvienas
+norintis naudotis tomis paslaugomis, turės pirkti komercinę programinę
+įrangą tos firmos, kuri nustato standartą. Kadangi šios paslaugos vis
+labiau tampa kasdienės veiklos dalimi, labai svarbu, kad normalios
+veiklos nekontroliuotų joks programinės įrangos tiekėjas.</p> 
+
+<p> Atviro kodo vartotojų organizacijos stipriai remia atvirų
+standartų diegimą. Prancūzijos AK naudotojų asociacija AFUL<a href="?doc=atviri_standartai.zpt#REF">[4]</a>
+ yra už
+privalomą atvirų standartų vartojimą (ne tik rekomenduojamą). Ji
+pasisako už “lygias galimybes” tiek komercinei, tiek ir laisvai
+programinei įrangai, jei visada (ir privalomai) yra išlaikomi atviri
+komunikacijos formatai (kitaip tariant, “nesvarbu, kad kurie nors
+valstybinių įstaigų informacinių technologijų vadovai perka
+nuosavybinį bei vyraujantį biuro programų rinkinį, jei tik jis yra
+sertifikuotas kokios nors įstaigos, aukštesnės nei įrangos
+platintojas, ir užtikrina, kad dokumentai pilnai atitinka
+nenuosavybinius standartus”).</p> 
+
+<p> Europos komisijos<a href="?doc=atviri_standartai.zpt#REF">[5]</a>
+ organizuotame simpoziume, skirtame atviro kodo
+programinės įrangos naudojimui viešosiose administracijose, kalbėta
+apie atvirų standartų sistemas, jų teikiamus privalumus –
+nepriklausomumą, saugumą, kainų ir pokyčių kontrolę (nebus galimybės
+vienam gamintojui tapti monopolistu ir iškelti savo produkto kainą,
+kadangi visi gamintojai turės vienodas galimybes pagaminti pilnai
+suderinamą bei standartus atitinkantį produktą).</p> 
+
+<p> Yra įsikūrusi ne viena standartizacijos organizacija (ISO, IETF,
+W3C, OMG, Open Group, kt.), kuri kuria ir prižiūri atvirus ir jau
+paplitusius standartus. Taip pat egzistuoja ir laisvų standartų grupė
+-- <a href="http://www.freestandards.org">http://www.freestandards.org</a>,
+Tai nepriklausoma, ne pelno siekianti organizacija, kuri skatina
+atviro kodo technologijų naudojimą bei jų pripažinimą, kurdama,
+pritaikydama ir remdama standartus. Jos ribose veikia keletas aktyvių
+ir svarbių projektų Linux Standard Base<a href="?doc=atviri_standartai.zpt#REF">[6]</a>
+, OpenPrinting<a href="?doc=atviri_standartai.zpt#REF">[7]</a>
+, Li18nux<a href="?doc=atviri_standartai.zpt#REF">[8]</a>
+.Šią
+grupę remia programų kūrėjų bendruomenės bei IT pramonės lyderiai
+(tokie kaip Caldera, Compaq, Conectiva, Debian, Dell, Hewlett Packard,
+Hitachi, IBM, Miracle Linux, The Open Group, Oracle, Red Hat, Sun,
+SuSE, Turbolinux, VA Software). </p>
+
+<p> Taipogi yra ne vienas projektas, siekiantis standartizuoti įvairią
+biuro programinę įrangą bei biuro dokumentų standartus: <a
+href="http://xml.openoffice.org/standardisation/">http://xml.openoffice.org/standardisation/</a>,
+<a href="http://www.1dok.org">http://www.1dok.org</a>.  Tai yra
+aktualu, kadangi šiuo metu visuotinu biuro dokumentų mainų standartu
+laikomas uždaras vieno gamintojo sukurtas ir tik jam prieinamas
+formatas. Net ir oficialūs valstybių dokumentai dažnai pateikiami
+uždaru (nuosavybiniu) formatu. Tai yra labai negerai, nes kiti
+programinės įrangos kūrėjai negali sukurti programinės įrangos 100%
+suderinamos su juo. Siekiant užtikrinti laisvą priėjimą prie viešosios
+informacijos būtina duomenų mainams naudoti atvirus standartus
+(formatus). </p>
+
+<p> 1dok.org projektas, kuris siekia sukurti ir įteisinti atvirą
+dokumentų mainų standartą, pagrįstą XML. Jį inicijavo Vokietijos
+Schleswig- Holstein žemė (Ekonomikos, technologijų ir transporto
+ministerija) bei Europos Komisija<a
+href="?doc=atviri_standartai.zpt#REF">[9]</a> . Šis projektas gali
+būti pavyzdžiu, kokią naudą duoda atviri standartai – vietoj to, kad
+kurti naują biuro dokumentų formatą, buvo pasinaudota atviru standartu
+paskelbtu OpenOffice.org<a
+href="?doc=atviri_standartai.zpt#REF">[10]</a> formatu. Projekto
+atstovė Ursula Bartels sakė: ”įgyvendindami projektą, mes džiaugėmės
+atradę OpenOffice.org, kadangi šio paketo bylų formatas realizuoja
+daugumą iki šiol rastų atviro biuro dokumentų formato reikalavimų <a
+href="?doc=atviri_standartai.zpt#REF">[11]</a> . Likusiems
+reikalavimas realizuoti OpenOffice formatas bus išplėstas” <a
+href="?doc=atviri_standartai.zpt#REF">[12]</a>
+</p>
+
+<p><img src="1doc.gif" alt="Žingsniai link atviro dokumento formato">
+
+<p> Numatyti žingsniai link atviro dokumento formato pateikti 1 paveiksle.
+Žingsniai link atviro dokumento formato:</p>
+
+<ol>
+<p>1 fazė – Apibrėžti reikalavimus atviram dokumentų formatui,
+glaudžiai bendradarbiaujant su ūkio subjektais, administracijos
+(elektroninės vyriausybės) ekspertais ir besidominčiais
+piliečiais.</p>
+
+<p>2 fazė – Politinių procesų inicijavimas nacionaliniu bei Europos
+vyriausybės lygmeniu, siekiant pakviesti visus svarbius biuro produktų
+platintojus pateikti savo pasiūlymus dėl atviro dokumento
+formato.</p>
+
+<p>3 fazė – Biuro paketų platintojai paruošia pasiūlymus dėl atviro
+dokumento formato.</p>
+
+<p>4 fazė – Įvertinami įteikti formatų pasiūlymai pagal 1-oje fazėje
+suformuotus reikalavimus – tinkamiausias formatas siūlomas tapti
+standartu.</p>
+</ol>
+
+<p> Europos šalių vyriausybėse yra nemažai iniciatyvų, siekiant
+įteisinti atvirų standartų naudojimą, nes esant tokiai didelei
+monopolijai informacinių sistemų rinkoje būtinas politinis įsikišimas,
+norint pakeisti esamą padėtį. </p>
+
+<p> Prancūzijoje įkurta agentūra, pateikiamos rekomendacijos
+skatinančios naudoti atvirus standartus viešojo sektoriaus duomenų
+mainuose. Prancūzijos ministras pirmininkas Lionel Jospin yra išleidęs
+komunikatą dėl suderinamumo tarp administracijų informacinių
+sistemų. Jame pažymima, kad visiems besinaudojantiems administracijų
+elektroninėmis paslaugomis, tiek gyventojams, tiek įmonėms būtina
+užtikrinti patogų priėjimą prie tų paslaugų. Siekiant tai įgyvendinti
+būtina naudoti duomenų mainų standartus (pvz. XML). Ispanijos,
+Italijos valdžios institucijose pateikti įstatymo projektai,
+pabrėžiantys atvirų standartų naudojimo svarbą viešajame
+sektoriuje. Veiksmų plane Elektroninė Europa 2005, taipogi rašoma, jog
+siekiant e-Vyriausybės įgyvendinimo yra svarbūs atviri standartai,
+kaip priemonė suderinamumui pasiekti bei atviro kodo programinė
+įrangos naudojimo skatinimui.</p>
+
+<p> Lietuvos parengtoje e-Valdžios koncepcijoje taipogi rašoma, jog
+lengvą prieinamumą prie e-Valdžios teikiamos informacijos ir paslaugų
+užtikrins tai, kad sąsajai su vartotoju bus naudojamos paplitusios
+atviros technologijos t.y. tokie duomenų apsikeitimo formatai ir
+protokolai, kurie yra pilnai aprašyti ir laisvai nemokamai
+prieinami. <a href="?doc=atviri_standartai.zpt#REF">[13]</a>
+</p> 
+
+<p> Taigi, vartotojų vaidmuo šiame procese yra labai svarbus. Jie turi
+ginti savo teises ir reikalauti, kad būtų sudarytos lygios galimybės
+naudoti įvairią programinę įrangą ir ypač nemokamą.</p> 
+
+
+<a name="REF"></a>
+<ol>
+  <li><a href="http://europa.eu.int/comm/di/symposium2000/liikanen/index_en.htm">
+      http://europa.eu.int/comm/di/symposium2000/liikanen/index_en.htm</a>
+  <li><a href="http://perens.com/OpenStandards/Definition.html">
+      http://perens.com/OpenStandards/Definition.html</a>
+  <li><a href="http://eu.conecta.it/paper">
+      http://eu.conecta.it/paper</a>
+  <li><a href="http://www.aful.org">
+      http://www.aful.org</a>
+  <li><a href="http://europa.eu.int/ISPO/ida/jsps/index.jsp?fuseAction=home">
+      http://europa.eu.int/ISPO/ida/jsps/index.jsp?fuseAction=home</a>
+  <li><a href="http://www.linuxbase.org">
+      http://www.linuxbase.org</a>
+  <li><a href="http://www.freestandards.org/openprinting/">
+      http://www.freestandards.org/openprinting/</a>
+  <li><a href="http://www.li18nux.org/">
+      http://www.li18nux.org/</a>
+  <li><a href="http://www.1dok.org/eng/index.html">
+      http://www.1dok.org/eng/index.html</a>
+  <li><a href="http://www.openoffice.org">
+      http://www.openoffice.org</a>
+  <li><a href="http://www.ooodocs.org/modules.php?name=News&file=article&sid=249">
+      http://www.ooodocs.org/modules.php?name=News&file=article&sid=249</a>
+  <li><a href="http://www.1dok.org/eng/framesetp.html">
+      http://www.1dok.org/eng/framesetp.html</a>
+  <li><a href="http://www3.lrs.lt/owa-bin/owarepl/inter/owa/U0022074.pdf">
+      http://www3.lrs.lt/owa-bin/owarepl/inter/owa/U0022074.pdf</a> arba<br>
+      <a href="http://www3.lrs.lt/owa-bin/owarepl/inter/owa/U0033310.doc">
+      http://www3.lrs.lt/owa-bin/owarepl/inter/owa/U0033310.doc</a>
+<!-- 13 nuoroda buvo šita, bet nebeveikia 
+ <a href="http://www.lrvk.lt/aktualij/e-vyriausybe/e_vyriausybes_koncepcija.doc">
+      http://www.lrvk.lt/aktualij/e-vyriausybe/e_vyriausybes_koncepcija.doc</a> -->
+</ol>
+
