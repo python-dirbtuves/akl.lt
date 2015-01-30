@@ -164,8 +164,7 @@ COMPRESS_PRECOMPILERS = (
 )
 
 # Auth settings
-LOGIN_URL = 'wagtailadmin_login'
-LOGIN_REDIRECT_URL = 'wagtailadmin_home'
+LOGIN_REDIRECT_URL = '/'
 
 
 # Wagtail settings
@@ -201,9 +200,48 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
+AKLLT_SORTED_AUTH_PROVIDERS = (
+    'persona',
+    'openid.google',
+    'openid.yahoo',
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'persona': {
+        'AUDIENCE': '127.0.0.1' if DEBUG else 'http://www.akl.lt',
+        'REQUEST_PARAMETERS': {
+            'siteName': 'AKL',
+        },
+    },
+    'openid': {
+        'SERVERS': [
+            {
+                'id': 'google',
+                'name': 'Google',
+                'openid_url': 'https://www.google.com/accounts/o8/id',
+            },
+            {
+                'id': 'yahoo',
+                'name': 'Yahoo',
+                'openid_url': 'http://me.yahoo.com',
+            },
+        ],
+    },
+}
+
 INSTALLED_APPS += (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.openid',
+)
+
+
+# Debug toolbar
+INSTALLED_APPS += (
+    'debug_toolbar',
+)
+INTERNAL_IPS = (
+    '127.0.0.1',
 )

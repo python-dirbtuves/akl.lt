@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load trans from i18n %}
+{% load login_page from aklltlogin %}
+{% load providers_media_js from socialaccount %}
+
+
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+
+{% block content %}
+<h1>{% trans "Sign In" %}</h1>
+{% login_page %}
+{% providers_media_js %}
+{% endblock %}

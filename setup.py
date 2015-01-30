@@ -30,6 +30,7 @@ setup(
         'tqdm',
         'django-extensions',
         'django-allauth',
+        'django-debug-toolbar',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
