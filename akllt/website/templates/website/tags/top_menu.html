@@ -1,0 +1,9 @@
+{% load pageurl from wagtailcore_tags %}
+
+<ul role="navigation" class="nav nav-tabs">
+    {% for item in menu %}
+    <li class="{% if item.active %} active{% endif %}">
+        <a href="{% pageurl item.page %}"  class="{% if item.active %} active{% endif %}">{{ item.page.title }}</a>
+    </li>
+    {% endfor %}
+</ul>

@@ -59,7 +59,7 @@ __pycache__/
 /docs/_build/
 
 # CTags
-tags
+/tags
 
 # Editors
 *~
