@@ -75,6 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'akllt.website.middleware.LegacyRedirectMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
