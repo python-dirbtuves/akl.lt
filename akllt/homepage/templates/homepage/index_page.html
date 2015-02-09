@@ -3,6 +3,42 @@
 {% load static from staticfiles %}
 {% load pageurl from wagtailcore_tags %}
 
+{% block side-menu %}
+<div>
+    <h3>Atviras kodas Lietuvai</h3>
+    <p>
+        Sveiki atvykę į AKL - asociacijos, vienijančios laisvosios programinės
+        įrangos (atvirojo kodo) judėjimo šalininkus ir bendraminčius Lietuvoje,
+        interneto svetainę.  Čia jūs rasite informacijos lietuvių kalba apie
+        atviro kodo judėjimą, „laisvas“ programas bei mūsų pastangas ir
+        rezultatus skleidžiant šias idėjas Lietuvoje.
+    </p>
+    <p>
+        Atvirojo kodo bendruomeninė veikla naudinga tiek naudotojams, tiek
+        programuotojams, tiek pačioms programoms, kurios tobulinamos tampa
+        naudingos vis platesniam naudotojų ratui. Kviečiame visus prisijungti:
+    </p>
+    <ul>
+        <li>
+            <a href="http://forumai.akl.lt/">skaitykite ir klauskite</a> apie
+            laisvas programas forume
+        </li>
+        <li>
+            <a href="http://planet.akl.lt/">domėkitės</a>, ką rašo apie atvirą
+            kodą Lietuvoje
+        </li>
+    </ul>
+</div>
+
+<div class="sidebar-box">
+    <h3><img src="{% static "images/akl-web-site/bendraujame.png" %}">Bendraujame</h3>
+    <div class="sidebar-content">
+        <p><img src="{% static "images/akl-web-site/mail.png" %}">Užsisakykite <a href="https://lists.akl.lt/">el. pašto konferenciją.</a></p>
+        <p><img src="{% static "images/akl-web-site/chat.png" %}">Bendraukite atviro kodo <a href="http://forumai.akl.lt/">forumuose.</a></p>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
 <h3>Atviro kodo naujienos<img src="{% static "images/akl-web-site/rss.png" %}"></h3>
 <p><img src="{% static "images/akl-web-site/lamp.png" %}"><a href="#">Pasiūlyk naujieną!</a></p>

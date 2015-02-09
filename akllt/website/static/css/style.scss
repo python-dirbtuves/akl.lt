@@ -161,26 +161,24 @@ $dark-link-color: #CBD5D9;
     img {
         margin: 4px;
     }
-    div {
-        border-style: solid;
-        border-color: $menu-color;
-        border-width: 1px;
-        @include border-radius($border-radius);
-        padding: 5px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        #penguin-logo {
-            float: right;
+    .sidebar-box {
+        h3 {
+            background-color: $menu-color;
+            @include border-radius($border-radius);
+        }
+        .sidebar-content {
+            @include border-radius($border-radius);
+            border-style: solid;
+            border-color: $menu-color;
+            border-width: 1px;
+            padding: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            & > a:link {
+                color: $link-color;
+            }
         }
     }
-}
-.nav-pills > li > a:link {
-    background-color: $menu-color;
-    color: $link-color
-}
-.nav-pills > li {
-    background-color: $menu-color;
-    @include border-radius($border-radius);
 }
 
 #first-nav-pill {
