@@ -20,4 +20,8 @@ class LegacyRedirectMiddleware(object):
             url = '%s%s/' % (request.path, tail)
         else:
             url = None
-        return url and http.HttpResponsePermanentRedirect(url)
+
+        if url:
+            return http.HttpResponsePermanentRedirect(url)
+        else:
+            return None
