@@ -6,6 +6,7 @@ This script mostly useful for running tests in single file.
 
 """
 
+import os
 import sys
 import argparse
 import subprocess
@@ -61,6 +62,10 @@ def main(args=None):
             '--outfile=/dev/null',
             '--view',
         ] + cmd
+
+    coverage_file = pathlib.Path(__file__).parents[1].resolve() / '.coverage'
+    if coverage_file.exists():
+        os.unlink(str(coverage_file))
 
     sys.exit(subprocess.call(cmd))
 
