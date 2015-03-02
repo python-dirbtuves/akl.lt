@@ -1,4 +1,5 @@
 import os
+import lxml.html
 import collections
 import datetime
 import functools
@@ -141,3 +142,8 @@ class BaseImporter(object):
         instance.title = data['title']
         instance.date = data['date']
         instance.body = data['body']
+
+    def image_finder(self, path):
+        images = lxml.html.parse(str(path)).xpath('//img/@src')
+        base = path.parent
+        return [(base/image).resolve() for image in images]

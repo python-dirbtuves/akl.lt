@@ -1,4 +1,5 @@
 import unittest
+import pathlib
 
 from django.test import TestCase
 
@@ -18,5 +19,16 @@ class ImportImageTests(TestCase):
         manager.add_importers([
             PagesImporter('apie', 'apie'),
         ])
-        image_count = Image.objects.filter(filename='steigiamasis.jpg').count()
+        image_count = Image.objects.filter(file='steigiamasis.jpg').count()
         self.assertEqual(image_count, 1)
+
+    def test_get_image_src_from_img_tags(self):
+        apie_html = fixture('image_fixture/apie/apie.html')
+        importer = PagesImporter('apie', 'apie')
+        paths = importer.image_finder(apie_html)
+        file_names = [path.name for path in paths]
+        self.assertEqual(file_names, [
+            'akl.jpg',
+            'steigiamasis.jpg',
+        ])
+        self.assertTrue(all(path.exists() for path in paths))
