@@ -54,7 +54,6 @@ class BaseImporter(object):
     def set_up(self, root_page, base_path):
         self.path = self.get_path(base_path)
         self.root = self.get_root_page(root_page)
-        return self
 
     def get_path(self, base_path):
         return base_path / self.page_slug
