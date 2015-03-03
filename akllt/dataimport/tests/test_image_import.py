@@ -9,26 +9,29 @@ from wagtail.wagtailimages.models import Image
 from akllt.dataimport.importmanager import ImportManager
 from akllt.dataimport.importers.pages import PagesImporter
 from akllt.dataimport.tests.utils import fixture
+from akllt.dataimport.tests.utils import get_default_site
 
 
 class ImportImageTests(TestCase):
-    @unittest.skip('TODO')
     def test_import_image(self):
-        root = Site.objects.get(is_default_site=True).root_page
-        manager = ImportManager(root, fixture('image_fixture'))
-        manager.add_importers([
-            PagesImporter('apie', 'apie'),
-        ])
-        image_count = Image.objects.filter(file='steigiamasis.jpg').count()
-        self.assertEqual(image_count, 1)
-
-    def test_get_image_src_from_img_tags(self):
-        apie_html = fixture('image_fixture/apie/apie.html')
+        root = get_default_site().root_page
         importer = PagesImporter('apie', 'apie')
-        paths = importer.image_finder(apie_html)
-        file_names = [path.name for path in paths]
-        self.assertEqual(file_names, [
-            'akl.jpg',
-            'steigiamasis.jpg',
-        ])
-        self.assertTrue(all(path.exists() for path in paths))
+        importer.set_up(root, fixture('image_fixture'))
+        importer.import_all_items()
+        self.assertTrue(Image.objects.filter(title__in=(
+            'AKL Rumšiškėse',
+            'AKL steigiamasis susirinkimas (II)',
+        )).exists())
+
+    def test_parse_images(self):
+        path = fixture('image_fixture/apie/apie.html')
+        importer = PagesImporter('apie', 'apie')
+        result = importer.parse_images(path, '\n'.join([
+            '<img src="../images/akl.jpg" alt="AKL Rumšiškėse"',
+            '     height="181" width="285" border="0"',
+            '     class="lphoto"/>',
+        ]))
+        self.assertEqual(result, (
+            '<embed alt="AKL Rumšiškėse"'
+            ' embedtype="image" format="left" id="1"/>'
+        ))

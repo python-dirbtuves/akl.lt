@@ -53,7 +53,7 @@ class Command(BaseCommand):
             if verbosity > 1:
                 self.stdout.write(str(item.path))
             try:
-                item = importer.import_(item)
+                item = importer.import_item(item)
             except:
                 self.stdout.write((
                     '\n\nError occured while importing {path} news file.'

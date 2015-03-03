@@ -1,13 +1,19 @@
 import os
+import re
 import lxml.html
 import collections
 import datetime
 import functools
 import pathlib
+import html
 
+from django.core.files import File
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailimages.models import Image
 
 from akllt.dataimport.z2loader import load_metadata
+
+IMG_TAG_RE = re.compile(r'<img\b[^>]*>')
 
 ImportItem = collections.namedtuple('ImportItem', ['path', 'created', 'page'])
 ImportItem.__new__ = functools.partial(
@@ -28,7 +34,7 @@ class BaseImporter(object):
 
        1. iterate_paths() yields path
 
-    4. item = import_(item) called from management command
+    4. item = import_item(item) called from management command
 
         1. data = parse_metadata(item)
 
@@ -107,12 +113,51 @@ class BaseImporter(object):
                 body = f.read()
 
         data = load_metadata(z2meta_filename)
-        data['body'] = body
+        data['body'] = self.parse_images(item.path, body)
         data['slug'] = item.path.stem if item.path.suffix else item.path.name
         data['date'] = self.parse_date(data.get('date'))
         return data
 
-    def import_(self, item):
+    def parse_images(self, path, content):
+        def get_image_format(attrs):
+            classes = attrs.get('class', '').split()
+            if 'lphoto' in classes:
+                return 'left'
+            elif 'rphoto' in classes:
+                return 'right'
+            else:
+                return 'fullwidth'
+
+        def replace_image_tag(match):
+            base_path = path.parent
+            attrs = lxml.html.fromstring(match.group(0)).attrib
+
+            if 'src' in attrs:
+                src = base_path / attrs['src']
+                with src.open('rb') as f:
+                    image = Image.objects.create(
+                        title=attrs.get('alt', attrs.get('title', '')),
+                        file=File(f, src.name),
+                        width=attrs.get('width', 0),
+                        height=attrs.get('height', 0),
+                    )
+
+                return '<embed %s/>' % ' '.join([
+                    '%s="%s"' % (k, html.escape(v, quote=True)) for k, v in (
+                        ('alt', image.title),
+                        ('embedtype', 'image'),
+                        ('format', get_image_format(attrs)),
+                        ('id', str(image.pk)),
+                    )
+                ])
+
+        return IMG_TAG_RE.sub(replace_image_tag, content)
+
+    def import_all_items(self):
+        for item in self.iterate_items():
+            self.import_item(item)
+
+    def import_item(self, item):
         data = self.parse_metadata(item)
         parent = self.get_parent_page(item.path)
         page, created = self.create_page(parent, data)
@@ -141,8 +186,3 @@ class BaseImporter(object):
         instance.title = data['title']
         instance.date = data['date']
         instance.body = data['body']
-
-    def image_finder(self, path):
-        images = lxml.html.parse(str(path)).xpath('//img/@src')
-        base = path.parent
-        return [(base/image).resolve() for image in images]
