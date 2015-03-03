@@ -3,10 +3,13 @@ from django.test import TestCase
 from wagtail.wagtailcore.models import Page
 
 from akllt.website import navigation as nav
+from akllt.dataimport.tests.utils import get_default_site
 
 
 class NavigationTests(TestCase):
     def test_get_top_menu_page(self):
+        get_default_site()
+
         add_page = lambda root, **kw: (
             root.add_child(instance=Page(live=True, **kw))
         )

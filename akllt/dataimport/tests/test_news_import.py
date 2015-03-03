@@ -13,6 +13,7 @@ from akllt.dataimport.importmanager import ImportManager
 from akllt.dataimport.importers.base import ImportItem
 from akllt.dataimport.importers.news import NewsImporter
 from akllt.dataimport.tests.utils import fixture
+from akllt.dataimport.tests.utils import get_default_site
 
 
 def shorten_values(item):
@@ -113,7 +114,7 @@ class NewsExportReadTests(TestCase):
             'slug': 'naujiena_0001',
         }
 
-        root = Site.objects.get(is_default_site=True).root_page
+        root = get_default_site().root_page
         importer = NewsImporter('Naujienos', 'naujienos')
         importer.root = importer.get_root_page(root)
 
@@ -127,11 +128,11 @@ class NewsExportReadTests(TestCase):
 
     def test_manager(self):
         export_dir = fixture('')
-        root = Site.objects.get(is_default_site=True).root_page
+        root = get_default_site().root_page
         manager = ImportManager(root, export_dir)
         manager.add_importers([NewsImporter('Naujienos', 'naujienos')])
         for importer, item in manager.iterate():
-            importer.import_(item)
+            importer.import_item(item)
 
         slugs = Page.objects.values_list('slug', flat=True)
         self.assertEqual(sorted(slugs), [

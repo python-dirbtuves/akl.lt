@@ -7,11 +7,12 @@ from akllt.dataimport.wagtail import get_root_page
 from akllt.dataimport.tests.utils import fixture
 from akllt.dataimport.importers.base import ImportItem
 from akllt.dataimport.importers.pages import PagesImporter
+from akllt.dataimport.tests.utils import get_default_site
 
 
 class PagesImporterTests(TestCase):
     def setUp(self):
-        root = Site.objects.get(is_default_site=True).root_page
+        root = get_default_site().root_page
         self.importer = PagesImporter('Atviras kodas', 'ak')
         self.importer.set_up(root, fixture('whole_export'))
 
@@ -57,7 +58,7 @@ class PagesImporterTests(TestCase):
         })
 
     def test_import(self):
-        all(map(self.importer.import_, self.importer.iterate_items()))
+        self.importer.import_all_items()
         root = get_root_page()
         pages = (
             Page.objects.descendant_of(root).values_list('url_path', 'title')
