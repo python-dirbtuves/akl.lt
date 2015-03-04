@@ -6,6 +6,7 @@ import datetime
 import functools
 import pathlib
 import html
+import urllib.parse
 
 from django.core.files import File
 from wagtail.wagtailcore.models import Page
@@ -40,13 +41,13 @@ class BaseImporter(object):
 
         2. parent = get_parent_page(item.path)
 
-           3. page, created = create_page(parent, data)
+           3. page, created = create_page(parent, item, data)
 
-              1. prepare_page_instance(page, data)
+              1. prepare_page_instance(page, item, data)
 
-        3. page, created = create_page(parent, data)
+        3. page, created = create_page(parent, item, data)
 
-           1. prepare_page_instance(page, data)
+           1. prepare_page_instance(page, item, data)
 
     """
 
@@ -58,6 +59,7 @@ class BaseImporter(object):
         self.page_slug = page_slug
 
     def set_up(self, root_page, base_path):
+        self.base_path = base_path
         self.path = self.get_path(base_path)
         self.root = self.get_root_page(root_page)
 
@@ -65,10 +67,16 @@ class BaseImporter(object):
         return base_path / self.page_slug
 
     def get_root_page(self, root):
-        return root.add_child(instance=self.root_page_class(
-            title=self.page_title,
-            slug=self.page_slug,
-        ))
+        try:
+            return (
+                self.root_page_class.objects.child_of(root).
+                get(slug=self.page_slug)
+            )
+        except self.root_page_class.DoesNotExist:
+            return root.add_child(instance=self.root_page_class(
+                title=self.page_title,
+                slug=self.page_slug,
+            ))
 
     def get_parent_page(self, path):
         return self.root
@@ -118,6 +126,25 @@ class BaseImporter(object):
         data['date'] = self.parse_date(data.get('date'))
         return data
 
+    def convert_url_to_path(self, path, url):
+        if not url:
+            return
+        if urllib.parse.urlparse(url).scheme:
+            return
+
+        absolute_url = pathlib.PurePath(*[
+            p
+            for p in pathlib.PurePath(url).parts
+            if p not in ('.', '..')
+        ])
+
+        if (self.base_path / absolute_url).exists():
+            return self.base_path / absolute_url
+        elif (path.parent / url).exists():
+            return path.parent / url
+        else:
+            return path / url
+
     def parse_images(self, path, content):
         def get_image_format(attrs):
             classes = attrs.get('class', '').split()
@@ -129,15 +156,14 @@ class BaseImporter(object):
                 return 'fullwidth'
 
         def replace_image_tag(match):
-            base_path = path.parent
             attrs = lxml.html.fromstring(match.group(0)).attrib
+            asset_path = self.convert_url_to_path(path.parent, attrs.get('src'))
 
-            if 'src' in attrs:
-                src = base_path / attrs['src']
-                with src.open('rb') as f:
+            if asset_path:
+                with asset_path.open('rb') as f:
                     image = Image.objects.create(
                         title=attrs.get('alt', attrs.get('title', '')),
-                        file=File(f, src.name),
+                        file=File(f, asset_path.name),
                         width=attrs.get('width', 0),
                         height=attrs.get('height', 0),
                     )
@@ -160,10 +186,10 @@ class BaseImporter(object):
     def import_item(self, item):
         data = self.parse_metadata(item)
         parent = self.get_parent_page(item.path)
-        page, created = self.create_page(parent, data)
+        page, created = self.create_page(parent, item, data)
         return item._replace(created=created, page=page)
 
-    def create_page(self, parent, data):
+    def create_page(self, parent, item, data):
         try:
             instance = (
                 self.page_class.objects.child_of(parent).get(slug=data['slug'])
@@ -171,7 +197,7 @@ class BaseImporter(object):
         except self.page_class.DoesNotExist:
             instance = self.page_class(slug=data['slug'])
 
-        self.prepare_page_instance(instance, data)
+        self.prepare_page_instance(instance, item, data)
 
         if instance.pk:
             created = False
@@ -182,7 +208,7 @@ class BaseImporter(object):
 
         return instance, created
 
-    def prepare_page_instance(self, instance, data):
+    def prepare_page_instance(self, instance, item, data):
         instance.title = data['title']
         instance.date = data['date']
         instance.body = data['body']

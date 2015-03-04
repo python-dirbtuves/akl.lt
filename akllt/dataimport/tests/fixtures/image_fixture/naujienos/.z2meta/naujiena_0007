@@ -1,0 +1,4 @@
+[properties]
+blurb:text = \n<p> <a href="http://www.mslinux.org/"><img src="images/mslinux.jpg" height="50" width="50" alt="MS penguin" class="lphoto"></a>\nJAV federalinio teismo spendimu Microsoft turi perdaryti Windows \xc4\xaf Linux iki 2005.04.01.\n Nebetur\xc4\x97dama daugiau pinig\xc5\xb3 bylin\xc4\x97jimuisi Microsoft pakl\xc5\xabsta teismo sprendimui ir jau 2003 m. lapkrit\xc4\xaf i\xc5\xa1leid\xc5\xbeia pirm\xc4\x85 MS Linux versij\xc4\x85 \n<a href="http://www.mslinux.org/">www.mslinux.org</a>!</p>\n
+date:string = 2003-04-01
+title:string = MS Linux

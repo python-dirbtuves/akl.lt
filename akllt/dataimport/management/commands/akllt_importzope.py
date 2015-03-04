@@ -18,17 +18,20 @@ class Command(BaseCommand):
     def handle(self, export_dir, *args, **options):
         verbosity = int(options['verbosity'])
 
-        User.objects.create_superuser('admin', 'admin@localhost', 'admin')
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser('admin', 'admin@localhost', 'admin')
 
         root = Page.objects.get(url_path='/')
-        site_root = root.add_child(instance=IndexPage(
-            title='AKL',
-            slug='akl',
-        ))
-
-        site = Site.objects.get(is_default_site=True)
-        site.root_page = site_root
-        site.save()
+        if not Page.objects.filter(url_path='/akl').exists():
+            site_root = root.add_child(instance=IndexPage(
+                title='AKL',
+                slug='akl',
+            ))
+            site = Site.objects.get(is_default_site=True)
+            site.root_page = site_root
+            site.save()
+        else:
+            site_root = Page.objects.get(url_path='/akl')
 
         manager = ImportManager(site_root, export_dir)
         manager.add_importers([

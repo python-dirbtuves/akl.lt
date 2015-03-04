@@ -13,6 +13,6 @@ class NewsImporter(BaseImporter):
             if path.name.startswith('naujiena_'):
                 yield path
 
-    def prepare_page_instance(self, instance, data):
-        super(NewsImporter, self).prepare_page_instance(instance, data)
-        instance.blurb = data['blurb']
+    def prepare_page_instance(self, instance, item, data):
+        super(NewsImporter, self).prepare_page_instance(instance, item, data)
+        instance.blurb = self.parse_images(item.path, data['blurb'])

@@ -60,6 +60,6 @@ class PagesImporter(BaseImporter):
                 return self.create_parent_pages(parent_page, parts)
         return parent_page
 
-    def prepare_page_instance(self, instance, data):
-        super(PagesImporter, self).prepare_page_instance(instance, data)
+    def prepare_page_instance(self, instance, item, data):
+        super(PagesImporter, self).prepare_page_instance(instance, item, data)
         instance.show_in_menus = True
