@@ -15,7 +15,7 @@ help:
 	@echo 'make cleanpyc   remove all pyc pyo files'
 	@echo 'make tags       build ctags file'
 
-ubuntu-environment:
+ubuntu:
 	sudo apt install curl git-core build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev exuberant-ctags
 
 bin/django: buildout.cfg bin/buildout config/versions.cfg config/base.cfg config/assets.cfg setup.py
@@ -73,4 +73,4 @@ pylint: bin/pylint
 tags: bin/django
 	bin/ctags -v --tag-relative
 
-.PHONY: all help clean cleanpyc run tags pylint test testall ubuntu-environment
+.PHONY: all help clean cleanpyc run tags pylint test testall ubuntu
