@@ -16,7 +16,9 @@ help:
 	@echo 'make tags       build ctags file'
 
 ubuntu:
-	sudo apt install curl git-core build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev exuberant-ctags
+	sudo apt update
+	sudo apt-get build-dep python-lxml
+	sudo apt install curl build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev exuberant-ctags
 
 bin/django: buildout.cfg bin/buildout config/versions.cfg config/base.cfg config/assets.cfg setup.py
 	bin/buildout
