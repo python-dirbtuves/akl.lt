@@ -52,12 +52,13 @@ there::
     cd akl.lt
 
 First thing you have to do is to install system dependencies, these are
-development headers and some libraries (please note, that this command will
-require be run with ``sudo`` and will ask your password)::
+development headers and some libraries (please note, that this command will be
+run with ``sudo`` and will ask your password)::
 
     make ubuntu
 
-Now, build project and then run tests to make sure, that everything is OK::
+Now, build project and then run tests to make sure, that everything is OK
+(first command ``make`` will take some time to finish, be patient!)::
 
     make
     make test
