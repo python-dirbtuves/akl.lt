@@ -22,7 +22,7 @@ class Command(BaseCommand):
             User.objects.create_superuser('admin', 'admin@localhost', 'admin')
 
         root = Page.objects.get(url_path='/')
-        if not Page.objects.filter(url_path='/akl').exists():
+        if not Page.objects.filter(url_path='/akl/').exists():
             site_root = root.add_child(instance=IndexPage(
                 title='AKL',
                 slug='akl',

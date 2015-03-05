@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import datetime
+import pathlib
 
 from operator import itemgetter
 
@@ -117,11 +118,12 @@ class NewsExportReadTests(TestCase):
         root = get_default_site().root_page
         importer = NewsImporter('Naujienos', 'naujienos')
         importer.root = importer.get_root_page(root)
+        item = ImportItem(pathlib.PurePath())
 
-        inst_1, created_1 = importer.create_page(root, data)
+        inst_1, created_1 = importer.create_page(root, item, data)
         self.assertTrue(created_1)
 
-        inst_2, created_2 = importer.create_page(root, data)
+        inst_2, created_2 = importer.create_page(root, item, data)
         self.assertFalse(created_2)
 
         self.assertEqual(inst_1.pk, inst_2.pk)

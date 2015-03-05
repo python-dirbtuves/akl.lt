@@ -15,4 +15,4 @@ class NewsImporter(BaseImporter):
 
     def prepare_page_instance(self, instance, item, data):
         super(NewsImporter, self).prepare_page_instance(instance, item, data)
-        instance.blurb = self.parse_images(item.path, data['blurb'])
+        instance.blurb = self.parse_content(item.path, data['blurb'])

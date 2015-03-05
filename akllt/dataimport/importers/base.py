@@ -11,10 +11,12 @@ import urllib.parse
 from django.core.files import File
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.models import Image
+from wagtail.wagtaildocs.models import Document
 
 from akllt.dataimport.z2loader import load_metadata
 
 IMG_TAG_RE = re.compile(r'<img\b[^>]*>')
+A_TAG_RE = re.compile(r'<a\b[^>]*>')
 
 ImportItem = collections.namedtuple('ImportItem', ['path', 'created', 'page'])
 ImportItem.__new__ = functools.partial(
@@ -121,7 +123,7 @@ class BaseImporter(object):
                 body = f.read()
 
         data = load_metadata(z2meta_filename)
-        data['body'] = self.parse_images(item.path, body)
+        data['body'] = self.parse_content(item.path, body)
         data['slug'] = item.path.stem if item.path.suffix else item.path.name
         data['date'] = self.parse_date(data.get('date'))
         return data
@@ -176,8 +178,49 @@ class BaseImporter(object):
                         ('id', str(image.pk)),
                     )
                 ])
+            else:
+                return match.group(0)
 
         return IMG_TAG_RE.sub(replace_image_tag, content)
+
+    def parse_links(self, path, content):
+        suffixes = ('avi', 'doc', 'jpg', 'odp', 'odt', 'pdf', 'png', 'sxi')
+
+        def href_to_path(href):
+            if href:
+                suffix = pathlib.PurePath(href).suffix.lstrip('.').lower()
+                if suffix in suffixes:
+                    return self.convert_url_to_path(path.parent, href)
+
+        def replace_link_tag(match):
+            attrs = lxml.html.fromstring(match.group(0)).attrib
+            asset_path = href_to_path(attrs.get('href'))
+            # <embed alt="Nuo Windows prie Linux" embedtype="image" format="left" id="6"/>
+            # <a id="1" linktype="document">kurias</a>
+            # File extensions: avi, doc, jpg, odp, odt, pdf, png, sxi.
+            if asset_path:
+                title = attrs.get('alt', attrs.get('title', asset_path.name))
+                with asset_path.open('rb') as f:
+                    document = Document.objects.create(
+                        title=title,
+                        file=File(f, asset_path.name),
+                    )
+
+                return '<a %s>' % ' '.join([
+                    '%s="%s"' % (k, html.escape(v, quote=True)) for k, v in (
+                        ('id', str(document.pk)),
+                        ('linktype', 'document'),
+                    )
+                ])
+            else:
+                return match.group(0)
+
+        return A_TAG_RE.sub(replace_link_tag, content)
+
+    def parse_content(self, path, content):
+        content = self.parse_images(path, content)
+        content = self.parse_links(path, content)
+        return content
 
     def import_all_items(self):
         for item in self.iterate_items():
