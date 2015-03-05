@@ -136,7 +136,7 @@ class BaseImporter(object):
 
         absolute_url = pathlib.PurePath(*[
             p
-            for p in pathlib.PurePath(url).parts
+            for p in pathlib.PurePath(url.lstrip('/')).parts
             if p not in ('.', '..')
         ])
 
@@ -195,9 +195,6 @@ class BaseImporter(object):
         def replace_link_tag(match):
             attrs = lxml.html.fromstring(match.group(0)).attrib
             asset_path = href_to_path(attrs.get('href'))
-            # <embed alt="Nuo Windows prie Linux" embedtype="image" format="left" id="6"/>
-            # <a id="1" linktype="document">kurias</a>
-            # File extensions: avi, doc, jpg, odp, odt, pdf, png, sxi.
             if asset_path:
                 title = attrs.get('alt', attrs.get('title', asset_path.name))
                 with asset_path.open('rb') as f:

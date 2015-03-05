@@ -1,0 +1,9 @@
+[properties]
+author:string = Mykolas Okuli\xc4\x8d-Kazarinas
+blurb:text = Tre\xc4\x8diadien\xc4\xaf 7:00 - 8:00 <a href="http://www.vac.lt/seminaras/">\xe2\x80\x9eAteities\xe2\x80\x9c seminaro</a> tema - \xe2\x80\x9eKompiuteriai mokyklose \xe2\x80\x93 etinis pasirinkimas\xe2\x80\x9c.\n
+categories:multiple selection = (\'Laisva&nbsp;P\\xc4\\xae&nbsp;Lietuvoje\',)
+category_values:tokens = (\'Biuro&nbsp;programos\', \'OpenOffice\', \'Interneto&nbsp;programos\', \'Grafikos&nbsp;programos\', \'Multimedia\', \'\\xc5\\xbdaidimai&nbsp;ir&nbsp;pramogos\', \'Programavimas\', \'Laisva&nbsp;P\\xc4\\xae&nbsp;Lietuvoje\', \'Laisvi&nbsp;formatai&nbsp;ir&nbsp;standartai\', \'GNU/Linux&nbsp;OS\', \'GNU/Hurd&nbsp;OS\', \'FreeBSD&nbsp;OS\', \'OpenBSD&nbsp;OS\', \'GNOME&nbsp;aplinka\', \'KDE&nbsp;aplinka\', \'Grafin\\xc4\\x97s&nbsp;aplinkos\', \'S\\xc4\\x97km\\xc4\\x97s&nbsp;istorijos\', \'Patentai&nbsp;ir&nbsp;autorin\\xc4\\x97s&nbsp;teis\\xc4\\x97s\')
+date:string = 2007-03-23
+email:string = mykolasok@gmail.com
+profesionalams:boolean = False
+title:string = \xe2\x80\x9eKompiuteriai mokyklose \xe2\x80\x93 etinis pasirinkimas\xe2\x80\x9c

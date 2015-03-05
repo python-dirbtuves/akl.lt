@@ -17,7 +17,7 @@ class IterPathsTests(unittest.TestCase):
     def test_image_fixture(self):
         self.assertPaths(fixture('image_fixture/apie'), ['apie.html'])
         self.assertPaths(fixture('image_fixture/naujienos'), [
-            'naujiena_1020', 'naujiena_0007',
+            'naujiena_0944', 'naujiena_1020', 'naujiena_0007',
         ])
         self.assertPaths(fixture('image_fixture/skaitykla'), [
             'pranesimai.html',
