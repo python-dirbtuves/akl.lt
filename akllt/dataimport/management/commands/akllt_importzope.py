@@ -31,7 +31,7 @@ class Command(BaseCommand):
             site.root_page = site_root
             site.save()
         else:
-            site_root = Page.objects.get(url_path='/akl')
+            site_root = Page.objects.get(url_path='/akl/')
 
         manager = ImportManager(site_root, export_dir)
         manager.add_importers([

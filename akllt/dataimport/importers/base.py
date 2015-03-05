@@ -131,8 +131,15 @@ class BaseImporter(object):
     def convert_url_to_path(self, path, url):
         if not url:
             return
-        if urllib.parse.urlparse(url).scheme:
+
+        if url.startswith('http://www.akl.lt'):
+            url = url[17:]
+
+        if urllib.parse.urlparse(url).scheme or url.startswith('www.'):
             return
+
+        if url.startswith('/akl-new'):
+            url = url[8:]
 
         absolute_url = pathlib.PurePath(*[
             p
