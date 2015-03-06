@@ -14,6 +14,9 @@ import pathlib
 
 
 def get_cover_package(path):
+    if ':' in path:
+        path = path[:path.index(':')]
+
     base = pathlib.Path(__file__).parents[1].resolve()
     path = pathlib.Path(path).resolve()
     path = path.relative_to(base)
