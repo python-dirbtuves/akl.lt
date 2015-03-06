@@ -93,6 +93,50 @@ Build project inside virtual machine::
     make test # Make sure everything is green
     make run # and open http://127.0.0.1:8000 in your browser
 
+How to run tests
+================
+
+There are several ways how you can run tests. Below is list of all available
+options:
+
+- ::
+
+      make testall
+
+  This runs all available tests, including code style checkers and code
+  linters.
+
+- ::
+
+      make test
+
+  Runs only tests, without code style checkers and code linters.
+
+- ::
+
+      scripts/runtests.py akllt/dataimport
+
+  Runs all tests from specified directory path.
+
+- ::
+
+      scripts/runtests.py akllt/dataimport/tests/test_image_import.py
+
+  Runs all tests in specified file path.
+
+- ::
+
+      scripts/runtests.py akllt/dataimport/tests/test_image_import.py:ImportImageTests
+
+  Run all tests in specified test case class.
+
+- ::
+
+      scripts/runtests.py akllt/dataimport/tests/test_image_import.py:ImportImageTests.test_import_page_image
+
+  Run single test method.
+
+
 Internationalisation
 ====================
 
