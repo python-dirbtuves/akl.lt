@@ -35,9 +35,14 @@ def get_paths(paths):
         yield 'akllt'
 
 
-def run_tests(args):
-    coverage = not args.nocoverage
+def is_coverage_enabled(args):
+    if args.nocoverage or args.profile:
+        return False
+    else:
+        return True
 
+
+def run_tests(args):
     if args.fast:
         settings = 'akllt.settings.fasttests'
     else:
@@ -53,7 +58,6 @@ def run_tests(args):
     ] + args.paths
 
     if args.profile:
-        coverage = False
         cmd = [
             'bin/kernprof',
             '--line-by-line',
@@ -61,7 +65,7 @@ def run_tests(args):
             '--outfile=/dev/null',
             '--view',
         ] + cmd
-    else:
+    elif is_coverage_enabled(args):
         coverage_modules = list(set(map(get_cover_package, args.paths)))
         subprocess.call(['bin/coverage', 'erase'])
         cmd = [
@@ -69,13 +73,7 @@ def run_tests(args):
             '--source=%s' % ','.join(coverage_modules),
         ] + cmd
 
-    retcode = subprocess.call(cmd)
-
-    if retcode == 0 and coverage:
-        # Also see .coveragerc
-        subprocess.call(['bin/coverage', 'report', '--show-missing'])
-
-    return retcode
+    return subprocess.call(cmd)
 
 
 def run_flake8(args):
@@ -95,6 +93,11 @@ def run_pylint(args):
         )
     ] + list(get_paths(args.paths))
     return subprocess.call(cmd)
+
+
+def run_coverage_report(args):
+    # Also see .coveragerc
+    return subprocess.call(['bin/coverage', 'report', '--show-missing'])
 
 
 def main(args=None):
@@ -117,7 +120,8 @@ def main(args=None):
     sys.exit(
         run_tests(args) == 0 and
         run_flake8(args) == 0 and
-        run_pylint(args) == 0
+        run_pylint(args) == 0 and
+        (is_coverage_enabled(args) and run_coverage_report(args) == 0)
     )
 
 
