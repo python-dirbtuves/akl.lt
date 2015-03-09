@@ -1,7 +1,5 @@
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site
-
 from akllt.dataimport.importmanager import ImportManager
 from akllt.dataimport.importers.news import NewsImporter
 from akllt.dataimport.importers.pages import PagesImporter

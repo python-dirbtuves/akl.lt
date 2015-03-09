@@ -5,7 +5,7 @@ from akllt.dataimport.tests.utils import fixture
 
 
 class IterPathsTests(unittest.TestCase):
-    def assertPaths(self, path, expected):
+    def assert_paths(self, path, expected):
         importer = BaseImporter(path.name.title(), path.name)
         importer.path = path
         paths = [
@@ -15,16 +15,16 @@ class IterPathsTests(unittest.TestCase):
         self.assertEqual(paths, expected)
 
     def test_image_fixture(self):
-        self.assertPaths(fixture('image_fixture/apie'), ['apie.html'])
-        self.assertPaths(fixture('image_fixture/naujienos'), [
+        self.assert_paths(fixture('image_fixture/apie'), ['apie.html'])
+        self.assert_paths(fixture('image_fixture/naujienos'), [
             'naujiena_0944', 'naujiena_1020', 'naujiena_0007',
         ])
-        self.assertPaths(fixture('image_fixture/skaitykla'), [
+        self.assert_paths(fixture('image_fixture/skaitykla'), [
             'pranesimai.html',
         ])
 
     def test_whole_export(self):
-        self.assertPaths(fixture('whole_export/ak'), [
+        self.assert_paths(fixture('whole_export/ak'), [
             'atviri_standartai.html',
             'knygos.html',
             'sekme.html',
@@ -43,6 +43,6 @@ class IterPathsTests(unittest.TestCase):
             'licencijos/apie.html',
             'licencijos/kategorijos.html',
         ])
-        self.assertPaths(fixture('whole_export/naujienos'), [
+        self.assert_paths(fixture('whole_export/naujienos'), [
             'naujiena_0001', 'naujiena_0044',
         ])

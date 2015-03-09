@@ -1,13 +1,9 @@
 import re
-import unittest
-import pathlib
 
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site
 from wagtail.wagtailimages.models import Image
 
-from akllt.dataimport.importmanager import ImportManager
 from akllt.dataimport.importers.pages import PagesImporter
 from akllt.dataimport.importers.news import NewsImporter
 from akllt.dataimport.tests.utils import fixture
@@ -29,7 +25,8 @@ class ImportImageTests(TestCase):
         )).exists())
 
         # Test if HTML is replaced as intended.
-        imgid = lambda title: Image.objects.get(title=title).pk
+        def imgid(title):
+            return Image.objects.get(title=title).pk
         imgids = [
             imgid('AKL Rumšiškėse'),
             imgid('AKL steigiamasis susirinkimas (II)'),
@@ -66,5 +63,5 @@ class ImportImageTests(TestCase):
             '     class="lphoto"/>',
         ]))
         self.assertEqual(result, (
-            '<embed alt="AKL Rumšiškėse" embedtype="image" format="left" id="1"/>'
+            '<embed alt="AKL Rumšiškėse" embedtype="image" format="left" id="1"/>'  # noqa
         ))

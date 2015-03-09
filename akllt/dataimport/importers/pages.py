@@ -20,6 +20,7 @@ class PagesImporter(BaseImporter):
         ))
 
     def iterate_paths(self):
+        # pylint: disable=unused-variable
         for base, dirnames, filenames in os.walk(str(self.path)):
             base = pathlib.Path(base)
 

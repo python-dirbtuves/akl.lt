@@ -59,6 +59,9 @@ class BaseImporter(object):
     def __init__(self, page_title, page_slug):
         self.page_title = page_title
         self.page_slug = page_slug
+        self.base_path = None
+        self.path = None
+        self.root = None
 
     def set_up(self, root_page, base_path):
         self.base_path = base_path
@@ -80,6 +83,7 @@ class BaseImporter(object):
                 slug=self.page_slug,
             ))
 
+    # pylint: disable=unused-argument
     def get_parent_page(self, path):
         return self.root
 
@@ -90,13 +94,13 @@ class BaseImporter(object):
             # Yield all files, that have entry in .z2meta.
             for filename in filenames:
                 path = base / filename
-                if (base/'.z2meta'/filename).exists():
+                if (base / '.z2meta' / filename).exists():
                     yield path
 
             # Visit only directories containing .z2meta.
             dirnames[:] = [
                 dirname for dirname in dirnames
-                if (base/dirname/'.z2meta').exists()
+                if (base / dirname / '.z2meta').exists()
             ]
 
             # Yield all directories containing .z2meta.
@@ -234,6 +238,7 @@ class BaseImporter(object):
         data = self.parse_metadata(item)
         parent = self.get_parent_page(item.path)
         page, created = self.create_page(parent, item, data)
+        # pylint: disable=protected-access
         return item._replace(created=created, page=page)
 
     def create_page(self, parent, item, data):

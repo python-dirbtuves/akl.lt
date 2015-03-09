@@ -73,5 +73,5 @@ class Command(BaseCommand):
             'items. Total {total} items processed.\n'
         ).format(
             n_created=n_created, n_updated=n_updated,
-            total=n_updated+n_created,
+            total=(n_updated + n_created),
         ))

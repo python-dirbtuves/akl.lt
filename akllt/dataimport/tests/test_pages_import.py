@@ -1,6 +1,5 @@
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site
 from wagtail.wagtailcore.models import Page
 
 from akllt.dataimport.wagtail import get_root_page
@@ -19,10 +18,12 @@ class PagesImporterTests(TestCase):
     def test_get_parent_page(self):
         self.importer.path /= 'ak'
         path = self.importer.path / 'atviri_standartai'
-        url_paths = lambda: sorted(list(
-            self.importer.root.get_descendants().
-            values_list('url_path', flat=True)
-        ))
+
+        def url_paths():
+            return sorted(list(
+                self.importer.root.get_descendants().
+                values_list('url_path', flat=True)
+            ))
 
         # Test situation when parent page does not exist
         self.importer.get_parent_page(path / 'atviri_standartai.zpt')

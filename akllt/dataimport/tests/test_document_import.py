@@ -1,15 +1,10 @@
 import re
-import unittest
-import pathlib
 
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site
 from wagtail.wagtaildocs.models import Document
 
-from akllt.dataimport.importmanager import ImportManager
 from akllt.dataimport.importers.pages import PagesImporter
-from akllt.dataimport.importers.news import NewsImporter
 from akllt.dataimport.tests.utils import fixture
 from akllt.dataimport.tests.utils import get_default_site
 from akllt.pages.models import StandardPage
@@ -31,7 +26,8 @@ class ImportDocumentsTests(TestCase):
         )).exists())
 
         # Check if HTML is replaced as intended.
-        docid = lambda title: Document.objects.get(title=title).pk
+        def docid(title):
+            return Document.objects.get(title=title).pk
         docids = [
             docid('Kazarinas-Technologijos-ir-etika.odt'),
             docid('2007-03-17-Kazarinas-Laisvosios-programos-mokyme.odt'),

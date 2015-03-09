@@ -26,19 +26,17 @@ def get_cover_package(path):
         return path.parts[0]
 
 
-def main(args=None):
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('paths', nargs='+', help='paths to test files')
-    parser.add_argument(
-        '--fast', action='store_true', default=False,
-        help='run tests with akllt.settings.fasttests settings',
-    )
-    parser.add_argument(
-        '--profile', action='store_true', default=False,
-        help='run tests with line profiler',
-    )
-    args = parser.parse_args(args)
+def get_paths(paths):
+    if paths:
+        for path in paths:
+            if ':' in path:
+                path = path[:path.index(':')]
+            yield path
+    else:
+        yield 'akllt'
 
+
+def run_tests(args):
     if args.fast:
         settings = 'akllt.settings.fasttests'
     else:
@@ -70,7 +68,42 @@ def main(args=None):
     if coverage_file.exists():
         os.unlink(str(coverage_file))
 
-    sys.exit(subprocess.call(cmd))
+    return subprocess.call(cmd)
+
+
+def run_flake8(args):
+    cmd = [
+        'bin/flake8',
+        '--exclude=migrations',
+        '--ignore=E501',
+    ] + list(get_paths(args.paths))
+    return subprocess.call(cmd)
+
+
+def run_pylint(args):
+    cmd = [
+        'bin/pylint',
+        '--msg-template="%s"' % (
+            '{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}',
+        )
+    ] + list(get_paths(args.paths))
+    return subprocess.call(cmd)
+
+
+def main(args=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('paths', nargs='+', help='paths to test files')
+    parser.add_argument(
+        '--fast', action='store_true', default=False,
+        help='run tests with akllt.settings.fasttests settings',
+    )
+    parser.add_argument(
+        '--profile', action='store_true', default=False,
+        help='run tests with line profiler',
+    )
+    args = parser.parse_args(args)
+
+    sys.exit(run_tests(args) or run_flake8(args) or run_pylint(args))
 
 
 if __name__ == '__main__':

@@ -20,6 +20,6 @@ class ImportManager(object):
     def get_total(self):
         total = 0
         for importer in self.importers:
-            for path in importer.iterate_paths():
+            for _ in importer.iterate_paths():
                 total += 1
         return total

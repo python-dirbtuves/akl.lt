@@ -4,7 +4,7 @@ import akllt.website.helpers.login as login_helper
 
 from allauth.socialaccount.providers.openid.forms import LoginForm
 
-register = django.template.Library()
+register = django.template.Library()  # pylint: disable=invalid-name
 
 
 @register.inclusion_tag('website/tags/login_page.html', takes_context=True)

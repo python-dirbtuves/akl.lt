@@ -4,7 +4,7 @@ from django import template
 
 from akllt.website import navigation as nav
 
-register = template.Library()
+register = template.Library()  # pylint: disable=invalid-name
 
 MenuItem = collections.namedtuple('MenuItem', 'page, active')
 

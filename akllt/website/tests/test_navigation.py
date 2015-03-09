@@ -6,13 +6,13 @@ from akllt.website import navigation as nav
 from akllt.dataimport.tests.utils import get_default_site
 
 
+# pylint: disable=invalid-name
 class NavigationTests(TestCase):
     def test_get_top_menu_page(self):
         get_default_site()
 
-        add_page = lambda root, **kw: (
-            root.add_child(instance=Page(live=True, **kw))
-        )
+        def add_page(root, **kw):
+            return root.add_child(instance=Page(live=True, **kw))
 
         root = Page.objects.get(url_path='/')
 

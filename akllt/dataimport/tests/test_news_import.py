@@ -7,7 +7,6 @@ import pathlib
 from operator import itemgetter
 
 from django.test import TestCase
-from wagtail.wagtailcore.models import Site
 from wagtail.wagtailcore.models import Page
 
 from akllt.dataimport.importmanager import ImportManager

@@ -38,7 +38,7 @@ load-plugins=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=missing-docstring,locally-disabled,no-member,unexpected-keyword-arg,no-value-for-parameter,too-many-public-methods,bad-builtin
+disable=missing-docstring,locally-disabled,no-member,unexpected-keyword-arg,no-value-for-parameter,too-many-public-methods,bad-builtin,no-self-use,too-few-public-methods,star-args
 
 
 [REPORTS]
@@ -214,7 +214,7 @@ generated-members=REQUEST,acl_users,aq_parent
 max-line-length=80
 
 # Regexp for a line that is allowed to be longer than the limit.
-ignore-long-lines=^\s*(# )?<?https?://\S+>?$
+ignore-long-lines=^\s*('|(# )?<?https?://\S+>?$)
 
 # Allow the body of an if to be on the same line as the test if there is no
 # else.

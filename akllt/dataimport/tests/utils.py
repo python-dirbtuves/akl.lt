@@ -17,14 +17,14 @@ def wagtail_initial_data():
     """"Taken from wagtail/wagtailcore/migrations/0002_initial_data.py."""
 
     # Create page content type
-    page_content_type, created = ContentType.objects.get_or_create(
+    page_content_type, _ = ContentType.objects.get_or_create(
         model='page',
         app_label='wagtailcore',
         defaults={'name': 'page'}
     )
 
     # Create root page
-    root = Page.objects.create(
+    Page.objects.create(
         title="Root",
         slug='root',
         content_type=page_content_type,
