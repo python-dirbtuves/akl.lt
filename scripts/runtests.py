@@ -6,7 +6,6 @@ This script mostly useful for running tests in single file.
 
 """
 
-import os
 import sys
 import argparse
 import subprocess
@@ -37,6 +36,8 @@ def get_paths(paths):
 
 
 def run_tests(args):
+    coverage = not args.nocoverage
+
     if args.fast:
         settings = 'akllt.settings.fasttests'
     else:
@@ -49,13 +50,10 @@ def run_tests(args):
         '--nologcapture',
         '--doctest-tests',
         '--noinput',
-        '--with-coverage',
-    ] + [
-        '--cover-package=%s' % package
-        for package in set(map(get_cover_package, args.paths))
     ] + args.paths
 
     if args.profile:
+        coverage = False
         cmd = [
             'bin/kernprof',
             '--line-by-line',
@@ -63,12 +61,21 @@ def run_tests(args):
             '--outfile=/dev/null',
             '--view',
         ] + cmd
+    else:
+        coverage_modules = list(set(map(get_cover_package, args.paths)))
+        subprocess.call(['bin/coverage', 'erase'])
+        cmd = [
+            'bin/coverage', 'run',
+            '--source=%s' % ','.join(coverage_modules),
+        ] + cmd
 
-    coverage_file = pathlib.Path(__file__).parents[1].resolve() / '.coverage'
-    if coverage_file.exists():
-        os.unlink(str(coverage_file))
+    retcode = subprocess.call(cmd)
 
-    return subprocess.call(cmd)
+    if retcode == 0 and coverage:
+        # Also see .coveragerc
+        subprocess.call(['bin/coverage', 'report', '--show-missing'])
+
+    return retcode
 
 
 def run_flake8(args):
@@ -101,9 +108,17 @@ def main(args=None):
         '--profile', action='store_true', default=False,
         help='run tests with line profiler',
     )
+    parser.add_argument(
+        '--nocoverage', action='store_true', default=False,
+        help='run tests without test coverage report',
+    )
     args = parser.parse_args(args)
 
-    sys.exit(run_tests(args) or run_flake8(args) or run_pylint(args))
+    sys.exit(
+        run_tests(args) == 0 and
+        run_flake8(args) == 0 and
+        run_pylint(args) == 0
+    )
 
 
 if __name__ == '__main__':

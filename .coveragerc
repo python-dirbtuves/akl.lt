@@ -1,4 +1,6 @@
 [run]
 omit =
-    src/akllt/settings/*
+    akllt/urls.py
     */migrations/*
+    */tests/*
+    akllt/wsgi.py
