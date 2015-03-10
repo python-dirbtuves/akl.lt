@@ -9,6 +9,7 @@ from akllt.homepage.models import IndexPage
 from akllt.dataimport.importmanager import ImportManager
 from akllt.dataimport.importers.news import NewsImporter
 from akllt.dataimport.importers.pages import PagesImporter
+from akllt.dataimport.convertlinks import convert_links
 
 
 class Command(BaseCommand):
@@ -35,13 +36,20 @@ class Command(BaseCommand):
 
         manager = ImportManager(site_root, export_dir)
         manager.add_importers([
-            NewsImporter('Naujienos', 'naujienos'),
-            PagesImporter('Atviras kodas', 'ak'),
-            PagesImporter('Apie AKL', 'apie', ),
-            PagesImporter('Projektai', 'projektai'),
-            PagesImporter('Skaitykla', 'skaitykla'),
-            PagesImporter('Rėmėjai', 'remejai'),
-            PagesImporter('Nuorodos', 'nuorodos'),
+            NewsImporter('Naujienos', 'naujienos', in_menu=False),
+            PagesImporter('Atviras kodas', 'ak', in_menu=True),
+            PagesImporter('Apie AKL', 'apie', in_menu=True),
+            PagesImporter('Projektai', 'projektai', in_menu=True),
+            PagesImporter('Skaitykla', 'skaitykla', in_menu=True),
+            PagesImporter('Rėmėjai', 'remejai', in_menu=True),
+            PagesImporter('Nuorodos', 'nuorodos', in_menu=True),
+            PagesImporter('Balsavimas', 'balsavimas', in_menu=False),
+            PagesImporter('Programos', 'programos', in_menu=False),
+            PagesImporter('2004', '2004', in_menu=False),
+            PagesImporter('2005', '2005', in_menu=False),
+            PagesImporter('2006', '2006', in_menu=False),
+            PagesImporter('2009', '2009', in_menu=False),
+            PagesImporter('2010', '2010', in_menu=False),
         ])
 
         if verbosity == 1:
@@ -75,3 +83,16 @@ class Command(BaseCommand):
             n_created=n_created, n_updated=n_updated,
             total=(n_updated + n_created),
         ))
+
+        pages = (p.specific for p in Page.objects.all())
+        if verbosity == 1:
+            total = Page.objects.count()
+            generator = tqdm.tqdm(convert_links(pages), total=total)
+        else:
+            generator = convert_links(pages)
+
+        total = sum(1 for _ in generator)
+
+        self.stdout.write((
+            'Successfully converted links in {total} pages.'
+        ).format(total=total))

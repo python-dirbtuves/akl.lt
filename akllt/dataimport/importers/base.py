@@ -17,10 +17,13 @@ from akllt.dataimport.z2loader import load_metadata
 
 IMG_TAG_RE = re.compile(r'<img\b[^>]*>')
 A_TAG_RE = re.compile(r'<a\b[^>]*>')
+LINK_RE = re.compile(r'href=(["\'])(.*?\?doc=.+?)\1')
 
-ImportItem = collections.namedtuple('ImportItem', ['path', 'created', 'page'])
+ImportItem = collections.namedtuple('ImportItem', [
+    'path', 'created', 'page', 'in_menu',
+])
 ImportItem.__new__ = functools.partial(
-    ImportItem.__new__, created=None, page=None
+    ImportItem.__new__, created=None, page=None, in_menu=False
 )
 
 
@@ -56,12 +59,13 @@ class BaseImporter(object):
     model_class = Page
     root_page_class = Page
 
-    def __init__(self, page_title, page_slug):
+    def __init__(self, page_title, page_slug, in_menu=False):
         self.page_title = page_title
         self.page_slug = page_slug
         self.base_path = None
         self.path = None
         self.root = None
+        self.in_menu = in_menu
 
     def set_up(self, root_page, base_path):
         self.base_path = base_path
@@ -81,6 +85,7 @@ class BaseImporter(object):
             return root.add_child(instance=self.root_page_class(
                 title=self.page_title,
                 slug=self.page_slug,
+                show_in_menus=self.in_menu,
             ))
 
     # pylint: disable=unused-argument
@@ -95,7 +100,7 @@ class BaseImporter(object):
             for filename in filenames:
                 path = base / filename
                 if (base / '.z2meta' / filename).exists():
-                    yield path
+                    yield ImportItem(path=path)
 
             # Visit only directories containing .z2meta.
             dirnames[:] = [
@@ -105,11 +110,7 @@ class BaseImporter(object):
 
             # Yield all directories containing .z2meta.
             for dirname in dirnames:
-                yield base / dirname
-
-    def iterate_items(self):
-        for path in self.iterate_paths():
-            yield ImportItem(path=path)
+                yield ImportItem(path=base / dirname)
 
     def parse_date(self, datestring):
         try:
@@ -132,18 +133,52 @@ class BaseImporter(object):
         data['date'] = self.parse_date(data.get('date'))
         return data
 
+    def clean_url(self, url):
+        if url.startswith('http://www.akl.lt'):
+            url = url[17:]
+        elif url.startswith('http://akl.lt'):
+            url = url[13:]
+
+        if url.startswith('/akl-new'):
+            url = url[8:]
+
+        return url
+
+    def should_skip(self, url):
+        missing_resource = (
+            # None of these resources are available in export.
+            url.startswith('/alga/') or
+            url.startswith('/nuotraukos/')
+        )
+
+        external = (
+            urllib.parse.urlparse(url).scheme or
+            url.startswith('www.')
+        )
+
+        return missing_resource or external
+
+    def fix_url(self, url):
+        url = (
+            url.
+            replace('/EeePC-Linux/EeePC-Linux/EeePC-Linux/', '/EeePC-Linux/').
+            replace('/EeePC-Linux/EeePC-Linux/', '/EeePC-Linux/').
+            replace('files/AKL_Balansas_2003.pdf', 'AKL_Balansas_2003.pdf')
+        )
+        url_fix_map = {
+            '1doc.gif': '/ak/1doc.gif',
+        }
+        return url_fix_map.get(url, url)
+
     def convert_url_to_path(self, path, url):
         if not url:
             return
 
-        if url.startswith('http://www.akl.lt'):
-            url = url[17:]
+        url = self.clean_url(url)
+        url = self.fix_url(url)
 
-        if urllib.parse.urlparse(url).scheme or url.startswith('www.'):
+        if self.should_skip(url):
             return
-
-        if url.startswith('/akl-new'):
-            url = url[8:]
 
         absolute_url = pathlib.PurePath(*[
             p
@@ -231,7 +266,7 @@ class BaseImporter(object):
         return content
 
     def import_all_items(self):
-        for item in self.iterate_items():
+        for item in self.iterate_paths():
             self.import_item(item)
 
     def import_item(self, item):
@@ -264,3 +299,16 @@ class BaseImporter(object):
         instance.title = data['title']
         instance.date = data['date']
         instance.body = data['body']
+        instance.show_in_menus = item.in_menu
+
+    def post_process(self):
+        for page in (p.specific for p in Page.objects.all()):
+            if hasattr(page, 'body'):
+                page.body = self.post_process_links(page.url, page.body)
+                page.save()
+
+    def post_process_links(self, url, content):
+        def replace_links(match):
+            print((url, match.group(2)))
+
+        return LINK_RE.sub(replace_links, content)

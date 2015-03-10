@@ -14,7 +14,7 @@ class ImportManager(object):
 
     def iterate(self):
         for importer in self.importers:
-            for item in importer.iterate_items():
+            for item in importer.iterate_paths():
                 yield importer, item
 
     def get_total(self):

@@ -36,16 +36,20 @@ class PagesImporterTests(TestCase):
     def test_iterate_paths(self):
         base = fixture('whole_export')
         paths = self.importer.iterate_paths()
-        self.assertEqual(sorted([str(p.relative_to(base)) for p in paths]), [
+        rel_paths = sorted([str(p.path.relative_to(base)) for p in paths])
+        self.assertEqual(rel_paths, [
             'ak/atviri_standartai.html',
             'ak/dokumentacija.html',
+            'ak/floss.html',
             'ak/free-sw.html',
             'ak/knygos.html',
+            'ak/licencijos/apie.html',
             'ak/licencijos/copyleft.html',
             'ak/licencijos/gpl.html',
             'ak/licencijos/kategorijos.html',
             'ak/licencijos/lgpl.html',
             'ak/osd.html',
+            'ak/sekme.html',
         ])
 
     def test_parse_metadata(self):
@@ -68,12 +72,15 @@ class PagesImporterTests(TestCase):
             ('/home/ak/', 'Atviras kodas'),
             ('/home/ak/atviri_standartai/', 'Atviri standartai'),
             ('/home/ak/dokumentacija/', 'Dokumentacija'),
+            ('/home/ak/floss/', 'Laisvos, atviro kodo programos'),
             ('/home/ak/free-sw/', 'Laisvoji programinė įranga'),
             ('/home/ak/knygos/', 'Knygos'),
             ('/home/ak/licencijos/', 'licencijos'),
+            ('/home/ak/licencijos/apie/', 'Laisvųjų programų licencijavimas'),
             ('/home/ak/licencijos/copyleft/', 'Kas yra Copyleft?'),
             ('/home/ak/licencijos/gpl/', 'GNU viešoji licencija'),
             ('/home/ak/licencijos/kategorijos/', 'PĮ kategorijos'),
             ('/home/ak/licencijos/lgpl/', 'GNU laisvoji viešoji licencija'),
             ('/home/ak/osd/', 'Atvirojo kodo apibrėžimas'),
+            ('/home/ak/sekme/', 'Sėkmės istorijos'),
         ])

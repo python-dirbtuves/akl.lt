@@ -31,14 +31,14 @@ class NewsExportReadTests(TestCase):
         importer = NewsImporter('Naujienos', 'naujienos')
         importer.path = importer.get_path(fixture(''))
         paths = importer.iterate_paths()
-        self.assertEqual(sorted([p.name for p in paths]), [
+        self.assertEqual(sorted([p.path.name for p in paths]), [
             'naujiena_0001', 'naujiena_1016',
         ])
 
     def test_parse_metadata(self):
         importer = NewsImporter('Naujienos', 'naujienos')
         importer.path = importer.get_path(fixture(''))
-        items = importer.iterate_items()
+        items = importer.iterate_paths()
         data = map(importer.parse_metadata, items)
         data = sorted(map(shorten_values, data), key=itemgetter('slug'))
 

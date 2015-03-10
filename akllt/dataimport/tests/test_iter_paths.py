@@ -9,7 +9,7 @@ class IterPathsTests(unittest.TestCase):
         importer = BaseImporter(path.name.title(), path.name)
         importer.path = path
         paths = [
-            str(p.relative_to(importer.path))
+            str(p.path.relative_to(importer.path))
             for p in importer.iterate_paths()
         ]
         self.assertEqual(paths, expected)
@@ -17,7 +17,7 @@ class IterPathsTests(unittest.TestCase):
     def test_image_fixture(self):
         self.assert_paths(fixture('image_fixture/apie'), ['apie.html'])
         self.assert_paths(fixture('image_fixture/naujienos'), [
-            'naujiena_0944', 'naujiena_1020', 'naujiena_0007',
+            'naujiena_0944', 'naujiena_1020', 'naujiena_0007', 'naujiena_0985',
         ])
         self.assert_paths(fixture('image_fixture/skaitykla'), [
             'pranesimai.html',
