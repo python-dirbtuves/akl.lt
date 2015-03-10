@@ -13,13 +13,6 @@ class PagesImporter(BaseImporter):
     page_class = StandardPage
     root_page_class = StandardPage
 
-    # def get_root_page(self, root):
-    #     return root.add_child(instance=self.root_page_class(
-    #         title=self.page_title,
-    #         slug=self.page_slug,
-    #         show_in_menus=self.in_menu,
-    #     ))
-
     def iterate_paths(self):
         for base, dirnames, filenames in os.walk(str(self.path)):
             base = pathlib.Path(base)
