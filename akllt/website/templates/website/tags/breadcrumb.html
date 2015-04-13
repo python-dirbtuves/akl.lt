@@ -1,0 +1,8 @@
+{% if pages %}
+<ol class="breadcrumb">
+    {% for page in pages %}
+    <li><a href="{{ page.url }}">{{ page }}</a></li>
+    {% endfor %}
+    <li class="active">{{ calling_page }}</li>
+</ol>
+{% endif %}

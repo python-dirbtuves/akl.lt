@@ -47,3 +47,14 @@ def sidebar_menu(context):
         'menu': menu,
         'request': context['request'],  # required by the pageurl tag
     }
+
+
+@register.inclusion_tag('website/tags/breadcrumb.html', takes_context=True)
+def breadcrumb(context):
+    calling_page = context.get('self')
+    if calling_page:
+        root = calling_page.get_root()
+        pages = calling_page.get_ancestors().exclude(pk=root.pk)
+    else:
+        pages = []
+    return {'pages': pages, 'calling_page': calling_page}
