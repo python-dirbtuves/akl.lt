@@ -32,7 +32,7 @@ def sidebar_menu(context):
     calling_page = context.get('self')
     top_menu_page = nav.get_top_menu_page(calling_page)
     if top_menu_page is not None:
-        pages = top_menu_page.get_children().live().in_menu()
+        pages = top_menu_page.get_descendants().live().in_menu()
     else:
         pages = []
 
@@ -41,6 +41,7 @@ def sidebar_menu(context):
         menu.append(MenuItem(
             page=page,
             active=(calling_page and calling_page.url == page.url),
+            children=[]
         ))
 
     return {
