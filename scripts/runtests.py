@@ -53,6 +53,8 @@ def run_tests(args):
         '--settings=%s' % settings,
         '--nocapture',
         '--nologcapture',
+        '--all-modules',
+        '--with-doctest',
         '--doctest-tests',
         '--noinput',
     ] + args.paths
