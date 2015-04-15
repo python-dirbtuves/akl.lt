@@ -214,7 +214,7 @@ generated-members=REQUEST,acl_users,aq_parent
 max-line-length=80
 
 # Regexp for a line that is allowed to be longer than the limit.
-ignore-long-lines=^\s*('|(# )?<?https?://\S+>?$)
+ignore-long-lines=https?://
 
 # Allow the body of an if to be on the same line as the test if there is no
 # else.
