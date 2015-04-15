@@ -1,8 +1,11 @@
 import collections
 
 from django import template
+from wagtail.wagtailcore.models import Page
 
 from akllt.website import navigation as nav
+from akllt.common import treeutils
+from akllt.common import htmlutils
 
 register = template.Library()  # pylint: disable=invalid-name
 
@@ -27,27 +30,39 @@ def top_menu(context):
     }
 
 
-@register.inclusion_tag('website/tags/sidebar_menu.html', takes_context=True)
+@register.simple_tag(takes_context=True)
 def sidebar_menu(context):
     calling_page = context.get('self')
-    top_menu_page = nav.get_top_menu_page(calling_page)
-    if top_menu_page is not None:
-        pages = top_menu_page.get_descendants().live().in_menu()
-    else:
-        pages = []
+    top_menu_page = Page.objects.get(slug='akl')
 
-    menu = []
-    for page in pages:
-        menu.append(MenuItem(
-            page=page,
-            active=(calling_page and calling_page.url == page.url),
-            children=[]
-        ))
+    lines = []
 
-    return {
-        'menu': menu,
-        'request': context['request'],  # required by the pageurl tag
-    }
+    def traverse(tree):
+        lines.append('<ul>')
+        for page, children in tree:
+            tag = htmlutils.Tag('li')
+            if page.url == calling_page.url:
+                tag.classes.add('active')
+
+            if children:
+                lines.extend([
+                    tag.start(),
+                    page.title,
+                    traverse(children),
+                    tag.end(),
+                ])
+            else:
+                lines.extend([
+                    tag.start(),
+                    page.title,
+                    tag.end(),
+                ])
+        lines.append('</ul>')
+
+    tree = treeutils.grow_tree(top_menu_page.get_ancestors())
+    traverse(treeutils.transform(tree))
+
+    return '\n'.join(lines)
 
 
 @register.inclusion_tag('website/tags/breadcrumb.html', takes_context=True)

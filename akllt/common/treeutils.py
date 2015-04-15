@@ -89,3 +89,25 @@ def grow_tree(dfs_tree, callback=(lambda node: node)):
     for children, node in grow_tree_iter(tree, dfs_tree):
         children.append(callback(node))
     return tree
+
+
+def transform(tree):
+    """Transform list of lists to list of tuples containing item and children.
+
+    It actually transforms ``[a, [b]]`` to ``[(a, [(b, [])])]``. This
+    transformed structure is more convinient to use in recursive functions.
+    While input tree is more convinient to write.
+
+    Parameters:
+    - tree: list of lists
+
+    Returns: lists of tuples containing item and children.
+
+    """
+    result = []
+    for node in tree:
+        if isinstance(node, list):
+            result[-1] = (result[-1][0], transform(node))
+        else:
+            result.append((node, []))
+    return result

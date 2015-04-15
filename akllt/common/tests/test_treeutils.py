@@ -56,6 +56,14 @@ class GrowTreeTests(FixtureMixin, unittest.TestCase):
         self.assertEqual(tree, ['p1'])
 
 
+class TransformTests(FixtureMixin, unittest.TestCase):
+    def test_transform(self):
+        self.assertEqual(
+            treeutils.transform(self.fixtures.tree_of_slugs()),
+            self.fixtures.transformed_tree_of_slugs(),
+        )
+
+
 class CreateTreeTests(FixtureMixin, TestCase):
     def test_create_tree(self):
         root = get_default_site().root_page
@@ -163,4 +171,20 @@ class Fixtures(object):
                 ],
                 'p3',
             ],
+        ]
+
+    def transformed_tree_of_slugs(self):
+        return [
+            ('home', [
+                ('p1', []),
+                ('p2', [
+                    ('p21', []),
+                    ('p22', [
+                        ('p221', [
+                            ('p2211', []),
+                        ]),
+                    ]),
+                ]),
+                ('p3', []),
+            ]),
         ]
