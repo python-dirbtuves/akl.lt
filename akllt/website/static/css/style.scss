@@ -179,6 +179,28 @@ $dark-link-color: #CBD5D9;
             }
         }
     }
+
+    ul.depth-1 li a {
+        padding-left: 10px;
+    }
+
+    ul.depth-2 li a {
+        padding-left: 25px;
+    }
+
+    ul.depth-3 li a {
+        padding-left: 35px;
+        font-size: 12px;
+    }
+
+    ul.depth-4 li a {
+        padding: 4px 10px;
+        padding-left: 45px;
+    }
+
+    ul.depth-5 li a {
+        padding-left: 55px;
+    }
 }
 
 #first-nav-pill {

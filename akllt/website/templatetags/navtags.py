@@ -1,7 +1,6 @@
 import collections
 
 from django import template
-from wagtail.wagtailcore.models import Page
 
 from akllt.website import navigation as nav
 from akllt.common import treeutils
@@ -32,37 +31,39 @@ def top_menu(context):
 
 @register.simple_tag(takes_context=True)
 def sidebar_menu(context):
-    calling_page = context.get('self')
-    top_menu_page = Page.objects.get(slug='akl')
 
-    lines = []
-
-    def traverse(tree):
-        lines.append('<ul>')
+    def traverse(tree, depth=1):
+        ul = htmlutils.Tag('ul', classes={
+            'nav', 'nav-pills', 'nav-stacked', 'depth-' + str(depth),
+        })
+        yield ul.start()
         for page, children in tree:
-            tag = htmlutils.Tag('li')
-            if page.url == calling_page.url:
-                tag.classes.add('active')
+            is_active = page.pk == calling_page.pk
+
+            li = htmlutils.Tag('li')
+            li.toggle_class('active', is_active)
+
+            yield li.start()
+
+            if is_active:
+                yield htmlutils.tag('a', page.title, href='#')
+            else:
+                yield htmlutils.tag('a', page.title, href=page.url)
 
             if children:
-                lines.extend([
-                    tag.start(),
-                    page.title,
-                    traverse(children),
-                    tag.end(),
-                ])
-            else:
-                lines.extend([
-                    tag.start(),
-                    page.title,
-                    tag.end(),
-                ])
-        lines.append('</ul>')
+                yield from traverse(children, depth=depth + 1)
 
-    tree = treeutils.grow_tree(top_menu_page.get_ancestors())
-    traverse(treeutils.transform(tree))
+            yield li.end()
+        yield ul.end()
 
-    return '\n'.join(lines)
+    if 'self' in context:
+        calling_page = context['self']
+        top_menu_page = nav.get_top_menu_page(calling_page)
+        descendants = top_menu_page.get_descendants().live().in_menu()
+        tree = treeutils.grow_tree(descendants)
+        return '\n'.join(traverse(treeutils.transform(tree)))
+    else:
+        return ''
 
 
 @register.inclusion_tag('website/tags/breadcrumb.html', takes_context=True)
