@@ -1,0 +1,14 @@
+# Intended to work with Vagrant 1.6.*
+Vagrant.configure('2') do |config|
+  config.vm.define 'akl' do |akl|
+    akl.vm.box = 'ubuntu/trusty64'
+    akl.vm.network :forwarded_port, guest: 80, host: 8080
+    akl.vm.network :private_network, ip: "10.0.0.42"
+    akl.vm.synced_folder '.', '/vagrant', disabled: true
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    # lxml does not compile with 512
+    v.memory = 1024
+  end
+end

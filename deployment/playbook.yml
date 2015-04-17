@@ -1,0 +1,53 @@
+---
+- hosts: all
+  sudo: yes
+
+  vars:
+    home: /opt/akl.lt
+    path: /opt/akl.lt/app
+
+  tasks:
+
+  - name: apt packages
+    apt: pkg={{ item }} state=latest
+    with_items:
+    - build-essential
+    - python-dev
+    - python-pip
+    - nginx
+    - uwsgi
+    - git
+
+  - name: create akl user
+    user: name=akl system=yes group=www-data home={{ home }}
+
+  - name: clone repository
+    git: repo=https://github.com/python-dirbtuves/akl.lt.git dest={{ path }} force=yes
+    sudo_user: akl
+
+  - name: install app dependencies
+    command: make ubuntu chdir={{ path }}
+    sudo: yes
+
+  - name: build project
+    command: make chdir={{ path }}
+    sudo_user: akl
+
+  - name: setup nginx
+    template: src=nginx.conf dest=/etc/nginx/sites-enabled/akl.lt.conf
+
+  - name: create directories
+    file: path={{ path }}/{{ item }} state=directory
+    with_items:
+      - var/run
+      - var/logs
+      - var/www/media
+      - parts/nginx
+    sudo_user: akl
+
+  - name: download uwsgi_params
+    get_url: url=https://raw.githubusercontent.com/nginx/nginx/master/conf/uwsgi_params dest={{ path }}/parts/nginx/uwsgi_params
+    sudo_user: akl
+
+  - name: start nginx
+    service: name=nginx state=started
