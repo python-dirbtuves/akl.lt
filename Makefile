@@ -17,8 +17,8 @@ help:
 
 ubuntu:
 	sudo apt update
-	sudo apt-get build-dep python-lxml
-	sudo apt install curl build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev exuberant-ctags
+	sudo apt-get -y build-dep python-lxml
+	sudo apt install -y curl build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev exuberant-ctags
 
 bin/django: buildout.cfg bin/buildout config/versions.cfg config/base.cfg config/assets.cfg setup.py
 	bin/buildout
