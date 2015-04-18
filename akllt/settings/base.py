@@ -174,16 +174,46 @@ WAGTAIL_SITE_NAME = 'Atviras Kodas Lietuvai'
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'filters': {
         'warnings': {
             '()': 'akllt.log.FilterWarnings',
+        },
+    },
+    'formatters': {
+        'stdout': {
+            'format': (
+                '%(levelname)s %(asctime)s %(module)s '
+                '%(process)d %(thread)d %(message)s'
+            ),
+        },
+        'console': {
+            'format': '%(levelname)s %(module)s %(message)s',
+        },
+    },
+    'handlers': {
+        'stdout': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'stdout',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
         },
     },
     'loggers': {
         'py.warnings': {
             'filters': ['warnings'],
         },
+        'django': {
+            'propagate': True,
+        },
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console'],
     }
 }
 

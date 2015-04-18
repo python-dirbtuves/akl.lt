@@ -1,0 +1,19 @@
+---
+- hosts: all
+  sudo: yes
+  gather_facts: no
+
+  vars:
+    home: /opt/akl.lt
+    path: "{{ home }}/app"
+    export_path: "{{ home }}/zope-export"
+
+  tasks:
+
+  - name: clone akl.lt-zope-export
+    git: repo=https://github.com/mgedmin/akl.lt-zope-export.git dest={{ export_path }}
+    sudo_user: akl
+
+  - name: import akl.lt-zope-export
+    command: bin/django akllt_importzope {{ export_path }} chdir={{ path }}
+    sudo_user: akl

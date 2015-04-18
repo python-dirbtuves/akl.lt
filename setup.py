@@ -31,6 +31,7 @@ setup(
         'django-extensions',
         'django-allauth',
         'django-debug-toolbar',
+        'psycopg2',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',

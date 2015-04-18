@@ -17,7 +17,7 @@ help:
 
 ubuntu:
 	sudo apt update
-	sudo apt-get -y build-dep python-lxml
+	sudo apt-get -y build-dep python-lxml python-psycopg2
 	sudo apt-get -y install curl build-essential python-dev libxml2-dev libxslt1-dev zlib1g-dev libpng12-dev libjpeg-dev exuberant-ctags
 
 bin/django: buildout.cfg bin/buildout config/versions.cfg config/base.cfg config/assets.cfg setup.py
