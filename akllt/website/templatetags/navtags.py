@@ -59,11 +59,11 @@ def sidebar_menu(context):
     if 'self' in context:
         calling_page = context['self']
         top_menu_page = nav.get_top_menu_page(calling_page)
-        descendants = top_menu_page.get_descendants().live().in_menu()
-        tree = treeutils.grow_tree(descendants)
-        return '\n'.join(traverse(treeutils.transform(tree)))
-    else:
-        return ''
+        if top_menu_page:
+            descendants = top_menu_page.get_descendants().live().in_menu()
+            tree = treeutils.grow_tree(descendants)
+            return '\n'.join(traverse(treeutils.transform(tree)))
+    return ''
 
 
 @register.inclusion_tag('website/tags/breadcrumb.html', takes_context=True)
