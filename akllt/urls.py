@@ -6,6 +6,7 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
 
+
 urlpatterns = patterns(
     '',
     url(r'', include('akllt.stub.urls')),
@@ -13,11 +14,13 @@ urlpatterns = patterns(
     url(r'^search/', include(wagtailsearch_frontend_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'', include('akllt.news.urls')),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
     url(r'', include(wagtail_urls)),
 )
+
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns

@@ -54,6 +54,10 @@ class NewsStory(Page):
             'page_title': self.title,
         }
 
+    def get_absolute_url(self):
+        return self.full_url
+
+
 NewsStory.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('date'),

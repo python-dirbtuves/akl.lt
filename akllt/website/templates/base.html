@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-theme.css" %}">
     <link rel="stylesheet" type="text/x-scss" href="{% static "css/style.scss" %}">
     {% endcompress %}
+    <link rel="alternate" type="application/rss+xml" title="Atviras kodas Lietuvai latest news" href="{% url 'rss' %}" />
+
     <script src="{% static "jquery.min.js" %}"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script data-main="{% static "js/main.js" %}" src="{% static "require.min.js" %}"></script>
