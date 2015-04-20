@@ -1,6 +1,5 @@
 {% load trans from i18n %}
 {% load static from staticfiles %}
-{% load require_module from require %}
 {% load compress from compress %}
 {% load slugurl from wagtailcore_tags %}
 {% load wagtailuserbar from wagtailuserbar %}
@@ -19,7 +18,7 @@
     {% endcompress %}
     <script src="{% static "jquery.min.js" %}"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
-    {% require_module 'main' %}
+    <script data-main="{% static "js/main.js" %}" src="{% static "require.min.js" %}"></script>
 </head>
 <body>
     <div class="container">

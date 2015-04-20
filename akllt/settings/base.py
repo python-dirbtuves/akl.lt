@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'require',
     'compressor',
     'taggit',
     'modelcluster',
@@ -146,15 +145,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
-
-
-# django-requirejs settings
-# https://pypi.python.org/pypi/django-require
-
-STATICFILES_STORAGE = 'require.storage.OptimizedStaticFilesStorage'
-REQUIRE_BASE_URL = 'js'
-REQUIRE_BUILD_PROFILE = 'app.build.js'
-REQUIRE_JS = '../require.min.js'
 
 
 # django-ompressor settings

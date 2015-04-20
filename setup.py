@@ -21,7 +21,6 @@ setup(
         # https://github.com/kmike/django-webtest/issues/28
         'webtest',
         'django-nose',
-        'django-require',
         'django-compressor',
         'django-libsass',
         'django-webtest',

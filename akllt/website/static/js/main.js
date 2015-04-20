@@ -1,2 +1,2 @@
-define(function(require) {
+require(['require'], function(require) {
 });
