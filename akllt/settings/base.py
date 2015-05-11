@@ -80,6 +80,7 @@ MIDDLEWARE_CLASSES = (
 
 TEMPLATE_CONTEXT_PROCESSORS = defaults.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    'akllt.website.context_processors.debug',
 )
 
 ROOT_URLCONF = 'akllt.urls'

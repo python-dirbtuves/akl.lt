@@ -11,5 +11,14 @@
 {% block content %}
 <h1>{% trans "Sign In" %}</h1>
 {% login_page %}
+{{ auth.login_form }}
+{% if DEBUG %}
+    <form action="{% url 'password_login' %}" method="post">{% csrf_token %}
+        <h3>Admin login form for debuging purposes</h3>
+        <p>Username: <input name="username" type="text"></p>
+        <p>Password: <input name="password" type="text"></p>
+        <p><input type="submit"></p>
+    </form>
+{% endif %}
 {% providers_media_js %}
 {% endblock %}
