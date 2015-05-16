@@ -1,4 +1,5 @@
-.. image:: https://codeship.com/projects/3f0796c0-de09-0132-ef22-5604aedd125f/status?branch=master
+.. image:: https://travis-ci.org/python-dirbtuves/akl.lt.svg?branch=master
+    :target: https://travis-ci.org/python-dirbtuves/akl.lt
 
 AKL website project.
 
