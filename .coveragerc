@@ -4,3 +4,11 @@ omit =
     */migrations/*
     */tests/*
     akllt/wsgi.py
+
+[report]
+omit =
+    */__init__.py
+    */tests/*
+    */migrations/*
+    */settings/*
+    akllt/wsgi.py

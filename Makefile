@@ -64,13 +64,18 @@ run: bin/django
 testall: test flake8 pylint cleanpyc
 
 test: bin/django
-	bin/django test --nologcapture --with-coverage --cover-package=akllt 
+	bin/coverage erase
+	bin/coverage run --source=akllt bin/django test --settings=akllt.settings.testing --nologcapture
+	bin/coverage report --show-missing --fail-under=80
 
 flake8: bin/flake8
-	bin/flake8 --exclude=migrations akllt || true
+	bin/flake8 --exclude=migrations akllt
 
 pylint: bin/pylint
-	bin/pylint akllt || true
+	bin/pylint akllt
+
+report:
+	bin/coverage report --show-missing
 
 tags: bin/django
 	bin/ctags -v --tag-relative

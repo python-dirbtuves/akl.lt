@@ -1,0 +1,42 @@
+## Script (Python) "submenu"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##parameters=
+##title=
+##
+# Pradiniam puslapy nerodom submeniu
+#if context == container:
+#     return ""
+
+if hasattr(context, 'hidden.html'):
+     context.REQUEST.set('doc', 'hidden.html')
+     return ""
+# Pasiimam dok� s�ra��
+if hasattr(context, 'list'):
+     list = [getattr(context, doc, doc) for doc in context.list()]
+else:
+     list = context.objectValues()
+     
+for doc in list:
+     try:
+
+          name = doc.getId()
+          # Praleid�iam ne�domius dokus
+          if not (name.endswith(".stx") \
+             or name.endswith(".zpt") \
+             or name.endswith(".html")):
+               continue
+          if not context.REQUEST.has_key('doc'):
+               context.REQUEST.set('doc', name)   # Kad rodyt� pirm� dok�
+          if name == context.REQUEST['doc']:
+               aclass = 'class="selected"'
+          else:
+               aclass = ''
+          print '<a href="%s/../?doc=%s" %s><span class="arrow">&gt;&nbsp;</span>%s</a><br/>' % \
+                (context.absolute_url(), name, aclass,doc.title_or_id())
+     except KeyError:
+          print '<a style="color: red"><span class="arrow">&gt;&nbsp;</span>%s</a><br/>' % doc
+return printed

@@ -20,7 +20,6 @@ URL_FIX_MAP = {
     '/projektai/?doc=Infobalt2005.html': '/projektai/parodos/Infobalt2005/',
     '/apie/visuotinis/visuotinis/?doc=visuotinis06.html': '/apie/visuotinis/visuotinis06/',
     '/apie/?doc=visuotinis05.html': '/apie/visuotinis/visuotinis05/',
-    '/apie/?doc=visuotinis05.html': '/apie/visuotinis/visuotinis05/',
     'knygos/?doc=grafine_aplinka_kde.html': '/ak/knygos/grafine_aplinka_kde/',
     '/apie/?doc=akl_istatai.html': '/apie/istatai/',
     '../../2005/visuotinis/?doc=visuotinis2005_protokolas.html': '/2005/visuotinis/visuotinis2005_protokolas/',
@@ -59,6 +58,7 @@ def get_converted_url(page, link):
 
     path += '/'
 
+    # pylint: disable=protected-access
     return url._replace(
         query=urllib.parse.urlencode(query, doseq=True),
         path=path,
@@ -66,6 +66,7 @@ def get_converted_url(page, link):
 
 
 def get_url_path(url):
+    # pylint: disable=protected-access
     url_path = urllib.parse.urlparse(url)._replace(fragment='').geturl()
     return '/akl%s' % url_path
 
@@ -77,13 +78,12 @@ def format_wagtail_tag(page, link):
         url = get_converted_url(page, link)
 
     url_path = get_url_path(url)
-    ref_page = Page.objects.get(url_path=url_path)
+    try:
+        ref_page = Page.objects.get(url_path=url_path)
+    except Page.DoesNotExist:
+        print(url_path)
+        raise
 
-    # FIXME: currently fragment identifiers are not preserved because of
-    # limitaiton in Wagtail, see:
-    # https://github.com/torchbox/wagtail/issues/1049
-    # and
-    # https://github.com/python-dirbtuves/akl.lt/issues/45
     return '<a linktype="page", id="%d">' % ref_page.pk
 
 

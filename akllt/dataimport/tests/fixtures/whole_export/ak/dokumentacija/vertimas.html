@@ -1,0 +1,156 @@
+<h1>Atviro kodo programų vertimo pradžiamokslis</h1>
+<p>Didžioji dalis laisvų (atviro kodo) programų vertimui naudoja gettext
+mechanizmą (.po bylas), todėl čia bus aprašytas tik šis būdas.</p>
+<h2>Pradžia bei įrankiai</h2>
+<p>Paprasčiausia yra atsisiųsti iš programos, kurią norite versti, interneto
+svetainės vertimo šabloną - t.y. bylą su išplėtimu .pot, tada ją pervadinti
+į .po ir versti. Jokių specialių programų nereikia, užtenka paprasto tekstų
+redaktoriaus. Trumpas .po bylos aprašymas:<br>
+</p>
+<pre>
+# Lithuanian translation of GIMP.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: GIMP 1.2\n"
+"POT-Creation-Date: 2002-07-23 22:19+0200\n"
+"PO-Revision-Date: 2002-10-05 11:04+0200\n"
+"Last-Translator: Jonas Lietuvis &lt;lietuvis@lietuva.lt&gt;\n"
+"Language-Team: Lithuanian &lt;komp_lt@konferencijos.lt&gt;\n"
+"MIME-Version: 1.0\n"<br>"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+</pre>
+
+<p>Pradžioje yra bendra informacija - čia įrašomas verčiamos programos pavadinimas,
+vertėjo informacija, vertėjų komanda (Language-Team), koduotė (charset) ir t.t. 
+Verčiant geriausia naudoti <b>UTF-8</b> koduotę. Jei programa nesupranta <b>UTF-8</b> tada reikia rinktis <b>iso-8859-13</b> koduotę.<br>
+Toliau yra svarbiausia - eilutės, kurias reikia išversti:<br>
+</p>
+<pre>
+msgid "This is english words"
+msgstr ""
+</pre>
+	 	
+<p>Eilutėse, prasidedančiose <b>msgid</b> yra angliški žodžiai, kuriuos reikia išversti ir įrašyti tarp kabučių, 
+esančių prie <b>msgstr</b>, taigi po vertimo turi atrodyti maždaug taip:</p>
+<pre>
+msgid "This is english words"
+msgstr "Tai yra angliški žodžiai"
+</pre>
+<p>Versti galima su bet kokia tekstų redagavimo programa, tačiau patogiausia tai daryti su tam pritaikytomis programomis - Emacs,
+KBabel, gtranslator, PoEdit. Programa <a
+ href="http://poedit.sourceforge.net">PoEdit</a> labai gera tuo, kad veikia
+tiek Linux, tiek Windows sistemose.</p>
+
+<h2>Kaip aš galėčiau prisidėti, ir kaip yra organizuojamas informacijos apsikeitimas?</h2>
+
+<p>Pradžiai geriausiai imti nepradėtas versti programas, ypač tas kur pats
+naudoji. Kai išmoksite, tada galėsi perimti kai kuriuos vertimus.</p>
+<p>Visų pirma reikia atsisiųsti verčiamos programos vertimo šabloną (bylą
+su .pot išplėtimu) iš interneto. Jei nežinote kur rasti vertimo šablonus - 
+paprasčiausiai parsisiųskite neišverstą (.pot) ar pusiau išverstą bylą (.po)
+iš iš GNOME vertimo projekto puslapių:<br>
+Pagrindinis Gnome 2.6 versijos puslapis lietuviškiems vertimams yra čia:
+<a href="http://developer.gnome.org/projects/gtp/status/gnome-2.6/lt/index.html">http://developer.gnome.org/projects/gtp/status/gnome-2.6/lt/index.html</a> <br>
+O iš čia galima iškart atsisiųsti 
+<a href="http://developer.gnome.org/projects/gtp/status/gnome-2.6/lt/desktop/index.html">pagrindinių</a>
+<a href="http://developer.gnome.org/projects/gtp/status/gnome-2.6/lt/fifth-toe/index.html">papildomų</a>
+bei <a href="http://developer.gnome.org/projects/gtp/status/gnome-2.6/lt/extras/index.html">kitų</a> GNOME programų vertimų bylas.<br>
+ Visa GNOME vertimų statistika yra čia: <a
+ href="http://developer.gnome.org/projects/gtp/status">http://developer.gnome.org/projects/gtp/status</a>.
+</p>
+
+<p> Patyrusiems kompiuterio vartotojams vertimo bylas geriausiai gauti
+iš verčiamos programos CVS (reikalingiausia informacija, kaip naudotis GNOME CVS, yra <a
+ href="http://developer.gnome.org/tools/cvs.html">developer.gnome.org</a>
+svetainėje, o pilna dokumentacija yra <a href="http://www.cvshome.org/">www.cvshome.org</a>).</p>
+<p>Labai daug programų vertimų bylų (.po) galima rasti Debian vertimų puslapyje:
+<a href="http://www.debian.org/intl/l10n/po/lt">www.debian.org/intl/l10n</a></p>
+<p>Tada išverti (su aukščiau paminėtais įrankiais) ir siunti programos autoriams.
+Jei kyla kokių klausimų geriausia kreiptis į programų vertimams skirtą konferenciją
+komp_lt - žvilgtelk į http://www.lietuvybe.org arba paprasčiausiai adresu
+<a href="mailto:serv@konferencijos.lt?subject=">serv@konferencijos.lt</a>
+nusiųskite laišką su tuščiu <tt>Subject:</tt> laukeliu, o jame įrašykite vienintelę
+eilutę </p>
+<pre>subscribe komp_lt<br></pre>
+<p>Tada gausite laišką ir įvykdę ten esančius nurodymus galėsite rašyti laiškus
+adresu komp_lt@konferencijos.lt arba per web sąsają:<br>
+http://www.konferencijos.lt susiraskite komp_lt konferenciją.<br>
+</p>
+<h2>Ar verta versti dokumentaciją?</h2>
+<p>Ne, dokumentacijos beveik niekas neverčia. Ne tik kad į lietuvių kalbą,
+bet ir į kitas. Praktiškai tik ispanų ir italų komandos verčia GNOME dokumentaciją.
+Bent kol kas jos niekas neskaito :(</p>
+<h2>Terminai</h2>
+<p>Iškils klausimų dėl to, kokius žodžius naudoti... Dalis jų yra surašyta
+<a href="http://www.lietuvybe.org/?menuid=Zodynai&submenu=terminai">www.lietuvybe.org/?menuid=Zodynai</a>.
+Čia tokie beveik oficialūs terminai, nors nėra gerai atrinkti ir peržiūrėti.
+Jei (tavo manymu) yra geresnių atitikmenų arba ko nors trūksta - rašyk į aukščiau minėtą konferenciją.</p>
+
+<h2><a name="update">Vertimų patikrinimas bei atnaujinimas</a></h2>
+
+<p>Klausimas: <em>Aš išverčiau vieną pot bylą, po kurio laiko atsiranda nauja
+to pot versija. Kai kurios frazės lieka senos, kai kas atsiranda naujo. Kaip
+būtų geriausia padaryti, kad nereikėtų iš naujo suvedinėti tų senų frazių,
+kurios ir taip jau suvestos? Gal yra kokios programos tam dalykui?</em></p>
+<p>Atsakymas: taip. Viena iš esminių gettext paketo programų yra msgmerge.
+Gavus naują projekto foo frazių be vertimų bylą <tt>foo.pot</tt>, ir turint
+seną vertimą foo-lt.po, paleidi</p>
+<pre>msgmerge foo-lt.po foo.pot &gt; lt.po<br>mv lt.po foo-lt.po<br></pre>
+<p>išverti, tada sukompiliuoji iš .po bylos į .mo (verčiant su PoEdit programa
+.mo padaromas automatiškai išsaugant verčiamą bylą) ir pasižiūri, kiek išversta:</p>
+<pre>msgfmt -c -v -o foo.mo foo-lt.po</pre>
+<p>kad išbandytum, kaip tai atrodo, nukopijuoji .mo bylą į /usr/share/locale/lt/LC_MESSAGES
+katalogą (kaip tiksliai turi vadintis .mo byla rasite pasižiūrėję į kitas
+kalbas, pvz vokiečių - katalogas /usr/share/locale/de/LC_MESSAGES):</p>
+<pre>cp foo.mo /usr/share/locale/lt/LC_MESSAGES/foo.mo<br>(jei dirbi su Linux)<br><br></pre>
+<p>Windows OS reikia nueiti į katalogą, į kurį įdiegėte programą ir ten pačiam
+susirasti .mo bylų vietą.<br>
+</p>
+<p>Tada paleidi programą, kurią verti, iš naujo. GNOME programose po kataloge
+dažniausiai yra skriptukas <tt>update.pl</tt> arba <tt>update.sh</tt>. Tuomet
+vietoj visų paminėtų veiksmų galima paleisti</p>
+<pre>./update.pl lt</pre>
+<p>Tačiau kai kurių programų naujesnės versijos reikalauja paketo <tt>xml-i18n-tools</tt>.
+Jei parsisiunčiate pradinius tekstus (sources) .tar.gz pavidalu, tuomet lengviausia
+tai patikrinti -- šakniniame kataloge yra keletas xml-18n-* bylų. Jei gavote
+sourcus iš CVS, tuomet tos bylos sukuriamos kompiliavimo metu (tiksliau, leidžiant
+<tt>./autogen.sh</tt>). Tokių programų vertimai atnaujinami komanda.</p>
+<pre>xml-i18n-update lt</pre>
+<h2>PO formatas</h2>
+<p>Tie, kas vers po bylas, atkreipkite dėmesį į šias pastabas:</p>
+<ol>
+	<li>Ženklas &amp; reiškia, kad po jo esanti raidė programoje bus pabraukta
+(pvz "&amp;File" programoje atrodys <u>F</u>ile)<br>
+  </li>
+  <li>Eilutėse, pažymėtose 	          
+    <pre>#, c-format</pre>
+	yra labai svarbu <em>%s</em> ir kiti parametrai. Jų skaičius, reikšmė po
+% ir 	tvarka turi sutapti. Jei reikia sukeisti, tuomet yra toks 	formatas:
+         
+    <pre>msgid "%s %d"<br>msgstr "%1$d %2$s"</pre>
+	 	          
+    <p>Visa laimė, kad tai lengva patikrinti:</p>
+	          
+    <pre>msgfmt -c -v -o lt.gmo lt.po</pre>
+	 	patikrins visus formatus ir praneš visas klaidas. 	</li>
+	 	<li>Jei nenori versti, pavyzdžiui "Alt+Right", tai nepalik neišversto,
+	tačiau nukopijuok. Tuomet bus aišku, kad viskas yra išversta. 	</li>
+	 	<li>vertimai turėtų vadintis <tt>lt.po</tt>, o jei jų daug -- tarkim, 	<tt>yast-lt.po</tt>.
+	<tt>yast.pot</tt> yra tuščia (be vertimų), programos xgettext 	sugeneruojama
+byla. 	</li>
+</ol>
+    
+<p>Daugiau skaitykit anglišką dokumentaciją, pvz. "info gettext" arba <a
+ href="http://i18n.kde.org">KDE Internacionalizacijos puslapyje</a> esančią
+<a href="http://i18n.kde.org/translation-howto/index.html">KDE-Translation-HOWTO</a>.
+Naudinga perskaityti apie <a
+ href="http://developer.gnome.org/projects/gtp/">GNOME vertimo projektą</a>.</p>
+<div align="right">
+<div align="right"><font size="-2"><a href="mailto:mantas@akl.lt"
+ class="pastas">Mantas Kriaučiūnas</a>    </font></div>
+<font size="-2"><a href="mailto:menesis@centras.lt" class="pastas">Gediminas Paulauskas</a>
+    </font></div>
+  <br>
+<br>
