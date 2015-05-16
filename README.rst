@@ -1,5 +1,10 @@
 .. image:: https://travis-ci.org/python-dirbtuves/akl.lt.svg?branch=master
-    :target: https://travis-ci.org/python-dirbtuves/akl.lt
+   :target: https://travis-ci.org/python-dirbtuves/akl.lt
+
+.. image:: https://coveralls.io/repos/python-dirbtuves/akl.lt/badge.svg
+   :target: https://coveralls.io/r/python-dirbtuves/akl.lt
+
+----
 
 AKL website project.
 
