@@ -1,3 +1,5 @@
+.. image:: https://codeship.com/projects/3f0796c0-de09-0132-ef22-5604aedd125f?branch=master
+
 AKL website project.
 
 This repository is move from https://launchpad.net/akl-web-site .
