@@ -41,7 +41,7 @@
 
 {% block content %}
 <h3>Atviro kodo naujienos <a href="{% url "rss" %}"><img src="{% static "images/akl-web-site/rss.png" %}"></a></h3>
-<p><img src="{% static "images/akl-web-site/lamp.png" %}"><a href="#">Pasiūlyk naujieną!</a></p>
+<p><img src="{% static "images/akl-web-site/lamp.png" %}"><a href="{% url 'news_create' %}">Pasiūlyk naujieną!</a></p>
 
 <div class="news-content">
     {% for news_item in news_items %}
