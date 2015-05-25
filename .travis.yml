@@ -1,0 +1,9 @@
+language: python
+python: "3.4"
+install:
+  - make
+  - pip install python-coveralls
+script:
+  - make testall
+after_success:
+  - coveralls

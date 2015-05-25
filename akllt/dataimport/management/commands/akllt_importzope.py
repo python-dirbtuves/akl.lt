@@ -16,6 +16,7 @@ class Command(BaseCommand):
     args = '<directory name>'
     help = 'Imports data from old akl.lt website'
 
+    # pylint: disable=too-many-locals
     def handle(self, export_dir, *args, **options):
         verbosity = int(options['verbosity'])
 

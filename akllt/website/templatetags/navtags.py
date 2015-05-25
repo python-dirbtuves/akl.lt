@@ -32,6 +32,7 @@ def top_menu(context):
 @register.simple_tag(takes_context=True)
 def sidebar_menu(context):
 
+    # pylint: disable=invalid-name
     def traverse(tree, depth=1):
         ul = htmlutils.Tag('ul', classes={
             'nav', 'nav-pills', 'nav-stacked', 'depth-' + str(depth),

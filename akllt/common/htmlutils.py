@@ -1,9 +1,9 @@
 import html
 
 
-def join(sep):
+def join(sep=' '):
     def func(value):
-        return ' '.join(sorted(value))
+        return sep.join(sorted(value))
     return func
 
 
@@ -28,7 +28,7 @@ class Tag(object):
         self._tag_name = name
         self._tag_content = content
         self._tag_indent = indent
-        for attr, prop, default, func in self.scheme:
+        for attr, prop, default, func in self.scheme:  # pylint: disable=unused-variable
             default = default() if default else None
             setattr(self, prop, kwargs.get(prop, default))
 
@@ -39,7 +39,7 @@ class Tag(object):
         content = self._tag_content if content is None else content
         return self.start(indent=indent) + content + self.end(indent='')
 
-    def attrs(self, **kwargs):
+    def attrs(self, **kwargs):  # noqa
         """Format html tag attrubutes in a specific order [1].
 
         [1] http://codeguide.co/#html-attribute-order
@@ -47,7 +47,7 @@ class Tag(object):
         """
         attrs = []
 
-        for attr, prop, default, func in self.scheme:
+        for attr, prop, default, func in self.scheme:  # pylint: disable=unused-variable
             if attr.endswith('*'):
                 attr = attr[:-1]
                 value = kwargs.pop(prop, {})
@@ -105,7 +105,7 @@ class Context(object):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
 
-    def Tag(self, *args, **kwargs):
+    def Tag(self, *args, **kwargs):  # pylint: disable=invalid-name
         kwargs = dict(self.kwargs, **kwargs)
         return Tag(*args, **kwargs)
 

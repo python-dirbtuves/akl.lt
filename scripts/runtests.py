@@ -88,12 +88,8 @@ def run_flake8(args):
 
 
 def run_pylint(args):
-    cmd = [
-        'bin/pylint',
-        '--msg-template="%s"' % (
-            '{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}',
-        )
-    ] + list(get_paths(args.paths))
+    template = '{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}'
+    cmd = ['bin/pylint', '--msg-template="%s"' % template] + list(get_paths(args.paths))
     return subprocess.call(cmd)
 
 
@@ -106,16 +102,11 @@ def main(args=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('paths', nargs='+', help='paths to test files')
     parser.add_argument(
-        '--fast', action='store_true', default=False,
-        help='run tests with akllt.settings.fasttests settings',
+        '--fast', action='store_true', default=False, help='run tests with akllt.settings.fasttests settings',
     )
+    parser.add_argument('--profile', action='store_true', default=False, help='run tests with line profiler')
     parser.add_argument(
-        '--profile', action='store_true', default=False,
-        help='run tests with line profiler',
-    )
-    parser.add_argument(
-        '--nocoverage', action='store_true', default=False,
-        help='run tests without test coverage report',
+        '--nocoverage', action='store_true', default=False, help='run tests without test coverage report',
     )
     args = parser.parse_args(args)
 
