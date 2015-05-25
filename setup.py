@@ -25,6 +25,7 @@ setup(
         'django-libsass',
         'django-webtest',
         'lxml',
+        'cssselect',
         'wagtail',
         'tqdm',
         'django-extensions',

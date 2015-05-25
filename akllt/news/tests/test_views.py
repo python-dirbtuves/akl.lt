@@ -25,4 +25,5 @@ class LegacyRedirectTests(WebTest):
         self.assertFalse(page.latest_revision_created_at is None)
 
         resp = self.app.get('/admin/pages/%d/' % self.root.pk, user='admin')
-        self.assertEqual(resp.lxml.xpath('//td[contains(@class, "listing")]//h2/a//text()'), '')
+        news_stories = resp.lxml.cssselect('.listing>tbody td.title h2 a')
+        self.assertEqual([node.text for node in news_stories], ['Story 42'])
