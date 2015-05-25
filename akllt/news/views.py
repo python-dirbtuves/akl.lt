@@ -31,8 +31,9 @@ class NewsStoryCreate(CreateView):
         news_index_page = get_news_index_page()
         news_index_page.add_child(instance=page)
 
+        user = self.request.user if self.request.user.is_authenticated() else None
         page.save_revision(
-            user=self.request.user,
+            user,
             submitted_for_moderation=True,
         )
 

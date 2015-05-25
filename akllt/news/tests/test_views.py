@@ -6,7 +6,7 @@ from wagtail.wagtailcore.models import Page
 from akllt.dataimport.tests.utils import get_default_site
 
 
-class LegacyRedirectTests(WebTest):
+class NewsStoryFormTests(WebTest):
     def setUp(self):
         super().setUp()
         root_page = get_default_site().root_page
@@ -27,3 +27,13 @@ class LegacyRedirectTests(WebTest):
         resp = self.app.get('/admin/pages/%d/' % self.root.pk, user='admin')
         news_stories = resp.lxml.cssselect('.listing>tbody td.title h2 a')
         self.assertEqual([node.text for node in news_stories], ['Story 42'])
+
+    def test_anonymous_user_case(self):
+        resp = self.app.get('/news/create/')
+        resp.form['title'] = 'Story 42'
+        resp.form['body'] = '42'
+        resp = resp.form.submit()
+
+        page = Page.objects.get(title='Story 42')
+        self.assertEqual(page.slug, 'story-42')
+        self.assertFalse(page.latest_revision_created_at is None)
