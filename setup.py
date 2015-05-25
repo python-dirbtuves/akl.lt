@@ -32,6 +32,8 @@ setup(
         'django-allauth',
         'django-debug-toolbar',
         'psycopg2',
+        'yattag',
+        'markdown',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
