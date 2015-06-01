@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 
 from akllt.common import formrenderer
 
-register = template.Library()
+register = template.Library() # pylint: disable=invalid-name
 
 
 @register.simple_tag(name='formrenderer', takes_context=True)

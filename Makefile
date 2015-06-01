@@ -72,7 +72,7 @@ flake8: bin/flake8
 	bin/flake8 --exclude=migrations akllt
 
 pylint: bin/pylint
-	bin/pylint akllt
+	bin/pylint --load-plugins pylint_django akllt
 
 report:
 	bin/coverage report --show-missing

@@ -1,3 +1,4 @@
+# pylint: disable=too-many-ancestors
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
 from django.utils.text import slugify
