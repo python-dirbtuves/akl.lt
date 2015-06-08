@@ -7,8 +7,6 @@ from django.utils.translation import ugettext
 
 
 class Bootstrap3(object):
-    # pylint: disable=too-many-instance-attributes
-    # pylint: disable=too-many-arguments
     def __init__(self, request, form: django.forms.Form, title=None, submit=ugettext('Submit'), description=''):
         self.request = request
         self.form = form
