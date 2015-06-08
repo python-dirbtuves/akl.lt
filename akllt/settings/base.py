@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from pathlib import Path
 from django.conf import global_settings as defaults
 
+import exportrecipe
+
+config = exportrecipe.load('settings.json')
 PROJECT_DIR = Path(__file__).parents[2]
 
 
@@ -268,6 +271,17 @@ INTERNAL_IPS = (
     '127.0.0.1',
 )
 
+# pylint-django
+# https://github.com/landscapeio/pylint-django
 INSTALLED_APPS += (
     'pylint_django',
 )
+
+# Google simple captcha
+INSTALLED_APPS += (
+    'captcha',
+)
+
+RECAPTCHA_PUBLIC_KEY = config.recaptcha_public_key
+RECAPTCHA_PRIVATE_KEY = config.recaptcha_private_key
+NOCAPTCHA = True

@@ -74,3 +74,4 @@ __pycache__/
 
 # Project configuration
 /buildout.cfg
+/settings.json

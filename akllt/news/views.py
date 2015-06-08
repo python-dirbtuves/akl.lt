@@ -5,6 +5,7 @@ from django.utils.text import slugify
 
 from akllt.news.models import NewsStory
 from akllt.news.services import get_news_index_page
+from akllt.news.forms import NewsStoryForm
 
 
 def news_items(request):
@@ -23,7 +24,7 @@ def news_item_details(request, slug):
 class NewsStoryCreate(CreateView):
     template_name = 'news/news_form.html'
     model = NewsStory
-    fields = ('title', 'body')
+    form_class = NewsStoryForm
 
     def form_valid(self, form):
         page = form.save(commit=False)
