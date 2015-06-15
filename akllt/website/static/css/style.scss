@@ -212,3 +212,7 @@ $dark-link-color: #CBD5D9;
     background-color: $menu-color;
     @include border-bottom-radius($border-radius);
 }
+
+.newstory-submit {
+    margin-top: 20px;
+}
