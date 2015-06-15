@@ -5,7 +5,7 @@ from django.utils.text import slugify
 
 from akllt.news.models import NewsStory
 from akllt.news.services import get_news_index_page
-from akllt.news.forms import NewsStoryForm
+from akllt.news.forms import NewsStoryForm, NewsStoryWithCaptchaForm
 
 
 def news_items(request):
@@ -25,6 +25,11 @@ class NewsStoryCreate(CreateView):
     template_name = 'news/news_form.html'
     model = NewsStory
     form_class = NewsStoryForm
+
+    def get_form_class(self):
+        if self.request.user.is_authenticated():
+            return NewsStoryForm
+        return NewsStoryWithCaptchaForm
 
     def form_valid(self, form):
         page = form.save(commit=False)

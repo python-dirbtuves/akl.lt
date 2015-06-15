@@ -18,7 +18,6 @@ class NewsStoryFormTests(WebTest):
         resp = self.app.get('/news/create/', user='user')
         resp.form['title'] = 'Story 42'
         resp.form['body'] = '42'
-        resp.form['g-recaptcha-response'] = 'PASSED'
         resp = resp.form.submit()
 
         page = Page.objects.get(title='Story 42')

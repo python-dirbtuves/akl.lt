@@ -11,4 +11,6 @@ class NewsStoryForm(ModelForm):
         model = NewsStory
         fields = ['title', 'body']
 
+
+class NewsStoryWithCaptchaForm(NewsStoryForm):
     captcha = ReCaptchaField()
