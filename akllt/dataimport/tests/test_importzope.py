@@ -11,5 +11,5 @@ class ImportZopeCommandTests(TestCase):
     def test_command(self):
         get_default_site()
         self.assertEqual(Page.objects.count(), 2)
-        call_command('akllt_importzope', fixture('whole_export'), verbosity=0)
+        call_command('akllt_importzope', str(fixture('whole_export')), verbosity=0)
         self.assertEqual(Page.objects.count(), 37)
