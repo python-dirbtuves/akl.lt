@@ -1,7 +1,9 @@
 # pylint: disable=too-many-ancestors
+from django.conf import settings
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic.edit import CreateView
 from django.utils.text import slugify
+from django.views.generic.edit import CreateView
 
 from akllt.news.models import NewsStory
 from akllt.news.services import get_news_index_page
@@ -43,5 +45,13 @@ class NewsStoryCreate(CreateView):
             user,
             submitted_for_moderation=True,
         )
+
+        # Send notification email to all moderators
+        send_mail('Siūloma naujiena: ' + page.title,
+                  '%s\n\n%s\n\nPublikuoti galite čia: http://%s/admin/pages/%s/edit/' % (
+                      page.title, page.body, settings.SITE_URL, page.id),
+                  settings.DEFAULT_FROM_EMAIL,
+                  [moderator[1] for moderator in settings.MODERATORS],
+                  fail_silently=True)
 
         return redirect('/')

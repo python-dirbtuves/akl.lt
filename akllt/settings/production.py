@@ -4,7 +4,11 @@ from akllt.settings.base import *  # noqa
 
 DEBUG = False
 
+DEFAULT_FROM_EMAIL = 'webmaster@akl.lt'
+
 ALLOWED_HOSTS = ['akl.lt', 'localhost']
+
+SITE_URL = 'akl.lt'
 
 DATABASES = {
     'default': {
