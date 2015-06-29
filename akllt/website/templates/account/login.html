@@ -16,7 +16,7 @@
     <form action="{% url 'password_login' %}" method="post">{% csrf_token %}
         <h3>Admin login form for debuging purposes</h3>
         <p>Username: <input name="username" type="text"></p>
-        <p>Password: <input name="password" type="text"></p>
+        <p>Password: <input name="password" type="password"></p>
         <p><input type="submit"></p>
     </form>
 {% endif %}
